@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import {
   Link,
   Links,
@@ -10,11 +10,11 @@ import {
   useCatch,
   useLocation,
   useLoaderData,
-  useMatches
-} from "remix";
-import type { LinksFunction, LoaderFunction } from "remix";
+  useMatches,
+} from 'remix';
+import type { LinksFunction, LoaderFunction } from 'remix';
 
-import appStyleUrl from "~/styles/app.css";
+import appStyleUrl from '~/styles/app.css';
 
 /**
  * The `links` export is a function that returns an array of objects that map to
@@ -26,9 +26,16 @@ import appStyleUrl from "~/styles/app.css";
  */
 export let links: LinksFunction = () => {
   return [
-    { rel: "preconnect", href: "//fonts.gstatic.com", crossOrigin: "anonymous" },
-    { rel: "stylesheet", href: appStyleUrl },
-    { rel: "stylesheet", href: "//fonts.googleapis.com/css?family=Work+Sans:300,400,600,700&amp;lang=en" }
+    {
+      rel: 'preconnect',
+      href: '//fonts.gstatic.com',
+      crossOrigin: 'anonymous',
+    },
+    { rel: 'stylesheet', href: appStyleUrl },
+    {
+      rel: 'stylesheet',
+      href: '//fonts.googleapis.com/css?family=Work+Sans:300,400,600,700&amp;lang=en',
+    },
   ];
 };
 
@@ -48,29 +55,29 @@ export default function App() {
 }
 
 export let loader: LoaderFunction = async ({ request }) => {
-    return {
-      ENV: {
-        SOME_SECRET: process?.env?.SOME_SECRET,
-        SUPABASE_URL: process?.env?.SUPABASE_URL,
-        SUPABASE_KEY: process?.env?.SUPABASE_KEY,
-      },
-      data: 'some'
-    };
-}
+  return {
+    ENV: {
+      SOME_SECRET: process?.env?.SOME_SECRET,
+      SUPABASE_URL: process?.env?.SUPABASE_URL,
+      SUPABASE_KEY: process?.env?.SUPABASE_KEY,
+    },
+    data: 'some',
+  };
+};
 
 function Document({
   children,
-  title
+  title,
 }: {
   children: React.ReactNode;
   title?: string;
 }) {
-    let data = useLoaderData();
-    const matches = useMatches();
-    // const useWhenSomethingIsTrue = matches.some(match => match.handle && match.handle?.something)
+  let data = useLoaderData();
+  const matches = useMatches();
+  // const useWhenSomethingIsTrue = matches.some(match => match.handle && match.handle?.something)
   return (
-    <html lang="en">
-      <head>
+    <html lang="en" className="h-full bg-gray-100">
+      <head className="h-full ">
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         {title ? <title>{title}</title> : null}
@@ -81,26 +88,22 @@ function Document({
         {children}
         <RouteChangeAnnouncement />
         <ScrollRestoration />
-        {data && data.ENV && <script
+        {/* {data && data.ENV && <script
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(
               data.ENV
             )}`
           }}
-        />}
+        />} */}
         <Scripts />
-        {process.env.NODE_ENV === "development" && <LiveReload />}
+        {process.env.NODE_ENV === 'development' && <LiveReload />}
       </body>
     </html>
   );
 }
 
 function Layout({ children }: React.PropsWithChildren<{}>) {
-  return (
-    <div className="remix-root remix-app">
-      {children}
-    </div>
-  );
+  return <div className="remix-root remix-app">{children}</div>;
 }
 
 export function CatchBoundary() {
@@ -161,7 +164,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
  */
 const RouteChangeAnnouncement = React.memo(() => {
   let [hydrated, setHydrated] = React.useState(false);
-  let [innerHtml, setInnerHtml] = React.useState("");
+  let [innerHtml, setInnerHtml] = React.useState('');
   let location = useLocation();
 
   React.useEffect(() => {
@@ -177,7 +180,7 @@ const RouteChangeAnnouncement = React.memo(() => {
       return;
     }
 
-    let pageTitle = location.pathname === "/" ? "Home page" : document.title;
+    let pageTitle = location.pathname === '/' ? 'Home page' : document.title;
     setInnerHtml(`Navigated to ${pageTitle}`);
   }, [location.pathname]);
 
@@ -193,17 +196,17 @@ const RouteChangeAnnouncement = React.memo(() => {
       aria-atomic
       id="route-change-region"
       style={{
-        border: "0",
-        clipPath: "inset(100%)",
-        clip: "rect(0 0 0 0)",
-        height: "1px",
-        margin: "-1px",
-        overflow: "hidden",
-        padding: "0",
-        position: "absolute",
-        width: "1px",
-        whiteSpace: "nowrap",
-        wordWrap: "normal"
+        border: '0',
+        clipPath: 'inset(100%)',
+        clip: 'rect(0 0 0 0)',
+        height: '1px',
+        margin: '-1px',
+        overflow: 'hidden',
+        padding: '0',
+        position: 'absolute',
+        width: '1px',
+        whiteSpace: 'nowrap',
+        wordWrap: 'normal',
       }}
     >
       {innerHtml}

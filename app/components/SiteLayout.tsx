@@ -1,19 +1,34 @@
-import { PropsWithChildren, ReactElement } from "react";
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { Fragment, PropsWithChildren, ReactElement } from 'react';
+import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import HeaderContent from './HeaderContent';
 
-function SiteLayout({ children }: PropsWithChildren<{}>): ReactElement {
-    return (
-        <div className="remix-app">
-            <header className="remix-app__header">
-                {/* Header content goes here..HeaderContent? */}
-            </header>
-            <div className="remix-app__main">
-                <div className="container mx-auto remix-app__main-content">{children}</div>
-            </div>
-            <footer className="remix-app__footer">
-                {/* Footer content goes here..FooterContent? */}
-            </footer>
+function SiteLayout({
+  children,
+  title,
+}: PropsWithChildren<{ title: string }>): ReactElement {
+  return (
+    <div className="min-h-full">
+      <HeaderContent />
+      <header className="bg-white shadow-sm">
+        <div className="mx-auto max-w-7xl py-4 px-4 sm:px-6 lg:px-8">
+          <h1 className="text-lg font-semibold leading-6 text-gray-900">
+            {title}
+          </h1>
         </div>
-    )
+      </header>
+      <main>
+        <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+          {/* Replace with your content */}
+          <div className="px-4 py-4 sm:px-0">
+            {children}
+            {/* <div className="h-96 rounded-lg border-4 border-dashed border-gray-200" /> */}
+          </div>
+          {/* /End replace */}
+        </div>
+      </main>
+    </div>
+  );
 }
 
 export default SiteLayout;
