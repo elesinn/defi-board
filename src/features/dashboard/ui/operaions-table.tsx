@@ -1,11 +1,11 @@
 import { useAtom } from 'jotai'
 
-import { useOperationsQuery } from 'api/account'
+import { useOperations } from 'api/account'
 import { addressSearchAtom } from 'features/site-layout'
 
 export default function Operations() {
   const [address] = useAtom(addressSearchAtom)
-  const { data: operations } = useOperationsQuery(address)
+  const { data: operations } = useOperations(address)
 
   if (!operations) {
     return null
@@ -16,32 +16,32 @@ export default function Operations() {
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+        <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+          <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
                     Id
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
                     Sender
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
                     Date
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
                   >
                     Type
                   </th>
@@ -50,7 +50,7 @@ export default function Operations() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {dataSource.map((operation) => (
                   <tr key={operation.hash}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{operation.id}</td>
+                    <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{operation.id}</td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="ml-0">
                         <div className="text-sm font-medium text-gray-900">{operation.sender?.alias}</div>
@@ -60,7 +60,7 @@ export default function Operations() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       {operation?.timestamp ? new Date(operation.timestamp).toDateString() : '-'}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{operation.type}</td>
+                    <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{operation.type}</td>
                   </tr>
                 ))}
               </tbody>

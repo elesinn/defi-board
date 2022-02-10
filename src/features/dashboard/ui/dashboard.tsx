@@ -1,13 +1,13 @@
 import { useAtom } from 'jotai'
 
-import { useAddressQuery } from 'api/account'
+import { useAddress } from 'api/account'
 import { addressSearchAtom } from 'features/site-layout'
 
 import Operations from './operaions-table'
 
 export const Dashboard = () => {
   const [address] = useAtom(addressSearchAtom)
-  const { data: account } = useAddressQuery(address)
+  const { data: account } = useAddress(address)
 
   if (!account) {
     return null
@@ -29,9 +29,9 @@ export const Dashboard = () => {
   ]
   return (
     <div>
-      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+      <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-3">
         {stats.map((item) => (
-          <div key={item.name} className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+          <div key={item.name} className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6">
             <dt className="text-sm font-medium text-gray-500 truncate">{item.name}</dt>
             <dd className="mt-1 text-3xl font-semibold text-gray-900">{item.stat}</dd>
           </div>
@@ -42,7 +42,7 @@ export const Dashboard = () => {
           <div className="w-full border-t border-gray-300" />
         </div>
         <div className="relative flex justify-center">
-          <span className="px-3 bg-white text-lg font-medium text-gray-900">History</span>
+          <span className="px-3 text-lg font-medium text-gray-900 bg-white">History</span>
         </div>
       </div>
       <div className="h-80">{/* <HistoryChart /> */}</div>
@@ -51,7 +51,7 @@ export const Dashboard = () => {
           <div className="w-full border-t border-gray-300" />
         </div>
         <div className="relative flex justify-center">
-          <span className="px-3 bg-white text-lg font-medium text-gray-900">Last 10 operations</span>
+          <span className="px-3 text-lg font-medium text-gray-900 bg-white">Last 10 operations</span>
         </div>
       </div>
       <Operations />

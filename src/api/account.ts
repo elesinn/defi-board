@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query'
+import useSWR from 'swr'
 
 import { QueryType, tzApi } from 'api'
 
@@ -50,28 +50,20 @@ export type IBalance = {
   timestamp: string // "2019-09-05T22:15:04Z"
 }
 
-export const useAddressQuery = (address: string) => {
-  return useQuery([QueryType.Address, address], () => tzApi.get(`accounts/${address}`).json<IAccount>(), {
-    enabled: !!address,
-  })
+export const useAddress = (address: string) => {
+  return useSWR(address ? [QueryType.Address, address] : null, () => tzApi.get(`accounts/${address}`).json<IAccount>())
 }
 
-export const useOperationsQuery = (address: string) => {
-  return useQuery(
-    [QueryType.Operations, address],
-    () => tzApi.get(`accounts/${address}/operations`).json<IOperation[]>(),
-    {
-      enabled: !!address,
-    },
+export const useOperations = (address: string) => {
+  return useSWR(
+    address ? [QueryType.Operations, address] : null,
+    () => tzApi.get(`accounts/${address}/operations`).json<IOperation[]>()
   )
 }
 
-export const useBalanceHistoryQuery = (address: string) => {
-  return useQuery(
-    [QueryType.BalanceHistory, address],
-    () => tzApi.get(`accounts/${address}/balance_history`).json<IBalance[]>(),
-    {
-      enabled: !!address,
-    },
+export const useBalanceHistory = (address: string) => {
+  return useSWR(
+    address ? [QueryType.BalanceHistory, address] : null,
+    () => tzApi.get(`accounts/${address}/balance_history`).json<IBalance[]>()
   )
 }

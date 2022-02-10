@@ -1,12 +1,12 @@
 import { ResponsiveLine } from '@nivo/line'
 import { useAtom } from 'jotai'
 
-import { useBalanceHistoryQuery } from 'api/account'
+import { useBalanceHistory } from 'api/account'
 import { addressSearchAtom } from 'features/site-layout'
 
 export const HistoryChart = () => {
   const [address] = useAtom(addressSearchAtom)
-  const { data: history } = useBalanceHistoryQuery(address)
+  const { data: history } = useBalanceHistory(address)
   console.log(history)
 
   if (!history) {
