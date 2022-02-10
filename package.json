@@ -21,6 +21,7 @@
     "@nivo/core": "^0.79.0",
     "@nivo/line": "^0.79.1",
     "@taquito/beacon-wallet": "^11.2.0",
+    "@taquito/tzip16": "^11.2.0",
     "classnames": "^2.3.1",
     "dayjs": "^1.10.7",
     "jotai": "^1.5.3",
