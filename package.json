@@ -14,11 +14,13 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@airgap/beacon-sdk": "^2.3.9",
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
     "@nivo/bar": "^0.79.1",
     "@nivo/core": "^0.79.0",
     "@nivo/line": "^0.79.1",
+    "@taquito/beacon-wallet": "^11.2.0",
     "classnames": "^2.3.1",
     "dayjs": "^1.10.7",
     "jotai": "^1.5.3",

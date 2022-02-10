@@ -1,9 +1,12 @@
-import { Fragment, ReactElement } from 'react'
+import { Fragment, ReactElement } from 'react';
+import { useEffect } from 'react';
 
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { MenuAlt1Icon, XIcon } from '@heroicons/react/outline'
-import { SearchIcon } from '@heroicons/react/solid'
-import { atom, useAtom } from 'jotai'
+import { Disclosure, Menu, Transition } from '@headlessui/react';
+import { MenuAlt1Icon, XIcon } from '@heroicons/react/outline';
+import { SearchIcon } from '@heroicons/react/solid';
+import { atom, useAtom } from 'jotai';
+
+import { useTezos } from 'features/beacon/useTezos';
 
 const navigation = [
   { name: 'Dashboard', href: '/', current: true },
@@ -11,21 +14,27 @@ const navigation = [
   // { name: 'Projects', href: '#', current: false },
   // { name: 'Calendar', href: '#', current: false },
   // { name: 'Reports', href: '#', current: false },
-]
+];
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' },
-]
+];
 
 function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
-export const addressSearchAtom = atom('tz1XwWs2L2jWYnXB8hATmjFB92G7duB1pnNb')
+export const addressSearchAtom = atom('');
 
 export function Header(): ReactElement {
-  const [address, setAddress] = useAtom(addressSearchAtom)
+  const [address, setAddress] = useAtom(addressSearchAtom);
+
+  const { connect, account, disconnect } = useTezos();
+
+  useEffect(() => {
+    setAddress(account);
+  }, [account, setAddress]);
   // const location = useLocation()
   // console.log(location);
   return (
@@ -74,7 +83,10 @@ export function Header(): ReactElement {
                   {open ? (
                     <XIcon className="block w-6 h-6" aria-hidden="true" />
                   ) : (
-                    <MenuAlt1Icon className="block w-6 h-6" aria-hidden="true" />
+                    <MenuAlt1Icon
+                      className="block w-6 h-6"
+                      aria-hidden="true"
+                    />
                   )}
                 </Disclosure.Button>
               </div>
@@ -130,6 +142,35 @@ export function Header(): ReactElement {
                             )}
                           </Menu.Item>
                         ))}
+                        {account ? (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                className={classNames(
+                                  active ? 'bg-gray-100' : '',
+                                  'block px-4 py-2 text-sm text-gray-700',
+                                )}
+                                onClick={disconnect}
+                              >
+                                Log out
+                              </button>
+                            )}
+                          </Menu.Item>
+                        ) : (
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                className={classNames(
+                                  active ? 'bg-gray-100' : '',
+                                  'block px-4 py-2 text-sm text-gray-700',
+                                )}
+                                onClick={connect}
+                              >
+                                Connect Wallet
+                              </button>
+                            )}
+                          </Menu.Item>
+                        )}
                       </Menu.Items>
                     </Transition>
                   </Menu>
@@ -175,5 +216,5 @@ export function Header(): ReactElement {
         </>
       )}
     </Disclosure>
-  )
+  );
 }
