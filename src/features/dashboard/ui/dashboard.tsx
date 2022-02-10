@@ -8,6 +8,7 @@ import Operations from './operaions-table'
 export const Dashboard = () => {
   const [address] = useAtom(addressSearchAtom)
   const { data: account } = useAddressQuery(address)
+
   if (!account) {
     return null
   }
@@ -36,6 +37,15 @@ export const Dashboard = () => {
           </div>
         ))}
       </dl>
+      <div className="relative py-6">
+        <div className="absolute inset-0 flex items-center" aria-hidden="true">
+          <div className="w-full border-t border-gray-300" />
+        </div>
+        <div className="relative flex justify-center">
+          <span className="px-3 bg-white text-lg font-medium text-gray-900">History</span>
+        </div>
+      </div>
+      <div className="h-80">{/* <HistoryChart /> */}</div>
       <div className="relative py-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
           <div className="w-full border-t border-gray-300" />

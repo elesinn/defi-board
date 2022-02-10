@@ -44,6 +44,12 @@ export type IOperation = {
   type: string
 }
 
+export type IBalance = {
+  balance: number
+  level: number
+  timestamp: string // "2019-09-05T22:15:04Z"
+}
+
 export const useAddressQuery = (address: string) => {
   return useQuery([QueryType.Address, address], () => tzApi.get(`accounts/${address}`).json<IAccount>(), {
     enabled: !!address,
@@ -54,6 +60,16 @@ export const useOperationsQuery = (address: string) => {
   return useQuery(
     [QueryType.Operations, address],
     () => tzApi.get(`accounts/${address}/operations`).json<IOperation[]>(),
+    {
+      enabled: !!address,
+    },
+  )
+}
+
+export const useBalanceHistoryQuery = (address: string) => {
+  return useQuery(
+    [QueryType.BalanceHistory, address],
+    () => tzApi.get(`accounts/${address}/balance_history`).json<IBalance[]>(),
     {
       enabled: !!address,
     },
