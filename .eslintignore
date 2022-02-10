@@ -1,5 +1,2 @@
-/.cache
-/build
-/dist
-/public/build
-/app/styles/app.css
+node_modules
+out
