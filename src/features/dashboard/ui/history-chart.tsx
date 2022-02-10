@@ -15,10 +15,10 @@ export const HistoryChart = () => {
 
   const data = [
     {
-      id: '123',
+      id: 'XTZ',
       data: history?.map((item) => ({
         x: item.timestamp,
-        y: item.balance,
+        y: Math.round(item.balance / 10000) / 100,
       })),
     },
   ]
@@ -39,7 +39,7 @@ export const HistoryChart = () => {
         type: 'time',
         format: '%Y-%m-%dT%H:%M:%SZ',
         useUTC: false,
-        precision: 'hour',
+        precision: 'second',
       }}
       yFormat=" >-.2f"
       axisTop={null}
@@ -49,16 +49,17 @@ export const HistoryChart = () => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'transportation',
+        legend: 'Date',
         legendOffset: 36,
         legendPosition: 'middle',
+        format: '%Y-%m-%dT%H:%M:%SZ',
       }}
       axisLeft={{
         // orient: 'left',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'count',
+        legend: 'Balance',
         legendOffset: -40,
         legendPosition: 'middle',
       }}

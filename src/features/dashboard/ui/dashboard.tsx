@@ -3,6 +3,7 @@ import { useAtom } from 'jotai'
 import { useAddress } from 'api/account'
 import { addressSearchAtom } from 'features/site-layout'
 
+import { HistoryChart } from './history-chart'
 import Operations from './operaions-table'
 
 export const Dashboard = () => {
@@ -45,7 +46,7 @@ export const Dashboard = () => {
           <span className="px-3 text-lg font-medium text-gray-900 bg-white">History</span>
         </div>
       </div>
-      <div className="h-80">{/* <HistoryChart /> */}</div>
+      <div className="h-80"><HistoryChart /></div>
       <div className="relative py-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
           <div className="w-full border-t border-gray-300" />
