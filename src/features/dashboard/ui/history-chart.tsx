@@ -83,7 +83,7 @@ export const HistoryChart = () => {
           itemOpacity: 0.75,
           symbolSize: 12,
           symbolShape: 'circle',
-          symbolBorderColor: 'rgba(0, 0, 0, .5)',
+          symbolBorderColor: 'rgba(0, 0, 0, .45)',
           effects: [
             {
               on: 'hover',
