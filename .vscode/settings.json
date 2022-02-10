@@ -5,11 +5,20 @@
     "watch": false,
     "onSave": "test-file"
   },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.semi": false,
+  "prettier.tabWidth": 2,
+  "prettier.trailingComma": "all",
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 120,
+  "editor.formatOnSave": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
   "search.exclude": {
     "package-lock.json": true
   },
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "editor.formatOnSave": false,
   "editor.codeActionsOnSave": [
     "source.addMissingImports",
     "source.fixAll.eslint"

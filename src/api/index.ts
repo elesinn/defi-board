@@ -1,8 +1,10 @@
 import ky from 'ky'
 
 export enum QueryType {
-  ADDRESS = 'ADDRESS',
+  Address = 'address',
+  Operations = 'Operations',
 }
+
 export const tzApi = ky.extend({
   prefixUrl: 'https://api.tzkt.io/v1/',
 })
