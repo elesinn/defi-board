@@ -35,8 +35,7 @@ export function Header(): ReactElement {
   useEffect(() => {
     setAddress(account);
   }, [account, setAddress]);
-  // const location = useLocation()
-  // console.log(location);
+
   return (
     <Disclosure as="nav" className="flex-shrink-0 bg-indigo-600">
       {({ open }) => (
