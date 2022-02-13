@@ -1,9 +1,6 @@
 import useSWR from 'swr';
 
-import { QueryType, tzApi } from 'api';
-
 import { investmentData } from './investmentsData';
-import { IInvestment } from './types';
 
 export const useInvestment = ({
   userAddress,
@@ -14,11 +11,6 @@ export const useInvestment = ({
 }) => {
   const inv = investmentData[investmentKey];
   return useSWR(
-    userAddress ? [QueryType.Investments, userAddress, investmentKey] : null,
-    () => {
-      return tzApi
-        .get(`contracts/${inv.address}/bigmaps/balances/keys/${userAddress}`)
-        .json<IInvestment>();
-    },
+    `contracts/${inv.address}/bigmaps/balances/keys/${userAddress}`,
   );
 };
