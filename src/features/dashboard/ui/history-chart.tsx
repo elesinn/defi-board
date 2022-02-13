@@ -1,16 +1,15 @@
-import { ResponsiveLine } from '@nivo/line'
-import { useAtom } from 'jotai'
+import { ResponsiveLine } from '@nivo/line';
+import { useAtom } from 'jotai';
 
-import { useBalanceHistory } from 'api/account'
-import { addressSearchAtom } from 'features/site-layout'
+import { useBalanceHistory } from 'api/account';
+import { addressSearchAtom } from 'features/site-layout';
 
 export const HistoryChart = () => {
-  const [address] = useAtom(addressSearchAtom)
-  const { data: history } = useBalanceHistory(address)
-  console.log(history)
+  const [address] = useAtom(addressSearchAtom);
+  const { data: history } = useBalanceHistory(address);
 
   if (!history) {
-    return null
+    return null;
   }
 
   const data = [
@@ -21,9 +20,8 @@ export const HistoryChart = () => {
         y: Math.round(item.balance / 10000) / 100,
       })),
     },
-  ]
+  ];
 
-  console.log(data)
   // 2019-09-05T22:15:04Z
   return (
     <ResponsiveLine
@@ -96,5 +94,5 @@ export const HistoryChart = () => {
         },
       ]}
     />
-  )
-}
+  );
+};

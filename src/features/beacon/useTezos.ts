@@ -1,11 +1,9 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
+import { NetworkType } from '@airgap/beacon-sdk';
 import { BeaconWallet } from '@taquito/beacon-wallet';
-import { MichelCodecPacker, TezosToolkit } from '@taquito/taquito';
-import { Tzip16Module } from '@taquito/tzip16';
+import { TezosToolkit } from '@taquito/taquito';
 import { atom, useAtom } from 'jotai';
-
-import { connectWithBeacon } from './connectWithBeacon';
 
 type WalletConnectReturn = {
   tezos: TezosToolkit;
@@ -14,47 +12,72 @@ type WalletConnectReturn = {
   account: string;
 };
 
-export type Network = 'mainnet';
+const RPC_NODE = 'https://mainnet.smartpy.io';
 
-export const tezosAccount = atom<string | undefined>(undefined);
-export const tezosWallet = atom<BeaconWallet | undefined>(undefined);
+const tezosTk = new TezosToolkit(RPC_NODE);
 
-const tezosTk = new TezosToolkit('https://mainnet.smartpy.io');
-tezosTk.setPackerProvider(new MichelCodecPacker());
-tezosTk.addExtension(new Tzip16Module());
-
-export const tezos = atom<TezosToolkit>(tezosTk);
+export const tezosAccountAtom = atom<string | undefined>(undefined);
+export const tezosWalletAtom = atom<BeaconWallet | undefined>(undefined);
+export const tezosTkAtom = atom<TezosToolkit>(tezosTk);
 
 export const useTezos = (): WalletConnectReturn => {
-  const [accountTezos, setAccount] = useAtom(tezosAccount);
-  const [walletTezos, setWallet] = useAtom(tezosWallet);
-  const [tkTezos, setTezos] = useAtom(tezos);
+  const [account, setAccount] = useAtom(tezosAccountAtom);
+  const [wallet, setWallet] = useAtom(tezosWalletAtom);
+  const [tkTezos, setTkTezos] = useAtom(tezosTkAtom);
+
+  const initWallet = useCallback(() => {
+    const tezosWallet = new BeaconWallet({
+      name: 'Defi-Dashboard',
+      preferredNetwork: NetworkType.MAINNET,
+    });
+    tkTezos.setWalletProvider(tezosWallet);
+    setTkTezos(tkTezos);
+    setWallet(tezosWallet);
+    return tezosWallet;
+  }, [setTkTezos, setWallet, tkTezos]);
+
+  useEffect(() => {
+    if (account) {
+      return; //no need to check account
+    }
+    const tezosWallet = initWallet();
+    (async () => {
+      const activeAccount = await tezosWallet.client.getActiveAccount();
+      if (activeAccount) {
+        setAccount(activeAccount.address);
+      }
+    })();
+  }, [account, initWallet, setAccount]);
 
   const connect = useCallback(async () => {
-    const { wallet } = await connectWithBeacon();
+    if (account) {
+      return tkTezos; // already connected
+    } else {
+      if (!wallet) {
+        throw new Error('No Wallet Connected');
+      }
 
-    tkTezos.setProvider({ wallet });
-    const account = await tkTezos.wallet.pkh();
-
-    setAccount(account);
-    setTezos(tkTezos);
-    setWallet(wallet);
-
+      await wallet.requestPermissions({
+        network: { type: NetworkType.MAINNET },
+      });
+      const address = await wallet.getPKH();
+      setAccount(address);
+    }
     return tkTezos;
-  }, [setAccount, setTezos, setWallet, tkTezos]);
+  }, [account, setAccount, tkTezos, wallet]);
 
   return {
     tezos: tkTezos,
     connect,
     disconnect: useCallback(async () => {
-      if (!walletTezos) {
+      if (!wallet) {
         throw new Error('No Wallet Connected');
       }
 
-      await walletTezos.disconnect();
+      await wallet.clearActiveAccount();
       setAccount();
       setWallet();
-    }, [setAccount, setWallet, walletTezos]),
-    account: accountTezos || '',
+    }, [setAccount, setWallet, wallet]),
+    account: account || '',
   };
 };
