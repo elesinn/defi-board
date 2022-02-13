@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 
 import { investmentData } from './investmentsData';
+import { IInvestment } from './types';
 
 export const useInvestment = ({
   userAddress,
@@ -10,7 +11,7 @@ export const useInvestment = ({
   investmentKey: keyof typeof investmentData;
 }) => {
   const inv = investmentData[investmentKey];
-  return useSWR(
+  return useSWR<IInvestment>(
     `contracts/${inv.address}/bigmaps/balances/keys/${userAddress}`,
   );
 };

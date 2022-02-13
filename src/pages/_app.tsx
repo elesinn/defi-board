@@ -1,17 +1,14 @@
-import ky from 'ky';
 import { AppProps } from 'next/app';
 import { SWRConfig } from 'swr';
 
-import '../styles/global.css';
+import { tzApi } from 'api';
 
-export const tzApi = ky.extend({
-  prefixUrl: 'https://api.tzkt.io/v1/',
-});
+import '../styles/global.css';
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <SWRConfig
     value={{
-      refreshInterval: 3000,
+      refreshInterval: 0,
       fetcher: (resource) => tzApi.get(resource).json(),
     }}
   >
