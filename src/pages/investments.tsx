@@ -1,9 +1,9 @@
-import { Dashboard } from 'features/dashboard';
+import { InvestmentsList } from 'features/investments';
 import { SiteLayout } from 'features/site-layout';
 
 const Index = () => (
-  <SiteLayout title="Dashboard">
-    <Dashboard />
+  <SiteLayout title="Investments">
+    <InvestmentsList />
   </SiteLayout>
 );
 
