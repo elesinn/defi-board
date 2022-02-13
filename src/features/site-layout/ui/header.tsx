@@ -5,38 +5,36 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuAlt1Icon, XIcon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
 import { atom, useAtom } from 'jotai';
+import { useRouter } from 'next/router';
 
 import { useTezos } from 'features/beacon/useTezos';
 
 const navigation = [
-  { name: 'Dashboard', href: '/', current: true },
-  { name: 'Team', href: '/team', current: false },
-  // { name: 'Projects', href: '#', current: false },
-  // { name: 'Calendar', href: '#', current: false },
-  // { name: 'Reports', href: '#', current: false },
+  { name: 'Dashboard', href: '/' },
+  { name: 'Investments', href: '/investments' },
 ];
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-];
+// const userNavigation = [
+//   { name: 'Your Profile', href: '#' },
+//   { name: 'Settings', href: '#' },
+//   { name: 'Sign out', href: '#' },
+// ];
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-export const addressSearchAtom = atom('');
+export const userAddressAtom = atom('tz1Qji1NnEPj4Cxa9s2WEoWi9U9KM6a9gdDL');
 
 export function Header(): ReactElement {
-  const [address, setAddress] = useAtom(addressSearchAtom);
+  const { pathname } = useRouter();
+  const [address, setAddress] = useAtom(userAddressAtom);
 
   const { connect, account, disconnect } = useTezos();
 
   useEffect(() => {
-    setAddress(account);
+    account && setAddress(account);
   }, [account, setAddress]);
-  // const location = useLocation()
-  // console.log(location);
+
   return (
     <Disclosure as="nav" className="flex-shrink-0 bg-indigo-600">
       {({ open }) => (
@@ -99,7 +97,9 @@ export function Header(): ReactElement {
                         key={item.name}
                         href={item.href}
                         className="px-3 py-2 text-sm font-medium text-indigo-200 rounded-md hover:text-white"
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={
+                          pathname === item.href ? 'page' : undefined
+                        }
                       >
                         {item.name}
                       </a>
@@ -127,7 +127,7 @@ export function Header(): ReactElement {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {userNavigation.map((item) => (
+                        {/* {userNavigation.map((item) => (
                           <Menu.Item key={item.name}>
                             {({ active }) => (
                               <a
@@ -141,7 +141,7 @@ export function Header(): ReactElement {
                               </a>
                             )}
                           </Menu.Item>
-                        ))}
+                        ))} */}
                         {account ? (
                           <Menu.Item>
                             {({ active }) => (
@@ -187,12 +187,12 @@ export function Header(): ReactElement {
                   as="a"
                   href={item.href}
                   className={classNames(
-                    item.current
+                    pathname === item.href
                       ? 'bg-indigo-800 text-white'
                       : 'text-indigo-200 hover:bg-indigo-600 hover:text-indigo-100',
                     'block rounded-md px-3 py-2 text-base font-medium',
                   )}
-                  aria-current={item.current ? 'page' : undefined}
+                  aria-current={pathname === item.href ? 'page' : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
@@ -200,7 +200,7 @@ export function Header(): ReactElement {
             </div>
             <div className="pt-4 pb-3 border-t border-indigo-800">
               <div className="px-2 space-y-1">
-                {userNavigation.map((item) => (
+                {/* {userNavigation.map((item) => (
                   <Disclosure.Button
                     key={item.name}
                     as="a"
@@ -209,7 +209,7 @@ export function Header(): ReactElement {
                   >
                     {item.name}
                   </Disclosure.Button>
-                ))}
+                ))} */}
               </div>
             </div>
           </Disclosure.Panel>
