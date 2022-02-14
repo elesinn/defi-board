@@ -1,6 +1,6 @@
 type NumberString = string; // numbers as strings "2", "23142", etc.
 
-export type IInvestment = {
+export interface IInvestment {
   active: boolean;
   firstLevel: number;
   hash: string;
@@ -20,4 +20,4 @@ export type IInvestment = {
         userRewardPerTokenPaid: string;
       }
     | NumberString;
-};
+}

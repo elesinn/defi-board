@@ -1,6 +1,6 @@
 import ky from 'ky';
 
-export const tzApi = ky.extend({
+export const tzktApi = ky.extend({
   prefixUrl: 'https://api.tzkt.io/v1/',
 });
 

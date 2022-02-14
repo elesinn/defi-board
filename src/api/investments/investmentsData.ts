@@ -9,7 +9,6 @@ export const investmentData = {
     alias: 'QuipuSwap PLENTY',
     icons: ['QUIPUSWAP', 'PLENTY'],
     token: null,
-    liquidityToken: true,
   },
   'QUIPUSWAP-KUSD': {
     id: 'QUIPUSWAP-KUSD',
@@ -20,7 +19,6 @@ export const investmentData = {
     alias: 'QuipuSwap kUSD',
     icons: ['QUIPUSWAP', 'kUSD'],
     token: null,
-    liquidityToken: true,
   },
   'QUIPUSWAP-USDtz': {
     id: 'QUIPUSWAP-USDtz',
@@ -31,7 +29,6 @@ export const investmentData = {
     alias: 'QuipuSwap USDtz',
     icons: ['QUIPUSWAP', 'USDTZ'],
     token: null,
-    liquidityToken: true,
   },
   'QUIPUSWAP-ETHtz': {
     id: 'QUIPUSWAP-ETHtz',
@@ -42,7 +39,6 @@ export const investmentData = {
     alias: 'QuipuSwap ETHtz',
     icons: ['QUIPUSWAP', 'ETHTZ'],
     token: null,
-    liquidityToken: true,
   },
   'QUIPUSWAP-CRUNCH': {
     id: 'QUIPUSWAP-CRUNCH',
@@ -53,7 +49,6 @@ export const investmentData = {
     alias: 'QuipuSwap CRUNCH',
     icons: ['QUIPUSWAP', 'CRUNCH'],
     token: null,
-    liquidityToken: true,
   },
   'PLENTY-XTZ-LP': {
     id: 'PLENTY-XTZ-LP',
@@ -64,7 +59,6 @@ export const investmentData = {
     alias: 'PLENTY-XTZ LP farm',
     icons: ['PLENTY', 'XTZ'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-wBUSD': {
     id: 'PLENTY-wBUSD',
@@ -75,7 +69,6 @@ export const investmentData = {
     alias: 'Plenty-wBUSD LP farm',
     icons: ['PLENTY', 'wBUSD'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-wUSDC': {
     id: 'PLENTY-wUSDC',
@@ -86,7 +79,6 @@ export const investmentData = {
     alias: 'Plenty-wUSDC LP farm',
     icons: ['PLENTY', 'wUSDC'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-wWBTC': {
     id: 'PLENTY-wWBTC',
@@ -97,7 +89,6 @@ export const investmentData = {
     alias: 'Plenty-wWBTC LP farm',
     icons: ['PLENTY', 'wWBTC'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-USDtz-LP': {
     id: 'PLENTY-USDtz-LP',
@@ -108,7 +99,6 @@ export const investmentData = {
     alias: 'PLENTY-USDtz LP farm',
     icons: ['PLENTY', 'USDtz'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-wMATIC-LP': {
     id: 'PLENTY-wMATIC-LP',
@@ -119,7 +109,6 @@ export const investmentData = {
     alias: 'PLENTY-wMATIC LP farm',
     icons: ['PLENTY', 'wMATIC'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-wLINK-LP': {
     id: 'PLENTY-wLINK-LP',
@@ -130,7 +119,6 @@ export const investmentData = {
     alias: 'PLENTY-wLINK LP farm',
     icons: ['PLENTY', 'wLINK'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-hDAO-LP': {
     id: 'PLENTY-hDAO-LP',
@@ -141,7 +129,6 @@ export const investmentData = {
     alias: 'PLENTY-hDAO LP farm',
     icons: ['PLENTY', 'hDAO'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-ETHtz-LP': {
     id: 'PLENTY-ETHtz-LP',
@@ -152,7 +139,6 @@ export const investmentData = {
     alias: 'PLENTY-ETHtz LP farm',
     icons: ['PLENTY', 'ETHtz'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-wWETH-LP': {
     id: 'PLENTY-wWETH-LP',
@@ -163,7 +149,6 @@ export const investmentData = {
     alias: 'PLENTY-wWETH LP farm',
     icons: ['PLENTY', 'wWETH'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-kUSD-LP': {
     id: 'PLENTY-kUSD-LP',
@@ -174,7 +159,6 @@ export const investmentData = {
     alias: 'PLENTY-kUSD LP farm',
     icons: ['PLENTY', 'kUSD'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-QUIPU-LP': {
     id: 'PLENTY-QUIPU-LP',
@@ -185,7 +169,6 @@ export const investmentData = {
     alias: 'PLENTY-QUIPU LP farm',
     icons: ['PLENTY', 'QUIPU'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-tzBTC-LP': {
     id: 'PLENTY-tzBTC-LP',
@@ -196,7 +179,6 @@ export const investmentData = {
     alias: 'PLENTY-tzBTC LP farm',
     icons: ['PLENTY', 'tzBTC'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-WRAP-LP': {
     id: 'PLENTY-WRAP-LP',
@@ -207,7 +189,6 @@ export const investmentData = {
     alias: 'PLENTY-WRAP LP farm',
     icons: ['PLENTY', 'WRAP'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-UNO-LP': {
     id: 'PLENTY-UNO-LP',
@@ -218,7 +199,6 @@ export const investmentData = {
     alias: 'PLENTY-UNO LP farm',
     icons: ['PLENTY', 'UNO'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-SMAK-LP': {
     id: 'PLENTY-SMAK-LP',
@@ -229,7 +209,6 @@ export const investmentData = {
     alias: 'PLENTY-SMAK LP farm',
     icons: ['PLENTY', 'SMAK'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-KALAM-LP': {
     id: 'PLENTY-KALAM-LP',
@@ -240,7 +219,6 @@ export const investmentData = {
     alias: 'PLENTY-KALAM LP farm',
     icons: ['PLENTY', 'KALAM'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-uUSD-LP': {
     id: 'PLENTY-uUSD-LP',
@@ -251,7 +229,6 @@ export const investmentData = {
     alias: 'Plenty-uUSD LP farm',
     icons: ['PLENTY', 'uUSD'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-wUSDT-LP': {
     id: 'PLENTY-wUSDT-LP',
@@ -262,7 +239,6 @@ export const investmentData = {
     alias: 'Plenty-wUSDT LP farm',
     icons: ['PLENTY', 'wUSDT'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-wDAI-LP': {
     id: 'PLENTY-wDAI-LP',
@@ -273,7 +249,6 @@ export const investmentData = {
     alias: 'Plenty-wDAI LP farm',
     icons: ['PLENTY', 'wDAI'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-YOU-LP': {
     id: 'PLENTY-YOU-LP',
@@ -284,7 +259,6 @@ export const investmentData = {
     alias: 'Plenty-YOU LP farm',
     icons: ['PLENTY', 'YOU'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'PLENTY-Ctez-LP': {
     id: 'PLENTY-Ctez-LP',
@@ -295,7 +269,6 @@ export const investmentData = {
     alias: 'Plenty-Ctez LP farm',
     icons: ['PLENTY', 'Ctez'],
     rewardToken: 'PLENTY',
-    liquidityToken: true,
   },
   'uUSD-YOU-LP': {
     id: 'uUSD-YOU-LP',
@@ -306,7 +279,6 @@ export const investmentData = {
     alias: 'uUSD-YOU LP farm',
     icons: ['uUSD', 'YOU'],
     rewardToken: 'YOU',
-    liquidityToken: true,
   },
   'uUSD-wUSDC-LP': {
     id: 'uUSD-wUSDC-LP',
@@ -317,7 +289,6 @@ export const investmentData = {
     alias: 'uUSD-wUSDC LP farm',
     icons: ['uUSD', 'wUSDC'],
     rewardToken: 'YOU',
-    liquidityToken: true,
   },
   'uUSD-uDEFI-LP': {
     id: 'uUSD-uDEFI-LP',
@@ -328,7 +299,6 @@ export const investmentData = {
     alias: 'uUSD-uDEFI LP farm',
     icons: ['uUSD', 'uDEFI'],
     rewardToken: 'YOU',
-    liquidityToken: true,
   },
   'xPLENTY-Staking': {
     id: 'xPLENTY-Staking',
@@ -339,7 +309,6 @@ export const investmentData = {
     alias: 'xPLENTY-Staking',
     icons: ['xPLENTY'],
     rewardToken: 'xPLENTY',
-    liquidityToken: false,
   },
   'WRAP-STACKING': {
     id: 'WRAP-STACKING',
@@ -351,7 +320,6 @@ export const investmentData = {
     alias: 'Wrap Stacking',
     icons: ['WRAP'],
     rewardToken: 'WRAP',
-    liquidityToken: false,
   },
   'CRUNCHY-FARMS': {
     id: 'CRUNCHY-FARMS',
@@ -372,7 +340,6 @@ export const investmentData = {
     alias: 'PAUL farm',
     icons: ['PAUL'],
     rewardToken: 'PAUL',
-    liquidityToken: false,
   },
   'PAUL-XTZ': {
     id: 'PAUL-XTZ',
@@ -383,7 +350,6 @@ export const investmentData = {
     alias: 'PAUL/XTZ farm',
     icons: ['PAUL', 'XTZ'],
     rewardToken: 'PAUL',
-    liquidityToken: true,
   },
   'MAG-XTZ': {
     id: 'MAG-XTZ',
@@ -394,7 +360,6 @@ export const investmentData = {
     alias: 'MAG/XTZ farm',
     icons: ['MAG', 'XTZ'],
     rewardToken: 'PAUL',
-    liquidityToken: true,
   },
   'QUIPU-PAUL': {
     id: 'QUIPU-PAUL',
@@ -405,7 +370,6 @@ export const investmentData = {
     alias: 'QUIPU/PAUL farm',
     icons: ['QUIPU', 'PAUL'],
     rewardToken: 'PAUL',
-    liquidityToken: true,
   },
   'crDAO-XTZ': {
     id: 'crDAO-XTZ',
@@ -416,7 +380,6 @@ export const investmentData = {
     alias: 'crDAO/QUIPU farm',
     icons: ['crDAO', 'QUIPU'],
     rewardToken: 'PAUL',
-    liquidityToken: true,
   },
   'QUIPU-XTZ': {
     id: 'QUIPU-XTZ',
@@ -427,7 +390,6 @@ export const investmentData = {
     alias: 'QUIPU/XTZ farm',
     icons: ['QUIPU', 'XTZ'],
     rewardToken: 'PAUL',
-    liquidityToken: true,
   },
   'PAUL-crDAO': {
     id: 'PAUL-crDAO',
@@ -438,7 +400,6 @@ export const investmentData = {
     alias: 'PAUL/crDAO farm',
     icons: ['PAUL', 'crDAO'],
     rewardToken: 'PAUL',
-    liquidityToken: true,
   },
   'QUIPU-crDAO': {
     id: 'QUIPU-crDAO',
@@ -449,7 +410,6 @@ export const investmentData = {
     alias: 'QUIPU/crDAO farm',
     icons: ['QUIPU', 'crDAO'],
     rewardToken: 'PAUL',
-    liquidityToken: true,
   },
   'wWBTC-PAUL': {
     id: 'wWBTC-PAUL',
@@ -460,7 +420,6 @@ export const investmentData = {
     alias: 'wWBTC/PAUL farm',
     icons: ['wWBTC', 'PAUL'],
     rewardToken: 'PAUL',
-    liquidityToken: true,
   },
   'wUSDC-PAUL': {
     id: 'wUSDC-PAUL',
@@ -471,7 +430,6 @@ export const investmentData = {
     alias: 'wUSDC/PAUL farm',
     icons: ['wUSDC', 'PAUL'],
     rewardToken: 'PAUL',
-    liquidityToken: true,
   },
   'wWETH-PAUL': {
     id: 'wWETH-PAUL',
@@ -482,7 +440,6 @@ export const investmentData = {
     alias: 'wWETH/PAUL farm',
     icons: ['wWETH', 'PAUL'],
     rewardToken: 'PAUL',
-    liquidityToken: true,
   },
   'PAUL-uUSD': {
     id: 'PAUL-uUSD',
@@ -493,7 +450,6 @@ export const investmentData = {
     alias: 'PAUL/uUSD farm',
     icons: ['PAUL', 'uUSD'],
     rewardToken: 'PAUL',
-    liquidityToken: true,
   },
   'PAUL-kUSD-uUSD': {
     id: 'PAUL-kUSD-uUSD',
@@ -504,7 +460,6 @@ export const investmentData = {
     alias: 'kUSD/uUSD farm',
     icons: ['kUSD', 'uUSD'],
     rewardToken: 'PAUL',
-    liquidityToken: true,
   },
   'KUSD-QUIPU-LP': {
     id: 'KUSD-QUIPU-LP',
@@ -515,7 +470,6 @@ export const investmentData = {
     alias: 'kUSD Quipu LP Farm',
     icons: ['kUSD', 'QUIPUSWAP'],
     rewardToken: 'kDAO',
-    liquidityToken: true,
   },
   'KUSD-KDAO': {
     id: 'KUSD-KDAO',
@@ -526,7 +480,6 @@ export const investmentData = {
     alias: 'kUSD Farm',
     icons: ['kUSD', 'kDAO'],
     rewardToken: 'kDAO',
-    liquidityToken: false,
   },
   'KUSD-QL': {
     id: 'KUSD-QL',
@@ -537,6 +490,5 @@ export const investmentData = {
     alias: 'QL kUSD Farm',
     icons: ['QUIPUSWAP'],
     rewardToken: 'kDAO',
-    liquidityToken: true,
   },
 };
