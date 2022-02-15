@@ -1,5 +1,3 @@
-import { Block } from '@tezos-dappetizer/indexer';
-
 export interface IPrices {
   contracts: Contract[];
   block: unknown;
@@ -47,7 +45,7 @@ export interface Contract {
   discordLink?: string;
   thumbnailUri?: string;
   timestamp: Date;
-  block: Block;
+  block: unknown;
   tokenId?: number;
   description?: string;
 }
