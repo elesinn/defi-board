@@ -8,6 +8,40 @@ import { InvestmentKey, investmentData } from 'api/investments/investmentsData';
 import { useTokensInfo } from 'api/tezPrices';
 import { addressSearchAtom } from 'features/site-layout';
 
+export const formatPlentyBalance = (
+  balance: number,
+  exchangePair: string,
+): number => {
+  switch (exchangePair) {
+    case 'Ctez-PAUL-LP':
+    case 'Ctez-wWBTC-LP':
+      return balance / 10 ** 5;
+    case 'PLENTY-SMAK-LP':
+      return balance / 10 ** 2;
+    case 'PLENTY-wUSDC':
+    case 'PLENTY-USDtz-LP':
+    case 'PLENTY-QUIPU-LP':
+    case 'PLENTY-hDAO-LP':
+    case 'PLENTY-wUSDT-LP':
+    case 'PLENTY-Ctez-LP':
+    case 'Ctez-kUSD-LP':
+    case 'Ctez-wDAI-LP':
+      return balance;
+    case 'PLENTY-wWBTC':
+    case 'PLENTY-tzBTC-LP':
+    case 'PLENTY-WRAP-LP':
+    case 'PLENTY-UNO-LP':
+      return balance * 10;
+    case 'PLENTY-uUSD-LP':
+    case 'PLENTY-KALAM-LP':
+      return balance * 10 ** 2;
+    case 'PLENTY-YOU-LP':
+      return balance * 10 ** 3;
+    default:
+      return balance * 10 ** 6;
+  }
+};
+
 type Props = {
   investmentKey: InvestmentKey;
 };
@@ -22,7 +56,7 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
 
   const { data: tokensInfo } = useTokensInfo();
 
-  const balanceInXtz = useMemo(() => {
+  const stakeInXtz = useMemo(() => {
     if (!data || !tokensInfo) {
       return 0;
     }
@@ -44,25 +78,26 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
       return 0;
     }
 
-    const t1Amount =
-      (pair?.sides[0]?.pool * balance * 10 ** 6) / pair?.lptSupply;
-    const t2Amount =
-      (pair?.sides[1]?.pool * balance * 10 ** 6) / pair?.lptSupply;
-
-    if (!t1Amount || !t2Amount || !pair.sides[1].symbol) {
+    if (!pair.sides[1].symbol || !pair.sides[0].symbol) {
       return 0;
-    } else {
-      let stakeInXtz = 0;
-      if (!tokenInfo?.decimals || !tokensInfo[pair.sides[1].symbol]) return 0;
-
-      stakeInXtz =
-        (t1Amount / 10 ** tokenInfo?.decimals) * tokenInfo.currentPrice +
-        (t2Amount /
-          10 ** (tokensInfo[String(pair.sides[1].symbol)] as any).decimals) *
-          (tokensInfo[String(pair.sides[1].symbol)] as any).currentPrice;
-
-      return Number(stakeInXtz.toFixed(10));
     }
+
+    const t1Coef = pair?.sides[0]?.pool / pair.lptSupply;
+    const t2Coef = pair?.sides[1]?.pool / pair.lptSupply;
+
+    if (!t1Coef || !t2Coef) {
+      return 0;
+    }
+
+    let stakeInXtz = 0;
+
+    if (!tokenInfo?.decimals || !tokensInfo[pair.sides[1].symbol]) return 0;
+
+    stakeInXtz =
+      t1Coef * tokenInfo.currentPrice +
+      t2Coef * (tokensInfo[String(pair.sides[1].symbol)] as any).currentPrice;
+
+    return Number(stakeInXtz.toFixed(10));
   }, [data, investment, tokensInfo]);
 
   if (!data || !tokensInfo) {
@@ -71,7 +106,7 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
 
   const balance =
     Number(typeof data.value === 'string' ? data.value : data.value.balance) /
-    10 ** investment.decimals;
+    10 ** (investment.platform === 'plenty' ? 18 : investment.decimals);
   return (
     <li
       key={investmentKey}
@@ -115,7 +150,9 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
               Stake in XTZ:
             </span>
             <span className="mt-1 text-sm text-gray-500 truncate">
-              {balanceInXtz || 'Unknown'} ꜩ
+              {formatPlentyBalance(balance * stakeInXtz, investment.id) ||
+                'Unknown'}{' '}
+              ꜩ
             </span>
           </div>
         </div>
