@@ -16,5 +16,14 @@ export const useTokensInfo = () => {
     {},
   );
 
+  if (normalizedInfo) {
+    Object.defineProperty(normalizedInfo, 'XTZ', {
+      value: { decimals: 18, currentPrice: 1 },
+    });
+
+    // (normalizedInfo.XTZ as any).decimals = 18;
+    // (normalizedInfo.XTZ as any).currentPrice = 1;
+  }
+
   return { data: normalizedInfo };
 };

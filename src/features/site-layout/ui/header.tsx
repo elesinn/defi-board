@@ -1,18 +1,13 @@
 import { Fragment, ReactElement } from 'react';
 import { useEffect } from 'react';
 
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { MenuAlt1Icon, XIcon } from '@heroicons/react/outline';
+import { Menu, Transition } from '@headlessui/react';
+import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
 import { atom, useAtom } from 'jotai';
-import { useRouter } from 'next/router';
 
 import { useTezos } from 'features/beacon/useTezos';
 
-const navigation = [
-  { name: 'Dashboard', href: '/' },
-  { name: 'Investments', href: '/investments' },
-];
 // const userNavigation = [
 //   { name: 'Your Profile', href: '#' },
 //   { name: 'Settings', href: '#' },
@@ -25,8 +20,11 @@ function classNames(...classes: any[]) {
 
 export const userAddressAtom = atom('tz1Qji1NnEPj4Cxa9s2WEoWi9U9KM6a9gdDL');
 
-export function Header(): ReactElement {
-  const { pathname } = useRouter();
+export function Header({
+  openSidebar,
+}: {
+  openSidebar: (value: boolean) => void;
+}): ReactElement {
   const [address, setAddress] = useAtom(userAddressAtom);
 
   const { connect, account, disconnect } = useTezos();
@@ -36,98 +34,67 @@ export function Header(): ReactElement {
   }, [account, setAddress]);
 
   return (
-    <Disclosure as="nav" className="flex-shrink-0 bg-indigo-600">
-      {({ open }) => (
-        <>
-          <div className="px-2 mx-auto max-w-7xl sm:px-4 lg:px-8">
-            <div className="relative flex items-center justify-between h-16">
-              {/* Logo section */}
-              <div className="flex items-center px-2 lg:px-0 xl:w-64">
-                <div className="flex-shrink-0">
-                  <img
-                    className="w-auto h-8"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-300.svg"
-                    alt="Workflow"
-                  />
-                </div>
+    <div className="sticky top-0 z-10 flex flex-shrink-0 h-16 bg-white border-b border-gray-200">
+      <button
+        type="button"
+        className="px-4 text-gray-500 border-r border-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+        onClick={() => openSidebar(true)}
+      >
+        <span className="sr-only">Open sidebar</span>
+        <MenuAlt2Icon className="w-6 h-6" aria-hidden="true" />
+      </button>
+      <div className="flex justify-between flex-1 px-4 md:px-0">
+        <div className="flex flex-1">
+          <form className="flex w-full md:ml-0" action="#" method="GET">
+            <label htmlFor="search-field" className="sr-only">
+              Search
+            </label>
+            <div className="relative w-full text-gray-400 focus-within:text-gray-600">
+              <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none">
+                <SearchIcon className="w-5 h-5" aria-hidden="true" />
               </div>
+              <input
+                id="search-field"
+                className="block w-full h-full py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 border-transparent focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
+                placeholder="Tezos Address"
+                type="search"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                name="search"
+              />
+            </div>
+          </form>
+        </div>
+        <div className="flex items-center ml-4 md:ml-6">
+          <button
+            type="button"
+            className="p-1 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            <span className="sr-only">View notifications</span>
+            <BellIcon className="w-6 h-6" aria-hidden="true" />
+          </button>
 
-              {/* Search section */}
-              <div className="flex justify-center flex-1 lg:justify-end">
-                <div className="w-full px-2 lg:px-6">
-                  <label htmlFor="search" className="sr-only">
-                    Search projects
-                  </label>
-                  <div className="relative text-indigo-200 focus-within:text-gray-400">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <SearchIcon className="w-5 h-5" aria-hidden="true" />
-                    </div>
-                    <input
-                      id="search"
-                      name="search"
-                      className="block w-full py-2 pl-10 pr-3 leading-5 text-indigo-100 placeholder-indigo-200 bg-indigo-400 bg-opacity-25 border border-transparent rounded-md focus:bg-white focus:text-gray-900 focus:placeholder-gray-400 focus:outline-none focus:ring-0 sm:text-sm"
-                      placeholder="Tezos Address"
-                      type="search"
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                    />
-                  </div>
+          {/* Profile dropdown */}
+          <Menu as="div" className="relative ml-3">
+            <div>
+              <Menu.Button className="flex items-center max-w-xs text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <span className="sr-only">Open user menu</span>
+                <div className="px-3 py-2 text-sm font-medium text-black truncate bg-gray-100 rounded-md max-w-[150px]">
+                  {account || 'Sync'}
                 </div>
-              </div>
-              <div className="flex lg:hidden">
-                {/* Mobile menu button */}
-                <Disclosure.Button className="inline-flex items-center justify-center p-2 text-indigo-400 bg-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
-                  <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <XIcon className="block w-6 h-6" aria-hidden="true" />
-                  ) : (
-                    <MenuAlt1Icon
-                      className="block w-6 h-6"
-                      aria-hidden="true"
-                    />
-                  )}
-                </Disclosure.Button>
-              </div>
-              {/* Links section */}
-              <div className="hidden lg:block lg:w-80">
-                <div className="flex items-center justify-end">
-                  <div className="flex">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className="px-3 py-2 text-sm font-medium text-indigo-200 rounded-md hover:text-white"
-                        aria-current={
-                          pathname === item.href ? 'page' : undefined
-                        }
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
-                  {/* Profile dropdown */}
-                  <Menu as="div" className="relative flex-shrink-0 ml-4">
-                    <div>
-                      <Menu.Button className="flex text-sm text-white bg-indigo-700 rounded-full focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-700">
-                        <span className="sr-only">Open user menu</span>
-                        <img
-                          className="w-8 h-8 rounded-full"
-                          src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=256&h=256&q=80"
-                          alt=""
-                        />
-                      </Menu.Button>
-                    </div>
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items className="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {/* {userNavigation.map((item) => (
+              </Menu.Button>
+            </div>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                {/* {userNavigation.map((item) => (
                           <Menu.Item key={item.name}>
                             {({ active }) => (
                               <a
@@ -142,79 +109,40 @@ export function Header(): ReactElement {
                             )}
                           </Menu.Item>
                         ))} */}
-                        {account ? (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <button
-                                className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700',
-                                )}
-                                onClick={disconnect}
-                              >
-                                Log out
-                              </button>
-                            )}
-                          </Menu.Item>
-                        ) : (
-                          <Menu.Item>
-                            {({ active }) => (
-                              <button
-                                className={classNames(
-                                  active ? 'bg-gray-100' : '',
-                                  'block px-4 py-2 text-sm text-gray-700',
-                                )}
-                                onClick={connect}
-                              >
-                                Connect Wallet
-                              </button>
-                            )}
-                          </Menu.Item>
+                {account ? (
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        className={classNames(
+                          active ? 'bg-gray-100' : '',
+                          'block px-4 py-2 text-sm text-gray-700',
                         )}
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <Disclosure.Panel className="lg:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    pathname === item.href
-                      ? 'bg-indigo-800 text-white'
-                      : 'text-indigo-200 hover:bg-indigo-600 hover:text-indigo-100',
-                    'block rounded-md px-3 py-2 text-base font-medium',
-                  )}
-                  aria-current={pathname === item.href ? 'page' : undefined}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-            </div>
-            <div className="pt-4 pb-3 border-t border-indigo-800">
-              <div className="px-2 space-y-1">
-                {/* {userNavigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className="block px-3 py-2 text-base font-medium text-indigo-200 rounded-md hover:bg-indigo-600 hover:text-indigo-100"
-                  >
-                    {item.name}
-                  </Disclosure.Button>
-                ))} */}
-              </div>
-            </div>
-          </Disclosure.Panel>
-        </>
-      )}
-    </Disclosure>
+                        onClick={disconnect}
+                      >
+                        Log out
+                      </button>
+                    )}
+                  </Menu.Item>
+                ) : (
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        className={classNames(
+                          active ? 'bg-gray-100' : '',
+                          'block px-4 py-2 text-sm text-gray-700',
+                        )}
+                        onClick={connect}
+                      >
+                        Connect Wallet
+                      </button>
+                    )}
+                  </Menu.Item>
+                )}
+              </Menu.Items>
+            </Transition>
+          </Menu>
+        </div>
+      </div>
+    </div>
   );
 }
