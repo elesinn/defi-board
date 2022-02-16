@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
+import classNames from 'classnames';
 import { atom, useAtom } from 'jotai';
 
 import { useTezos } from 'features/beacon/useTezos';
@@ -14,8 +15,19 @@ import { useTezos } from 'features/beacon/useTezos';
 //   { name: 'Sign out', href: '#' },
 // ];
 
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ');
+function truncateMiddle(word: string) {
+  const tooLongChars = 20; // arbitrary
+
+  if (word.length < tooLongChars) {
+    return word;
+  }
+
+  const ellipsis = '...';
+  const charsOnEitherSide = Math.floor(tooLongChars / 2) - ellipsis.length;
+
+  return (
+    word.slice(0, charsOnEitherSide) + ellipsis + word.slice(-charsOnEitherSide)
+  );
 }
 
 export const userAddressAtom = atom('tz1Qji1NnEPj4Cxa9s2WEoWi9U9KM6a9gdDL');
@@ -79,8 +91,11 @@ export function Header({
             <div>
               <Menu.Button className="flex items-center max-w-xs text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 <span className="sr-only">Open user menu</span>
-                <div className="px-3 py-2 text-sm font-medium text-black truncate bg-gray-100 rounded-md max-w-[150px]">
-                  {account || 'Sync'}
+                <div
+                  className="px-3 py-2 text-sm font-medium text-black truncate bg-gray-100 rounded-md"
+                  title={account}
+                >
+                  {truncateMiddle(account) || 'Sync'}
                 </div>
               </Menu.Button>
             </div>
