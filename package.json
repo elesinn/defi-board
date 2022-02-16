@@ -25,6 +25,7 @@
     "@taquito/tzip16": "^11.2.0",
     "classnames": "^2.3.1",
     "dayjs": "^1.10.7",
+    "graphql-request": "^4.0.0",
     "jotai": "^1.5.3",
     "ky": "^0.28.7",
     "next": "^12.0.9",

@@ -1,3 +1,4 @@
+import { gql, request } from 'graphql-request';
 import useSWR from 'swr';
 
 export type IAccount = {
@@ -58,4 +59,23 @@ export const useOperations = (address: string) => {
 
 export const useBalanceHistory = (address: string) => {
   return useSWR<IBalance[]>(`accounts/${address}/balance_history`);
+};
+
+export const useAccountDomain = (address: string) => {
+  const query = gql`{
+    domains(where: { address: { in: ["${address}"] } }) {
+      items {
+        address
+        owner
+        name
+        level
+      }
+    }
+  }`;
+  return useSWR<
+    { address: string; level: number; name: string; owner: string }[]
+  >(query, async () => {
+    const res = await request('https://api.tezos.domains/graphql', query);
+    return res?.domains?.items;
+  });
 };

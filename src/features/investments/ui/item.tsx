@@ -7,6 +7,7 @@ import { useInvestment } from 'api/investments';
 import { InvestmentKey, investmentData } from 'api/investments/investmentsData';
 import { useTokensInfo } from 'api/tezPrices';
 import { addressSearchAtom } from 'features/site-layout';
+import { TZ } from 'shared/tezos-sign';
 
 export const formatPlentyBalance = (
   balance: number,
@@ -61,7 +62,7 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
       return 0;
     }
     const balance = Number(
-      typeof data.value === 'string' ? data.value : data.value.balance,
+      typeof data.value === 'string' ? data.value : data.value?.balance,
     );
     //@ts-ignore
     const tokenInfo = tokensInfo[investment.rewardToken];
@@ -105,7 +106,7 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
   }
 
   const balance =
-    Number(typeof data.value === 'string' ? data.value : data.value.balance) /
+    Number(typeof data.value === 'string' ? data.value : data.value?.balance) /
     10 ** (investment.platform === 'plenty' ? 18 : investment.decimals);
   return (
     <li
@@ -151,8 +152,8 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
             </span>
             <span className="mt-1 text-sm text-gray-500 truncate">
               {formatPlentyBalance(balance * stakeInXtz, investment.id) ||
-                'Unknown'}{' '}
-              ꜩ
+                'Unknown '}
+              {TZ}
             </span>
           </div>
         </div>
