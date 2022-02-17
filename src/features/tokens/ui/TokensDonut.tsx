@@ -1,6 +1,8 @@
 import { Pie } from '@nivo/pie';
 import _ from 'lodash';
 
+import { TZ } from 'shared/tezos-sign';
+
 export const TokensDonut = ({ data }: { data: any }) => {
   const dataSortedByBalance = _.orderBy(data, 'balanceinTzx', 'desc').filter(
     (d) => d.balanceinTzx > 0,
@@ -8,7 +10,7 @@ export const TokensDonut = ({ data }: { data: any }) => {
 
   const dataToDisplay = dataSortedByBalance.slice(0, 10).map((d) => ({
     id: d.symbol,
-    value: d.balanceinTzx?.toFixed(3),
+    value: d.balanceinTzx,
   }));
 
   const otherData = dataSortedByBalance
@@ -18,9 +20,7 @@ export const TokensDonut = ({ data }: { data: any }) => {
       return acc;
     }, 0);
   const otherDataToDisplay =
-    otherData > 0
-      ? { id: 'Other Tokens', value: otherData.toFixed(3) }
-      : undefined;
+    otherData > 0 ? { id: 'Other Tokens', value: otherData } : undefined;
 
   return (
     <Pie
@@ -44,6 +44,11 @@ export const TokensDonut = ({ data }: { data: any }) => {
         from: 'color',
         modifiers: [['darker', 1.2]],
       }}
+      valueFormat={(value) =>
+        `${Number(value).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+        })} ${TZ}`
+      }
     />
   );
 };

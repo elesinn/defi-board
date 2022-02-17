@@ -39,15 +39,17 @@ export const TokensList = () => {
       // alias: token.contract.alias,
       balance: Number(
         Number(token.balance) / 10 ** Number(token.decimals),
-      ).toFixed(3),
+      ).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+      }),
       balanceinTzx:
         tokensInfo &&
         Number(
-          Number(
-            (Number(token.balance) / 10 ** Number(token.decimals)) *
-              (tokensInfo[token.symbol || '']?.currentPrice || 0),
-          ).toFixed(3),
-        ),
+          (Number(token.balance) / 10 ** Number(token.decimals)) *
+            (tokensInfo[token.symbol || '']?.currentPrice || 0),
+        ).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+        }),
       tzText: 'ꜩ',
     }));
   }, [tokensBalances, tokensInfo]);
