@@ -8,6 +8,7 @@ import { addressSearchAtom } from 'features/site-layout';
 import Table, { AvatarCell, DefaultWithDescription } from 'shared/table';
 
 import { DailyPriceChange } from './dailyPriceChange';
+import { TokensDonut } from './TokensDonut';
 
 export function PriceChangeCell({ row, column }: any) {
   const { data: tokensInfo } = useTokensInfo();
@@ -89,6 +90,8 @@ export const TokensList = () => {
 
   return (
     <>
+      {tableData && <TokensDonut data={tableData} />}
+
       <div className="relative py-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
           <div className="w-full border-t border-gray-300" />
