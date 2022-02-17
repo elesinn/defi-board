@@ -2,7 +2,9 @@ import { Pie } from '@nivo/pie';
 import _ from 'lodash';
 
 export const TokensDonut = ({ data }: { data: any }) => {
-  const dataSortedByBalance = _.orderBy(data, 'balanceinTzx', 'desc');
+  const dataSortedByBalance = _.orderBy(data, 'balanceinTzx', 'desc').filter(
+    (d) => d.balanceinTzx > 0,
+  );
 
   const dataToDisplay = dataSortedByBalance.slice(0, 10).map((d) => ({
     id: d.symbol,
@@ -15,15 +17,20 @@ export const TokensDonut = ({ data }: { data: any }) => {
       acc += data.balanceinTzx || 0;
       return acc;
     }, 0);
+  const otherDataToDisplay =
+    otherData > 0
+      ? { id: 'Other Tokens', value: otherData.toFixed(3) }
+      : undefined;
 
   return (
     <Pie
       width={500}
       height={300}
-      data={[
-        ...dataToDisplay,
-        { id: 'Other Tokens', value: otherData.toFixed(3) },
-      ]}
+      data={
+        otherDataToDisplay
+          ? [...dataToDisplay, otherDataToDisplay]
+          : dataToDisplay
+      }
       animate={true}
       activeOuterRadiusOffset={8}
       innerRadius={0.6}
