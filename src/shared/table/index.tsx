@@ -162,6 +162,17 @@ export function AvatarCell({ value, column, row }: any) {
   );
 }
 
+export function DefaultWithDescription({ value, column, row }: any) {
+  return (
+    <>
+      <div className="text-sm text-gray-900">{value}</div>
+      <div className="text-sm text-gray-500">
+        {row.original[column.descAccessor]}
+      </div>
+    </>
+  );
+}
+
 function Table({
   columns,
   data,
@@ -241,15 +252,16 @@ function Table({
                             {column.render('Header')}
                             {/* Add a sort direction indicator */}
                             <span>
-                              {column.isSorted ? (
-                                column.isSortedDesc ? (
-                                  <SortDownIcon className="w-4 h-4 text-gray-400" />
+                              {!column.disableSortBy &&
+                                (column.isSorted ? (
+                                  column.isSortedDesc ? (
+                                    <SortDownIcon className="w-4 h-4 text-gray-400" />
+                                  ) : (
+                                    <SortUpIcon className="w-4 h-4 text-gray-400" />
+                                  )
                                 ) : (
-                                  <SortUpIcon className="w-4 h-4 text-gray-400" />
-                                )
-                              ) : (
-                                <SortIcon className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100" />
-                              )}
+                                  <SortIcon className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100" />
+                                ))}
                             </span>
                           </div>
                         </th>

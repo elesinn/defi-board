@@ -3,10 +3,17 @@ import React from 'react';
 import { useAtom } from 'jotai';
 
 import { useTokensInfo } from 'api/tezPrices';
+import { useTokensBalances } from 'api/tokens';
 import { addressSearchAtom } from 'features/site-layout';
-import Table, { AvatarCell } from 'shared/table';
+import Table, { AvatarCell, DefaultWithDescription } from 'shared/table';
 
-import { useTokensBalances } from '../../../api/tokens/index';
+import { DailyPriceChange } from './dailyPriceChange';
+
+export function PriceChangeCell({ row, column }: any) {
+  const { data: tokensInfo } = useTokensInfo();
+  const token = tokensInfo && tokensInfo[row.original[column.tokenAccessor]];
+  return token ? <DailyPriceChange token={token} /> : '';
+}
 
 export const TokensList = () => {
   const [userAddress] = useAtom(addressSearchAtom);
@@ -40,6 +47,7 @@ export const TokensList = () => {
               (tokensInfo[token.symbol || '']?.currentPrice || 0),
           ).toFixed(3),
         ),
+      tzText: 'ꜩ',
     }));
   }, [tokensBalances, tokensInfo]);
 
@@ -53,12 +61,23 @@ export const TokensList = () => {
         descAccessor: 'name',
       },
       {
-        Header: 'Quantity',
+        Header: '24h change',
+        accessor: 'tzText',
+        tokenAccessor: 'symbol',
+        Cell: PriceChangeCell,
+        disableSortBy: true,
+      },
+      {
+        Header: 'Balance',
         accessor: 'balance',
+        descAccessor: 'symbol',
+        Cell: DefaultWithDescription,
       },
       {
         Header: 'Estimated Value',
         accessor: 'balanceinTzx',
+        descAccessor: 'tzText',
+        Cell: DefaultWithDescription,
       },
     ],
     [],

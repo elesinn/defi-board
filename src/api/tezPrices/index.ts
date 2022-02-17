@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 
 import { tzToolsApi } from '../index';
-import { Contract, IPrices } from './types';
+import { Contract, IPrices, ITokenAggregateDaily } from './types';
 
 export const useTokensInfo = () => {
   const { data: info } = useSWR<IPrices>('prices', (resource) =>
@@ -26,4 +26,35 @@ export const useTokensInfo = () => {
   }
 
   return { data: normalizedInfo };
+};
+
+export const useTokenAggregateDaily = (token?: Contract) => {
+  const { data } = useSWR<ITokenAggregateDaily[]>(
+    token
+      ? token.type === 'fa1.2'
+        ? `${token.tokenAddress}/pools/${token.address}/aggregate_daily`
+        : `${token.tokenAddress}_${token.tokenId}/pools/${token.address}/aggregate_daily`
+      : null,
+    (resource) => tzToolsApi.get(resource).json(),
+  );
+
+  const tokensDaily =
+    data && token
+      ? {
+          priceIncreace:
+            //@ts-ignore
+            data[data.length - 2].t1priceMa < token.currentPrice,
+          difference: (() => {
+            //@ts-ignore
+            const priceBefore = data[data.length - 2].t1priceMa;
+            const currentPrice = token.currentPrice;
+            const difference =
+              (priceBefore - currentPrice) / ((priceBefore + currentPrice) / 2);
+            return Math.abs(difference * 100);
+          })(),
+        }
+      : {};
+  return {
+    tokensDailyStats: tokensDaily,
+  };
 };

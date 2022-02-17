@@ -83,3 +83,33 @@ export enum Type {
   Fa2 = 'fa2',
   Xtz = 'XTZ',
 }
+
+export interface ITokenAggregateDaily {
+  periodOpen: Date;
+  periodClose: Date;
+  t1poolOpen: number | null;
+  t1poolClose: number;
+  t1poolChange: number | null;
+  t1priceOpen: number;
+  t1priceClose: number;
+  t1priceHigh: number;
+  t1priceLow: number;
+  t1priceChange: number;
+  t1priceMa: number;
+  t1volume: number;
+  t1volumeMa: number;
+  t2poolOpen: number | null;
+  t2poolClose: number;
+  t2poolChange: number | null;
+  t2priceOpen: number;
+  t2priceClose: number;
+  t2priceHigh: number;
+  t2priceLow: number;
+  t2priceChange: number;
+  t2priceMa: number;
+  t2volume: number;
+  t2volumeMa: number;
+  lptsupplyOpen: number;
+  lptsupplyClose: number;
+  lptsupplyChange: number;
+}
