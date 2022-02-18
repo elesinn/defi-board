@@ -12,7 +12,7 @@ type WalletConnectReturn = {
   account: string;
 };
 
-const RPC_NODE = 'https://mainnet.smartpy.io';
+export const RPC_NODE = 'https://mainnet.smartpy.io';
 
 const tezosTk = new TezosToolkit(RPC_NODE);
 

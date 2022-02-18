@@ -1,55 +1,24 @@
-import { useMemo } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useAtom } from 'jotai';
 import Image from 'next/image';
 
 import { useInvestment } from 'api/investments';
-import { InvestmentKey, investmentData } from 'api/investments/investmentsData';
+import { PlentyFarms, InvestmentKey } from 'api/investments/plenty/config';
 import { useTokensInfo } from 'api/tezPrices';
+import { tezosTkAtom } from 'features/beacon/useTezos';
 import { addressSearchAtom } from 'features/site-layout';
 import { TZ } from 'shared/tezos-sign';
-
-export const formatPlentyBalance = (
-  balance: number,
-  exchangePair: string,
-): number => {
-  switch (exchangePair) {
-    case 'Ctez-PAUL-LP':
-    case 'Ctez-wWBTC-LP':
-      return balance / 10 ** 5;
-    case 'PLENTY-SMAK-LP':
-      return balance / 10 ** 2;
-    case 'PLENTY-wUSDC':
-    case 'PLENTY-USDtz-LP':
-    case 'PLENTY-QUIPU-LP':
-    case 'PLENTY-hDAO-LP':
-    case 'PLENTY-wUSDT-LP':
-    case 'PLENTY-Ctez-LP':
-    case 'Ctez-kUSD-LP':
-    case 'Ctez-wDAI-LP':
-      return balance;
-    case 'PLENTY-wWBTC':
-    case 'PLENTY-tzBTC-LP':
-    case 'PLENTY-WRAP-LP':
-    case 'PLENTY-UNO-LP':
-      return balance * 10;
-    case 'PLENTY-uUSD-LP':
-    case 'PLENTY-KALAM-LP':
-      return balance * 10 ** 2;
-    case 'PLENTY-YOU-LP':
-      return balance * 10 ** 3;
-    default:
-      return balance * 10 ** 6;
-  }
-};
 
 type Props = {
   investmentKey: InvestmentKey;
 };
 
 export const InvestmentItem = ({ investmentKey }: Props) => {
-  const investment = investmentData[investmentKey];
+  const investment = PlentyFarms[investmentKey];
+  const [tezosTk] = useAtom(tezosTkAtom);
   const [userAddress] = useAtom(addressSearchAtom);
+  const [balanceInXtz, setBalanceInXtz] = useState<number>();
   const { data } = useInvestment({
     investmentKey,
     userAddress,
@@ -57,57 +26,65 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
 
   const { data: tokensInfo } = useTokensInfo();
 
-  const stakeInXtz = useMemo(() => {
+  const balance =
+    Number(
+      typeof data?.value === 'string' ? data.value : data?.value?.balance,
+    ) /
+    10 ** investment.DECIMAL;
+
+  const updateBalanceInXtz = useCallback(async () => {
     if (!data || !tokensInfo) {
-      return 0;
-    }
-    const balance = Number(
-      typeof data.value === 'string' ? data.value : data.value?.balance,
-    );
-    //@ts-ignore
-    const tokenInfo = tokensInfo[investment.rewardToken];
-    if (!balance || !tokenInfo) return NaN;
-    const formatedInvestmentKey = investment.id
-      .replace('-LP', '')
-      .replace('-', '/');
-
-    const pair = tokenInfo.pairs.find(
-      (p) => p.symbols === formatedInvestmentKey,
-    );
-
-    if (!pair?.sides[0] || !pair?.sides[1]) {
-      return 0;
+      return;
     }
 
-    if (!pair.sides[1].symbol || !pair.sides[0].symbol) {
-      return 0;
-    }
+    if (!balance) return;
+    const exchangeContract = await tezosTk.wallet.at(investment.DEX);
+    const exchangeStorage: any = await exchangeContract.storage();
 
-    const t1Coef = pair?.sides[0]?.pool / pair.lptSupply;
-    const t2Coef = pair?.sides[1]?.pool / pair.lptSupply;
+    // const systemFee = exchangeStorage.systemFee.toNumber();
+    // const lpFee = exchangeStorage.lpFee.toNumber();
+    const token1_pool = exchangeStorage.token1_pool.toNumber();
+    const token2_pool = exchangeStorage.token2_pool.toNumber();
+    let lpTokenSupply = exchangeStorage.totalSupply.toNumber();
 
-    if (!t1Coef || !t2Coef) {
-      return 0;
-    }
+    let tokenOut_supply = token2_pool;
+    let tokenIn_supply = token1_pool;
+
+    const pair = investment.ID.split(' - ').map((p) => tokensInfo[String(p)]);
+    if (!pair[0] || !pair[1]) return;
+
+    const tokenIn_Decimal = pair[0].decimals || 0;
+    const tokenOut_Decimal = pair[1].decimals || 0;
+    const liquidityToken_Decimal = investment.TOKEN_DECIMAL;
+
+    tokenIn_supply = tokenIn_supply / Math.pow(10, tokenIn_Decimal);
+    tokenOut_supply = tokenOut_supply / Math.pow(10, tokenOut_Decimal);
+    lpTokenSupply = lpTokenSupply / Math.pow(10, liquidityToken_Decimal);
+    // const exchangeFee = 1 / lpFee + 1 / systemFee;
+    // const tokenOutPerTokenIn = tokenOut_supply / tokenIn_supply;
+
+    let tokenFirst_Out = (balance * tokenIn_supply) / lpTokenSupply;
+    let tokenSecond_Out = (balance * tokenOut_supply) / lpTokenSupply;
 
     let stakeInXtz = 0;
 
-    if (!tokenInfo?.decimals || !tokensInfo[pair.sides[1].symbol]) return 0;
-
     stakeInXtz =
-      t1Coef * tokenInfo.currentPrice +
-      t2Coef * (tokensInfo[String(pair.sides[1].symbol)] as any).currentPrice;
+      tokenFirst_Out * pair[0].currentPrice +
+      tokenSecond_Out * pair[1].currentPrice;
 
-    return Number(stakeInXtz.toFixed(10));
-  }, [data, investment, tokensInfo]);
+    setBalanceInXtz(Number(stakeInXtz.toFixed(10)));
+  }, [balance, data, investment, tezosTk.wallet, tokensInfo]);
+
+  useEffect(() => {
+    if (!balanceInXtz) {
+      updateBalanceInXtz();
+    }
+  }, [balanceInXtz, updateBalanceInXtz]);
 
   if (!data || !tokensInfo) {
     return null;
   }
 
-  const balance =
-    Number(typeof data.value === 'string' ? data.value : data.value?.balance) /
-    10 ** (investment.platform === 'plenty' ? 18 : investment.decimals);
   return (
     <li
       key={investmentKey}
@@ -119,7 +96,7 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
             <div className="flex ">
               <div>
                 <Image
-                  src={`/images/${investment.icons[0]}.png`}
+                  src={`/images/${investment.ID.split(' - ')[0]}.png`}
                   alt="token-icon-1"
                   className="rounded-full"
                   height={24}
@@ -128,7 +105,7 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
               </div>
               <div className="-translate-x-2 ">
                 <Image
-                  src={`/images/${investment.icons[1]}.png`}
+                  src={`/images/${investment.ID.split(' - ')[1]}.png`}
                   alt="token-icon-2"
                   className="rounded-full"
                   height={24}
@@ -151,8 +128,8 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
               Stake in XTZ:
             </span>
             <span className="mt-1 text-sm text-gray-500 truncate">
-              {formatPlentyBalance(balance * stakeInXtz, investment.id) ||
-                'Unknown '}
+              {balanceInXtz}
+
               {TZ}
             </span>
           </div>
