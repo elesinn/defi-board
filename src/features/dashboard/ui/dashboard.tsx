@@ -2,11 +2,9 @@ import { useAtom } from 'jotai';
 
 import { useAccount } from 'api/account';
 import { addressSearchAtom } from 'features/site-layout';
-import { TZ } from 'shared/tezos-sign';
+import { TZ } from 'shared/utils/tezos-sign';
 
-import AccountDomain from './account-domain';
 import { HistoryChart } from './history-chart';
-import Operations from './operaions-table';
 
 export const Dashboard = () => {
   const [address] = useAtom(addressSearchAtom);
@@ -30,7 +28,6 @@ export const Dashboard = () => {
   ];
   return (
     <div>
-      <AccountDomain />
       <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-3">
         {stats.map((item) => (
           <div
@@ -59,7 +56,7 @@ export const Dashboard = () => {
       <div className="h-80">
         <HistoryChart />
       </div>
-      <div className="relative py-6">
+      {/* <div className="relative py-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
           <div className="w-full border-t border-gray-300" />
         </div>
@@ -69,7 +66,7 @@ export const Dashboard = () => {
           </span>
         </div>
       </div>
-      <Operations />
+      <Operations /> */}
     </div>
   );
 };

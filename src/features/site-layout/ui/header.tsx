@@ -7,13 +7,9 @@ import { SearchIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { atom, useAtom } from 'jotai';
 
+import { useAccount, useAccountDomain } from 'api/account';
 import { useTezos } from 'features/beacon/useTezos';
-
-// const userNavigation = [
-//   { name: 'Your Profile', href: '#' },
-//   { name: 'Settings', href: '#' },
-//   { name: 'Sign out', href: '#' },
-// ];
+import { formatTezosBalance } from 'shared/utils/balance';
 
 function truncateMiddle(word: string) {
   const tooLongChars = 20; // arbitrary
@@ -38,6 +34,8 @@ export function Header({
   openSidebar: (value: boolean) => void;
 }): ReactElement {
   const [address, setAddress] = useAtom(userAddressAtom);
+  const { data } = useAccountDomain(address);
+  const { data: accountData } = useAccount(address);
 
   const { connect, account, disconnect } = useTezos();
 
@@ -95,7 +93,11 @@ export function Header({
                   className="px-3 py-2 text-sm font-medium text-black truncate bg-gray-100 rounded-md"
                   title={account}
                 >
-                  {truncateMiddle(account) || 'Sync'}
+                  <div className=" flex gap-2">
+                    <div>{formatTezosBalance(accountData?.balance)}</div>
+                    <div className="border-r" />
+                    {data?.at(0)?.name || truncateMiddle(account) || 'Sync'}
+                  </div>
                 </div>
               </Menu.Button>
             </div>

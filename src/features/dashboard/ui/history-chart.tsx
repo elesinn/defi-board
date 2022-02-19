@@ -1,8 +1,10 @@
 import { ResponsiveLine } from '@nivo/line';
+import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 
 import { useBalanceHistory } from 'api/account';
 import { addressSearchAtom } from 'features/site-layout';
+import { TZ } from 'shared/utils/tezos-sign';
 
 export const HistoryChart = () => {
   const [address] = useAtom(addressSearchAtom);
@@ -22,35 +24,39 @@ export const HistoryChart = () => {
     },
   ];
 
-  // 2019-09-05T22:15:04Z
   return (
     <ResponsiveLine
       data={data}
+      tooltip={(value) => {
+        return (
+          <div className="block p-4 rounded-lg shadow-lg bg-white max-w-sm">
+            {dayjs(value.point.data.x).format('YYYY-MM-DD HH:mm')} &mdash;{' '}
+            {value.point.data.y}
+            {TZ}
+          </div>
+        );
+      }}
+      enableGridX={false}
+      enableGridY={false}
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-      yScale={{ type: 'point' }}
+      yScale={{ type: 'linear', nice: true, clamp: true }}
       xScale={{
-        // type: 'linear',
-        min: 'auto',
-        max: 'auto',
-        // stacked: true,
-        // reverse: false,
         type: 'time',
         format: '%Y-%m-%dT%H:%M:%SZ',
-        useUTC: false,
-        precision: 'second',
+        nice: true,
       }}
-      yFormat=" >-.2f"
       axisTop={null}
       axisRight={null}
       axisBottom={{
-        // orient: 'bottom',
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
         legend: 'Date',
         legendOffset: 36,
         legendPosition: 'middle',
-        format: '%Y-%m-%dT%H:%M:%SZ',
+        format: (value: Date) => {
+          return dayjs(value).format('YYYY-MM-DD');
+        },
       }}
       axisLeft={{
         // orient: 'left',

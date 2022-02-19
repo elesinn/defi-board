@@ -5,7 +5,7 @@ import { useAtom } from 'jotai';
 import { useTokensInfo } from 'api/tezPrices';
 import { useTokensBalances } from 'api/tokens';
 import { addressSearchAtom } from 'features/site-layout';
-import Table, { AvatarCell, DefaultWithDescription } from 'shared/table';
+import Table, { AvatarCell, DefaultWithDescription } from 'shared/ui/table';
 
 import { DailyPriceChange } from './dailyPriceChange';
 import PriceChangeChart from './priceChangeChart';

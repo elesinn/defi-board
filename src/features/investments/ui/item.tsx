@@ -8,7 +8,7 @@ import { PlentyFarms, InvestmentKey } from 'api/investments/plenty/config';
 import { useTokensInfo } from 'api/tezPrices';
 import { tezosTkAtom } from 'features/beacon/useTezos';
 import { addressSearchAtom } from 'features/site-layout';
-import { TZ } from 'shared/tezos-sign';
+import { TZ } from 'shared/utils/tezos-sign';
 
 type Props = {
   investmentKey: InvestmentKey;

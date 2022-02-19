@@ -1,7 +1,7 @@
 import { Pie } from '@nivo/pie';
 import _ from 'lodash';
 
-import { TZ } from 'shared/tezos-sign';
+import { TZ } from 'shared/utils/tezos-sign';
 
 export const TokensDonut = ({ data }: { data: any }) => {
   const dataSortedByBalance = _.orderBy(data, 'balanceinTzx', 'desc').filter(
