@@ -33,26 +33,6 @@ const PriceChangeChart = ({ token }: { token?: Contract }) => {
             data={data}
             margin={{ top: 0, right: 8, left: 16, bottom: 0 }}
           >
-            <defs>
-              <linearGradient
-                id={gain ? 'gain' : 'loss'}
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="1"
-              >
-                <stop
-                  offset="5%"
-                  stopColor={gain ? '#16a43a' : '#dc2626'}
-                  stopOpacity={0.5}
-                />
-                <stop
-                  offset="60%"
-                  stopColor={gain ? '#16a43a' : '#dc2626'}
-                  stopOpacity={0}
-                />
-              </linearGradient>
-            </defs>
             <YAxis
               domain={[
                 (dataMin: number) => dataMin * 0.95,
