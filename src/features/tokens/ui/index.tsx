@@ -47,7 +47,7 @@ export const TokensList = () => {
         `https://services.tzkt.io/v1/avatars/${token.contract.address}` ||
         undefined,
       symbol: token.symbol,
-      name: `${token.name || ''} (${token.contract.alias})`,
+      name: token.name || token.contract.alias,
       // alias: token.contract.alias,
       balance: Number(
         Number(token.balance) / 10 ** Number(token.decimals),
