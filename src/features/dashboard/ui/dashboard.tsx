@@ -5,7 +5,6 @@ import { addressSearchAtom } from 'features/site-layout';
 import { TZ } from 'shared/utils/tezos-sign';
 
 import { HistoryChart } from './history-chart';
-import Operations from './operaions-table';
 
 export const Dashboard = () => {
   const [address] = useAtom(addressSearchAtom);
@@ -57,7 +56,7 @@ export const Dashboard = () => {
       <div className="h-80">
         <HistoryChart />
       </div>
-      <div className="relative py-6">
+      {/* <div className="relative py-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
           <div className="w-full border-t border-gray-300" />
         </div>
@@ -67,7 +66,7 @@ export const Dashboard = () => {
           </span>
         </div>
       </div>
-      <Operations />
+      <Operations /> */}
     </div>
   );
 };

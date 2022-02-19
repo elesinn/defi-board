@@ -44,7 +44,12 @@ module.exports = {
         hero: '4.5rem',
       },
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: [
+          'Avenir Next',
+          'Arial',
+          'sans-serif',
+          ...defaultTheme.fontFamily.sans,
+        ],
       },
     },
   },
