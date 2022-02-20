@@ -1,4 +1,5 @@
 import { InvestmentsList } from 'features/investments';
+import InvestmentsAccordion from 'features/investments/ui/accordion';
 import { SiteLayout } from 'features/site-layout';
 
 const Index = () => (
@@ -9,6 +10,7 @@ const Index = () => (
     <span className="text-gray-500 text-m">
       (only active Farms is displayed)
     </span>
+    <InvestmentsAccordion />
     <InvestmentsList />
   </SiteLayout>
 );

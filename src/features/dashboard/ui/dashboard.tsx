@@ -13,14 +13,14 @@ export const Dashboard = () => {
     return null;
   }
   const stats = [
-    {
-      name: 'Balance',
-      stat: (Math.round(account?.balance / 10000) / 100).toString() + TZ,
-    },
-    {
-      name: 'Total Transactions',
-      stat: account?.numTransactions,
-    },
+    // {
+    //   name: 'Balance',
+    //   stat: (Math.round(account?.balance / 10000) / 100).toString() + TZ,
+    // },
+    // {
+    //   name: 'Total Transactions',
+    //   stat: account?.numTransactions,
+    // },
     {
       name: 'Active Tokens',
       stat: account?.activeTokensCount,
@@ -29,6 +29,15 @@ export const Dashboard = () => {
   return (
     <div>
       <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-3">
+        <div
+          key="Balance"
+          className="px-4 py-5 overflow-hidden bg-main rounded-lg shadow sm:p-6"
+        >
+          <dt className="text-sm font-medium text-white truncate">Balance</dt>
+          <dd className="mt-1 text-3xl font-semibold text-white">
+            {(Math.round(account?.balance / 10000) / 100).toString() + TZ}
+          </dd>
+        </div>
         {stats.map((item) => (
           <div
             key={item.name}
