@@ -1,25 +1,18 @@
-import { useState } from 'react';
-
 import { useAtom } from 'jotai';
 import { ImSpinner2 } from 'react-icons/im';
-import { useTimeout } from 'usehooks-ts';
 
+import { usePlentyInvestmentsInXTZ } from 'api/investments';
+import { addressSearchAtom } from 'features/site-layout';
 import { TZ } from 'shared/utils/tezos-sign';
 
-import { InvestmentsList } from '..';
-import { investmentBalancesAtom } from '../model';
+import { InvestmentTable } from './investments-table';
 
 const InvestmentsAccordion = () => {
-  const [isLoading, setLoading] = useState(true);
-  const [balances] = useAtom(investmentBalancesAtom);
-  const total = Object.values(balances.Plenty).reduce<number>(
-    (acc, item) => acc + item,
-    0,
-  );
-
-  const loaded = () => setLoading(false);
-  // TODO: create main isLoaded flag
-  useTimeout(loaded, 10 * 1000);
+  const [address] = useAtom(addressSearchAtom);
+  const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
+  const totalInvestments =
+    withXTZ?.reduce<number>((acc, item) => acc + (item?.XTZBalance || 0), 0) ||
+    0;
 
   return (
     <div className="accordion" id="accordionExample5">
@@ -48,11 +41,12 @@ const InvestmentsAccordion = () => {
             aria-controls="collapseOne5"
           >
             <div className="flex gap-4">
-              Plenty{' '}
-              <div>
-                {Math.round(total * 100) / 100} {TZ}
-              </div>
-              {isLoading && (
+              Plenty:{' '}
+              {withXTZ ? (
+                <div className="text-main">
+                  {totalInvestments.toFixed(3) + TZ}
+                </div>
+              ) : (
                 <div className="flex items-center">
                   <ImSpinner2 className="animate-spin" />
                 </div>
@@ -65,8 +59,8 @@ const InvestmentsAccordion = () => {
           className="accordion-collapse collapse show"
           aria-labelledby="headingOne5"
         >
-          <div className="accordion-body py-4 px-5">
-            <InvestmentsList />
+          <div className="accordion-body">
+            <InvestmentTable />
           </div>
         </div>
       </div>
@@ -103,7 +97,7 @@ const InvestmentsAccordion = () => {
           className="accordion-collapse collapse"
           aria-labelledby="headingTwo5"
         >
-          <div className="accordion-body py-4 px-5">data</div>
+          <div className="accordion-body">data</div>
         </div>
       </div>
     </div>

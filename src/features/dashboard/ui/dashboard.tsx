@@ -1,7 +1,10 @@
 import { useAtom } from 'jotai';
+import { ImSpinner2 } from 'react-icons/im';
 
 import { useAccount } from 'api/account';
+import { usePlentyInvestmentsInXTZ } from 'api/investments';
 import { addressSearchAtom } from 'features/site-layout';
+import { formatTezosBalance } from 'shared/utils/balance';
 import { TZ } from 'shared/utils/tezos-sign';
 
 import BalanceHistoryChart from './balance-history-chart';
@@ -9,23 +12,35 @@ import BalanceHistoryChart from './balance-history-chart';
 export const Dashboard = () => {
   const [address] = useAtom(addressSearchAtom);
   const { data: account } = useAccount(address);
+  const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
+  const totalInvestments =
+    withXTZ?.reduce<number>((acc, item) => acc + (item?.XTZBalance || 0), 0) ||
+    0;
+
   if (!account) {
     return null;
   }
-  const stats = [
-    // {
-    //   name: 'Balance',
-    //   stat: (Math.round(account?.balance / 10000) / 100).toString() + TZ,
-    // },
-    // {
-    //   name: 'Total Transactions',
-    //   stat: account?.numTransactions,
-    // },
-    {
-      name: 'Active Tokens',
-      stat: account?.activeTokensCount,
-    },
-  ];
+  const accountBalance = Math.round(account?.balance / 10000) / 100;
+
+  const totalBalance = totalInvestments + accountBalance;
+  // const stats = [
+  //   // {
+  //   //   name: 'Balance',
+  //   //   stat: (Math.round(account?.balance / 10000) / 100).toString() + TZ,
+  //   // },
+  //   {
+  //     name: 'Total Investments',
+  //     stat: withXTZ?.reduce<number>(
+  //       (acc, item) => acc + (item?.XTZBalance || 0),
+  //       0,
+  //     ),
+  //   },
+  //   {
+  //     name: 'Active Tokens',
+  //     stat: account?.activeTokensCount,
+  //   },
+  // ];
+
   return (
     <div>
       <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-3">
@@ -33,12 +48,37 @@ export const Dashboard = () => {
           key="Balance"
           className="px-4 py-5 overflow-hidden bg-main rounded-lg shadow sm:p-6"
         >
-          <dt className="text-sm font-medium text-white truncate">Balance</dt>
-          <dd className="mt-1 text-3xl font-semibold text-white">
-            {(Math.round(account?.balance / 10000) / 100).toString() + TZ}
+          <dt className="text-sm font-medium text-white truncate">Total</dt>
+          <dd className="mt-1 text-3xl font-semibold text-white truncate">
+            {totalBalance.toFixed(3)}
+            {TZ}
           </dd>
         </div>
-        {stats.map((item) => (
+        <div
+          key="Balance"
+          className="px-4 py-5 overflow-hidden bg-white  rounded-lg shadow sm:p-6"
+        >
+          <dt className="text-sm font-medium text-gray-500 ">
+            Total Investments
+          </dt>
+          <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
+            {withXTZ ? (
+              `${totalInvestments?.toFixed(3)}${TZ}`
+            ) : (
+              <ImSpinner2 className="animate-spin" />
+            )}
+          </dd>
+        </div>
+        <div
+          key="Balance"
+          className="px-4 py-5 overflow-hidden bg-white  rounded-lg shadow sm:p-6"
+        >
+          <dt className="text-sm font-medium text-gray-500">Tezos</dt>
+          <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
+            {formatTezosBalance(account?.balance)}
+          </dd>
+        </div>
+        {/* {stats.map((item) => (
           <div
             key={item.name}
             className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6"
@@ -50,7 +90,7 @@ export const Dashboard = () => {
               {item.stat}
             </dd>
           </div>
-        ))}
+        ))} */}
       </dl>
       <div className="relative py-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
