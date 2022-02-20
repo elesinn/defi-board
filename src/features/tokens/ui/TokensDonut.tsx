@@ -1,4 +1,4 @@
-import { Pie } from '@nivo/pie';
+import { ResponsivePie } from '@nivo/pie';
 import _ from 'lodash';
 
 import { TZ } from 'shared/utils/tezos-sign';
@@ -23,9 +23,7 @@ export const TokensDonut = ({ data }: { data: any }) => {
     otherData > 0 ? { id: 'Other Tokens', value: otherData } : undefined;
 
   return (
-    <Pie
-      width={500}
-      height={300}
+    <ResponsivePie
       data={
         otherDataToDisplay
           ? [...dataToDisplay, otherDataToDisplay]
@@ -35,6 +33,7 @@ export const TokensDonut = ({ data }: { data: any }) => {
       activeOuterRadiusOffset={8}
       innerRadius={0.6}
       padAngle={0.5}
+      margin={{ bottom: 10, left: 80, right: 80, top: 10 }}
       cornerRadius={5}
       arcLinkLabelsColor={{
         from: 'color',

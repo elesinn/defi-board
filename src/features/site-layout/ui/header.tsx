@@ -2,7 +2,7 @@ import { Fragment, ReactElement } from 'react';
 import { useEffect } from 'react';
 
 import { Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuAlt2Icon } from '@heroicons/react/outline';
+import { MenuAlt2Icon } from '@heroicons/react/outline';
 import { SearchIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { atom, useAtom } from 'jotai';
@@ -76,14 +76,6 @@ export function Header({
           </form>
         </div>
         <div className="flex items-center ml-4 md:ml-6">
-          <button
-            type="button"
-            className="p-1 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            <span className="sr-only">View notifications</span>
-            <BellIcon className="w-6 h-6" aria-hidden="true" />
-          </button>
-
           {/* Profile dropdown */}
           <Menu as="div" className="relative ml-3">
             <div>

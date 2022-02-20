@@ -32,7 +32,6 @@ export const TokensList = () => {
   const [userAddress] = useAtom(addressSearchAtom);
   const { data: tokensBalances } = useTokensBalances({ userAddress });
   const { data: tokensInfo } = useTokensInfo();
-  console.log(tokensBalances);
   const tableData = React.useMemo(() => {
     return tokensBalances
       ?.filter((item) => !item.artifact_uri)
@@ -114,7 +113,11 @@ export const TokensList = () => {
 
   return (
     <>
-      {tableData && <TokensDonut data={tableData} />}
+      {tableData && (
+        <div className=" w-full min-h-[300px] ratio">
+          <TokensDonut data={tableData} />
+        </div>
+      )}
 
       <div className="relative py-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
