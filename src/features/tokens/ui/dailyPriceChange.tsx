@@ -5,18 +5,18 @@ import { useTokenAggregateDaily } from 'api/tezPrices';
 import { Contract } from 'api/tezPrices/types';
 
 export const DailyPriceChange = ({ token }: { token?: Contract }) => {
-  const { tokensDailyStats } = useTokenAggregateDaily(token);
-  if (!tokensDailyStats?.difference || !(tokensDailyStats?.difference > 0))
+  const { tokenDailyStat } = useTokenAggregateDaily(token);
+  if (!tokenDailyStat?.difference || !(tokenDailyStat?.difference > 0))
     return null;
 
   return (
     <div
       className={classNames(
-        tokensDailyStats.priceIncreace ? 'text-green-600' : 'text-red-600',
+        tokenDailyStat.priceIncreace ? 'text-green-600' : 'text-red-600',
         'ml-2 flex items-baseline text-sm font-semibold',
       )}
     >
-      {tokensDailyStats.priceIncreace ? (
+      {tokenDailyStat.priceIncreace ? (
         <ArrowSmUpIcon
           className="self-center flex-shrink-0 w-5 h-5 text-green-500"
           aria-hidden="true"
@@ -28,10 +28,10 @@ export const DailyPriceChange = ({ token }: { token?: Contract }) => {
         />
       )}
       <span className="sr-only">
-        {tokensDailyStats.priceIncreace ? 'Increased' : 'Decreased'} by
+        {tokenDailyStat.priceIncreace ? 'Increased' : 'Decreased'} by
       </span>
-      {tokensDailyStats.difference > 0
-        ? tokensDailyStats.difference?.toFixed(2)
+      {tokenDailyStat.difference > 0
+        ? tokenDailyStat.difference?.toFixed(2)
         : 0}
       %
     </div>

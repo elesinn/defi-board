@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import useSWR from 'swr';
 
 import { tzToolsApi } from '../index';
@@ -38,7 +40,7 @@ export const useTokenAggregateDaily = (token?: Contract) => {
     (resource) => tzToolsApi.get(resource).json(),
   );
 
-  const tokensDaily =
+  const tokenDailyStat =
     data && token
       ? {
           priceIncreace:
@@ -54,7 +56,38 @@ export const useTokenAggregateDaily = (token?: Contract) => {
           })(),
         }
       : {};
+
+  const chartData =
+    data && token
+      ? [...data.slice(-30)].map((stat) => ({
+          timestamp: stat.periodOpen,
+          price: +stat.t1priceOpen,
+        }))
+      : [];
+
+  const tokensWeeklyStat = useMemo(() => {
+    if (!data || !token) return;
+
+    const firstDayData = data[data.length - 8];
+    if (!firstDayData) {
+      return undefined;
+    }
+
+    return {
+      increase: firstDayData.t1priceMa < token.currentPrice,
+      difference: (() => {
+        const priceBefore = firstDayData.t1priceMa;
+        const currentPrice = token.currentPrice;
+        const difference =
+          (priceBefore - currentPrice) / ((priceBefore + currentPrice) / 2);
+        return Math.abs(difference * 100);
+      })(),
+    };
+  }, [data, token]);
+
   return {
-    tokensDailyStats: tokensDaily,
+    tokenDailyStat,
+    chartData,
+    tokensWeeklyStat,
   };
 };

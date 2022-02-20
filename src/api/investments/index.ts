@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import { investmentData } from './investmentsData';
+import { InvestmentKey, PlentyFarms } from './plenty/config';
 import { IInvestment } from './types';
 
 export const useInvestment = ({
@@ -8,10 +8,12 @@ export const useInvestment = ({
   investmentKey,
 }: {
   userAddress: string;
-  investmentKey: keyof typeof investmentData;
+  investmentKey: InvestmentKey;
 }) => {
-  const inv = investmentData[investmentKey];
+  const inv = PlentyFarms[investmentKey];
   return useSWR<IInvestment>(
-    `contracts/${inv.address}/bigmaps/balances/keys/${userAddress}`,
+    inv
+      ? `contracts/${inv.CONTRACT}/bigmaps/balances/keys/${userAddress}`
+      : null,
   );
 };
