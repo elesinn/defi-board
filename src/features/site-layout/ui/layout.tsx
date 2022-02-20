@@ -2,9 +2,10 @@ import { PropsWithChildren, ReactElement } from 'react';
 import { Fragment, useState } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { HomeIcon, UsersIcon, XIcon } from '@heroicons/react/outline';
+import { HomeIcon, XIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
+import { GiTwoCoins, GiMoneyStack } from 'react-icons/gi';
 
 import { Header } from './header';
 
@@ -13,7 +14,12 @@ const navigation = [
   {
     name: 'Investments',
     href: '/investments',
-    icon: UsersIcon,
+    icon: GiMoneyStack,
+  },
+  {
+    name: 'Tokens',
+    href: '/tokens',
+    icon: GiTwoCoins,
   },
 ];
 

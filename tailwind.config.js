@@ -1,7 +1,10 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/tw-elements/dist/js/**/*.js',
+  ],
   theme: {
     fontSize: {
       xs: '0.75rem',
@@ -39,15 +42,21 @@ module.exports = {
           800: '#2d3748',
           900: '#1a202c',
         },
+        main: '#f3722c',
       },
       lineHeight: {
         hero: '4.5rem',
       },
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: [
+          'Avenir Next',
+          'Arial',
+          'sans-serif',
+          ...defaultTheme.fontFamily.sans,
+        ],
       },
     },
   },
   variants: {},
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms'), require('tw-elements/dist/plugin')],
 };

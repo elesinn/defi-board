@@ -6,16 +6,26 @@ import { AppConfig } from '../utils/AppConfig';
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang={AppConfig.locale} className="h-full">
+      <Html lang={AppConfig.locale} className="h-full dark">
         <Head>
+          <title>{AppConfig.title}</title>
+          <meta name="description" content={AppConfig.description} />
           <link
             href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
             rel="stylesheet"
           />
+          <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css"
+          />
         </Head>
         <body className="h-full">
           <Main />
+
           <NextScript />
+          {/* Resolving problem with tw-elements import */}
+          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+          <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
         </body>
       </Html>
     );
