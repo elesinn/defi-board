@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
-import { useAtom } from 'jotai';
+import { atom, useAtom } from 'jotai';
 import Image from 'next/image';
 
 import { useInvestment } from 'api/investments';
@@ -10,15 +10,39 @@ import { tezosTkAtom } from 'features/beacon/useTezos';
 import { addressSearchAtom } from 'features/site-layout';
 import { TZ } from 'shared/utils/tezos-sign';
 
+import { investmentBalancesAtom } from '../model';
+
 type Props = {
   investmentKey: InvestmentKey;
 };
 
+const createBalanceAtom = (id: string) => {
+  const bAtom = atom<number | undefined, number>(
+    undefined,
+    (get, set, value: number) => {
+      set(bAtom, value);
+      const balances = get(investmentBalancesAtom);
+      set(investmentBalancesAtom, {
+        Plenty: {
+          ...balances.Plenty,
+          [id]: value,
+        },
+      });
+    },
+  );
+  return bAtom;
+};
+
 export const InvestmentItem = ({ investmentKey }: Props) => {
+  const balanceAtom = useMemo(
+    () => createBalanceAtom(investmentKey),
+    [investmentKey],
+  );
   const investment = PlentyFarms[investmentKey];
   const [tezosTk] = useAtom(tezosTkAtom);
   const [userAddress] = useAtom(addressSearchAtom);
-  const [balanceInXtz, setBalanceInXtz] = useState<number>();
+
+  const [balanceInXtz, setBalanceInXtz] = useAtom(balanceAtom);
   const { data } = useInvestment({
     investmentKey,
     userAddress,
@@ -72,7 +96,7 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
       tokenFirst_Out * pair[0].currentPrice +
       tokenSecond_Out * pair[1].currentPrice;
 
-    setBalanceInXtz(Number(stakeInXtz.toFixed(10)));
+    setBalanceInXtz(Number(stakeInXtz.toFixed(4)));
   }, [balance, data, investment, tezosTk.wallet, tokensInfo]);
 
   useEffect(() => {
@@ -123,16 +147,18 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
               {balance || 'Unknown'} LPT
             </span>
           </div>
-          <div className="flex items-center space-x-3">
-            <span className="mt-1 text-sm text-gray-500 truncate">
-              Stake in XTZ:
-            </span>
-            <span className="mt-1 text-sm text-gray-500 truncate">
-              {balanceInXtz}
+          {balanceInXtz && (
+            <div className="flex items-center space-x-3">
+              <span className="mt-1 text-sm text-gray-500 truncate">
+                Stake in XTZ:
+              </span>
+              <span className="mt-1 text-sm text-gray-500 truncate">
+                {balanceInXtz}
 
-              {TZ}
-            </span>
-          </div>
+                {TZ}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </li>

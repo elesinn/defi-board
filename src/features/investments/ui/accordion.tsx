@@ -1,4 +1,26 @@
+import { useState } from 'react';
+
+import { useAtom } from 'jotai';
+import { ImSpinner2 } from 'react-icons/im';
+import { useTimeout } from 'usehooks-ts';
+
+import { TZ } from 'shared/utils/tezos-sign';
+
+import { InvestmentsList } from '..';
+import { investmentBalancesAtom } from '../model';
+
 const InvestmentsAccordion = () => {
+  const [isLoading, setLoading] = useState(true);
+  const [balances] = useAtom(investmentBalancesAtom);
+  const total = Object.values(balances.Plenty).reduce<number>(
+    (acc, item) => acc + item,
+    0,
+  );
+
+  const loaded = () => setLoading(false);
+  // TODO: create main isLoaded flag
+  useTimeout(loaded, 10 * 1000);
+
   return (
     <div className="accordion" id="accordionExample5">
       <div className="accordion-item bg-white border border-gray-200">
@@ -25,7 +47,17 @@ const InvestmentsAccordion = () => {
             aria-expanded="true"
             aria-controls="collapseOne5"
           >
-            Planty
+            <div className="flex gap-4">
+              Plenty{' '}
+              <div>
+                {Math.round(total * 100) / 100} {TZ}
+              </div>
+              {isLoading && (
+                <div className="flex items-center">
+                  <ImSpinner2 className="animate-spin" />
+                </div>
+              )}
+            </div>
           </button>
         </h2>
         <div
@@ -33,7 +65,9 @@ const InvestmentsAccordion = () => {
           className="accordion-collapse collapse show"
           aria-labelledby="headingOne5"
         >
-          <div className="accordion-body py-4 px-5">data</div>
+          <div className="accordion-body py-4 px-5">
+            <InvestmentsList />
+          </div>
         </div>
       </div>
       <div className="accordion-item bg-white border border-gray-200">

@@ -42,7 +42,7 @@ module.exports = {
           800: '#2d3748',
           900: '#1a202c',
         },
-        main: '#f3722c',
+        main: '#bf94ff',
       },
       lineHeight: {
         hero: '4.5rem',

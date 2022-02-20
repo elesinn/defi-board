@@ -46,7 +46,7 @@ const BalanceHistoryChart = () => {
           dataKey="value"
           animationDuration={3000}
           strokeWidth={2}
-          stroke={'#f3722c'}
+          stroke={'#bf94ff'}
           fillOpacity={0}
         />
       </AreaChart>

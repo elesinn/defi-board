@@ -39,7 +39,8 @@
     "recharts": "^2.1.9",
     "styled-jsx-plugin-postcss": "^4.0.1",
     "swr": "^1.2.1",
-    "tw-elements": "^1.0.0-alpha11"
+    "tw-elements": "^1.0.0-alpha11",
+    "usehooks-ts": "^2.4.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.1.0",
