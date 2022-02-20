@@ -5,6 +5,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { HomeIcon, XIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
+import { AiOutlinePicture } from 'react-icons/ai';
 import { GiTwoCoins, GiMoneyStack } from 'react-icons/gi';
 
 import { Header } from './header';
@@ -20,6 +21,11 @@ const navigation = [
     name: 'Tokens',
     href: '/tokens',
     icon: GiTwoCoins,
+  },
+  {
+    name: 'NFT',
+    href: '/nft',
+    icon: AiOutlinePicture,
   },
 ];
 

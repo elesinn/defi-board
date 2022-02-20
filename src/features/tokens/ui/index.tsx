@@ -32,39 +32,41 @@ export const TokensList = () => {
   const [userAddress] = useAtom(addressSearchAtom);
   const { data: tokensBalances } = useTokensBalances({ userAddress });
   const { data: tokensInfo } = useTokensInfo();
-
+  console.log(tokensBalances);
   const tableData = React.useMemo(() => {
-    return tokensBalances?.map((token) => ({
-      imgUrl:
-        token.artifact_uri?.replace(
-          'ipfs://',
-          'https://api.dipdup.net/thumbnail/',
-        ) ||
-        token.thumbnail_uri?.replace(
-          'ipfs://',
-          'https://api.dipdup.net/thumbnail/',
-        ) ||
-        `https://services.tzkt.io/v1/avatars/${token.contract.address}` ||
-        undefined,
-      symbol: token.symbol,
-      name: token.name || token.contract.alias,
-      // alias: token.contract.alias,
-      balance: Number(
-        Number(token.balance) / 10 ** Number(token.decimals),
-      ).toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-      }),
-      balanceinTzx:
-        tokensInfo &&
-        Number(
-          (Number(token.balance) / 10 ** Number(token.decimals)) *
-            (tokensInfo[token.symbol || '']?.currentPrice || 0),
+    return tokensBalances
+      ?.filter((item) => !item.artifact_uri)
+      .map((token) => ({
+        imgUrl:
+          // token.artifact_uri?.replace(
+          //   'ipfs://',
+          //   'https://api.dipdup.net/thumbnail/',
+          // ) ||
+          token.thumbnail_uri?.replace(
+            'ipfs://',
+            'https://api.dipdup.net/thumbnail/',
+          ) ||
+          `https://services.tzkt.io/v1/avatars/${token.contract.address}` ||
+          undefined,
+        symbol: token.symbol,
+        name: token.name || token.contract.alias,
+        // alias: token.contract.alias,
+        balance: Number(
+          Number(token.balance) / 10 ** Number(token.decimals),
         ).toLocaleString(undefined, {
           minimumFractionDigits: 2,
         }),
-      tzText: 'ꜩ',
-      week: 'fake',
-    }));
+        balanceinTzx:
+          tokensInfo &&
+          Number(
+            (Number(token.balance) / 10 ** Number(token.decimals)) *
+              (tokensInfo[token.symbol || '']?.currentPrice || 0),
+          ).toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+          }),
+        tzText: 'ꜩ',
+        week: 'fake',
+      }));
   }, [tokensBalances, tokensInfo]);
 
   const columns = React.useMemo(

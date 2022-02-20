@@ -49,8 +49,8 @@ export const usePlentyInvestmentsInXTZ = (userAddress: string) => {
   const { data: tokensInfo } = useTokensInfo();
   return useSWR(
     data && tokensInfo ? 'usePlentyInvestmentsInXTZ/' + userAddress : null,
-    () =>
-      Promise.all(
+    async () => {
+      const res = await Promise.all(
         data?.map(async (item) => {
           const balance = item.tokenBalance;
           const investment = PlentyFarms[item.investmentId];
@@ -69,7 +69,7 @@ export const usePlentyInvestmentsInXTZ = (userAddress: string) => {
           const pair = investment.ID.split(' - ').map(
             (p) => tokensInfo?.[String(p)],
           );
-          if (!pair[0] || !pair[1]) return;
+          if (!pair[0] || !pair[1]) return { ...item, XTZBalance: undefined };
 
           const tokenIn_Decimal = pair[0].decimals || 0;
           const tokenOut_Decimal = pair[1].decimals || 0;
@@ -80,7 +80,6 @@ export const usePlentyInvestmentsInXTZ = (userAddress: string) => {
           lpTokenSupply = lpTokenSupply / Math.pow(10, liquidityToken_Decimal);
           // const exchangeFee = 1 / lpFee + 1 / systemFee;
           // const tokenOutPerTokenIn = tokenOut_supply / tokenIn_supply;
-
           let tokenFirst_Out = (balance * tokenIn_supply) / lpTokenSupply;
           let tokenSecond_Out = (balance * tokenOut_supply) / lpTokenSupply;
 
@@ -93,6 +92,8 @@ export const usePlentyInvestmentsInXTZ = (userAddress: string) => {
           return { ...item, XTZBalance: Number(stakeInXtz.toFixed(4)) };
           // setBalanceInXtz(Number(stakeInXtz.toFixed(4)));
         }) || [],
-      ),
+      );
+      return res.filter(Boolean);
+    },
   );
 };

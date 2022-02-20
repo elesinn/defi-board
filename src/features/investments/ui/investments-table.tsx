@@ -1,12 +1,16 @@
 import { useAtom } from 'jotai';
 import Image from 'next/image';
 
-import { usePlentyInvestmentsInXTZ } from 'api/investments';
+import {
+  usePlentyInvestments,
+  usePlentyInvestmentsInXTZ,
+} from 'api/investments';
 import { addressSearchAtom } from 'features/site-layout';
 import { TZ } from 'shared/utils/tezos-sign';
 
 export const InvestmentTable = () => {
   const [address] = useAtom(addressSearchAtom);
+  const { data: investments } = usePlentyInvestments(address);
   const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
   return (
     <div className="flex flex-col">
@@ -44,7 +48,7 @@ export const InvestmentTable = () => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {withXTZ?.map((farm) => (
+                {(withXTZ || investments)?.map((farm) => (
                   <tr key={farm?.id}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       <div className="flex ">
@@ -79,7 +83,7 @@ export const InvestmentTable = () => {
                       {farm?.tokenBalance} LP
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {farm?.XTZBalance} {TZ}
+                      {(farm as any)?.XTZBalance} {TZ}
                     </td>
                   </tr>
                 ))}
