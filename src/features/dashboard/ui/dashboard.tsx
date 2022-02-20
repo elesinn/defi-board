@@ -4,7 +4,7 @@ import { useAccount } from 'api/account';
 import { addressSearchAtom } from 'features/site-layout';
 import { TZ } from 'shared/utils/tezos-sign';
 
-import { HistoryChart } from './history-chart';
+import BalanceHistoryChart from './balance-history-chart';
 
 export const Dashboard = () => {
   const [address] = useAtom(addressSearchAtom);
@@ -53,8 +53,9 @@ export const Dashboard = () => {
           </span>
         </div>
       </div>
-      <div className="h-80">
-        <HistoryChart />
+      <div className="h-40">
+        <BalanceHistoryChart />
+        {/* <HistoryChart /> */}
       </div>
       {/* <div className="relative py-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
