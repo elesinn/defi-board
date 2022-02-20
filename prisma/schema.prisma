@@ -1,0 +1,981 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Accounts {
+  Id                                                         Int                    @id(map: "PK_Accounts") @unique(map: "IX_Accounts_Id") @default(autoincrement())
+  Address                                                    String                 @unique(map: "IX_Accounts_Address") @db.Char(36)
+  Type                                                       Int                    @db.SmallInt
+  FirstLevel                                                 Int
+  LastLevel                                                  Int
+  Balance                                                    BigInt
+  Counter                                                    Int
+  ContractsCount                                             Int
+  ActiveTokensCount                                          Int
+  TokenBalancesCount                                         Int
+  TokenTransfersCount                                        Int
+  DelegationsCount                                           Int
+  OriginationsCount                                          Int
+  TransactionsCount                                          Int
+  RevealsCount                                               Int
+  MigrationsCount                                            Int
+  DelegateId                                                 Int?
+  DelegationLevel                                            Int?
+  Staked                                                     Boolean
+  Metadata                                                   Json?
+  Kind                                                       Int?                   @db.SmallInt
+  TypeHash                                                   Int?
+  CodeHash                                                   Int?
+  Tags                                                       Int?
+  TokensCount                                                Int?
+  Spendable                                                  Boolean?
+  CreatorId                                                  Int?
+  ManagerId                                                  Int?
+  WeirdDelegateId                                            Int?
+  Activated                                                  Boolean?
+  PublicKey                                                  String?                @db.VarChar(55)
+  Revealed                                                   Boolean?
+  RegisterConstantsCount                                     Int?
+  ActivationLevel                                            Int?
+  DeactivationLevel                                          Int?
+  FrozenDeposits                                             BigInt?
+  FrozenRewards                                              BigInt?
+  FrozenFees                                                 BigInt?
+  DelegatorsCount                                            Int?
+  StakingBalance                                             BigInt?
+  BlocksCount                                                Int?
+  EndorsementsCount                                          Int?
+  BallotsCount                                               Int?
+  ProposalsCount                                             Int?
+  DoubleBakingCount                                          Int?
+  DoubleEndorsingCount                                       Int?
+  NonceRevelationsCount                                      Int?
+  RevelationPenaltiesCount                                   Int?
+  SoftwareId                                                 Int?
+  Accounts_AccountsToAccounts_CreatorId                      Accounts?              @relation("AccountsToAccounts_CreatorId", fields: [CreatorId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_Accounts_Accounts_CreatorId")
+  Accounts_AccountsToAccounts_DelegateId                     Accounts?              @relation("AccountsToAccounts_DelegateId", fields: [DelegateId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_Accounts_Accounts_DelegateId")
+  Blocks_Accounts_FirstLevelToBlocks                         Blocks                 @relation("Accounts_FirstLevelToBlocks", fields: [FirstLevel], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_Accounts_Blocks_FirstLevel")
+  Accounts_AccountsToAccounts_ManagerId                      Accounts?              @relation("AccountsToAccounts_ManagerId", fields: [ManagerId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_Accounts_Accounts_ManagerId")
+  Software                                                   Software?              @relation(fields: [SoftwareId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_Accounts_Software_SoftwareId")
+  Accounts_AccountsToAccounts_WeirdDelegateId                Accounts?              @relation("AccountsToAccounts_WeirdDelegateId", fields: [WeirdDelegateId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_Accounts_Accounts_WeirdDelegateId")
+  other_Accounts_AccountsToAccounts_CreatorId                Accounts[]             @relation("AccountsToAccounts_CreatorId")
+  other_Accounts_AccountsToAccounts_DelegateId               Accounts[]             @relation("AccountsToAccounts_DelegateId")
+  other_Accounts_AccountsToAccounts_ManagerId                Accounts[]             @relation("AccountsToAccounts_ManagerId")
+  other_Accounts_AccountsToAccounts_WeirdDelegateId          Accounts[]             @relation("AccountsToAccounts_WeirdDelegateId")
+  ActivationOps                                              ActivationOps?
+  BallotOps                                                  BallotOps[]
+  Blocks_AccountsToBlocks_BakerId                            Blocks[]               @relation("AccountsToBlocks_BakerId")
+  DelegationOps_AccountsToDelegationOps_DelegateId           DelegationOps[]        @relation("AccountsToDelegationOps_DelegateId")
+  DelegationOps_AccountsToDelegationOps_InitiatorId          DelegationOps[]        @relation("AccountsToDelegationOps_InitiatorId")
+  DelegationOps_AccountsToDelegationOps_PrevDelegateId       DelegationOps[]        @relation("AccountsToDelegationOps_PrevDelegateId")
+  DelegationOps_AccountsToDelegationOps_SenderId             DelegationOps[]        @relation("AccountsToDelegationOps_SenderId")
+  DoubleBakingOps_AccountsToDoubleBakingOps_AccuserId        DoubleBakingOps[]      @relation("AccountsToDoubleBakingOps_AccuserId")
+  DoubleBakingOps_AccountsToDoubleBakingOps_OffenderId       DoubleBakingOps[]      @relation("AccountsToDoubleBakingOps_OffenderId")
+  DoubleEndorsingOps_AccountsToDoubleEndorsingOps_AccuserId  DoubleEndorsingOps[]   @relation("AccountsToDoubleEndorsingOps_AccuserId")
+  DoubleEndorsingOps_AccountsToDoubleEndorsingOps_OffenderId DoubleEndorsingOps[]   @relation("AccountsToDoubleEndorsingOps_OffenderId")
+  EndorsementOps                                             EndorsementOps[]
+  MigrationOps                                               MigrationOps[]
+  NonceRevelationOps_AccountsToNonceRevelationOps_BakerId    NonceRevelationOps[]   @relation("AccountsToNonceRevelationOps_BakerId")
+  NonceRevelationOps_AccountsToNonceRevelationOps_SenderId   NonceRevelationOps[]   @relation("AccountsToNonceRevelationOps_SenderId")
+  OriginationOps_AccountsToOriginationOps_ContractId         OriginationOps[]       @relation("AccountsToOriginationOps_ContractId")
+  OriginationOps_AccountsToOriginationOps_DelegateId         OriginationOps[]       @relation("AccountsToOriginationOps_DelegateId")
+  OriginationOps_AccountsToOriginationOps_InitiatorId        OriginationOps[]       @relation("AccountsToOriginationOps_InitiatorId")
+  OriginationOps_AccountsToOriginationOps_ManagerId          OriginationOps[]       @relation("AccountsToOriginationOps_ManagerId")
+  OriginationOps_AccountsToOriginationOps_SenderId           OriginationOps[]       @relation("AccountsToOriginationOps_SenderId")
+  ProposalOps                                                ProposalOps[]
+  RegisterConstantOps                                        RegisterConstantOps[]
+  RevealOps                                                  RevealOps[]
+  RevelationPenaltyOps                                       RevelationPenaltyOps[]
+  TransactionOps_AccountsToTransactionOps_InitiatorId        TransactionOps[]       @relation("AccountsToTransactionOps_InitiatorId")
+  TransactionOps_AccountsToTransactionOps_SenderId           TransactionOps[]       @relation("AccountsToTransactionOps_SenderId")
+  TransactionOps_AccountsToTransactionOps_TargetId           TransactionOps[]       @relation("AccountsToTransactionOps_TargetId")
+
+  @@index([CodeHash], map: "IX_Accounts_CodeHash")
+  @@index([CreatorId], map: "IX_Accounts_CreatorId")
+  @@index([DelegateId], map: "IX_Accounts_DelegateId")
+  @@index([FirstLevel], map: "IX_Accounts_FirstLevel")
+  @@index([ManagerId], map: "IX_Accounts_ManagerId")
+  @@index([Metadata], map: "IX_Accounts_Metadata")
+  @@index([SoftwareId], map: "IX_Accounts_SoftwareId")
+  @@index([Staked], map: "IX_Accounts_Staked")
+  @@index([Type], map: "IX_Accounts_Type")
+  @@index([TypeHash], map: "IX_Accounts_TypeHash")
+  @@index([WeirdDelegateId], map: "IX_Accounts_WeirdDelegateId")
+}
+
+model ActivationOps {
+  Id        Int      @id(map: "PK_ActivationOps") @default(autoincrement())
+  AccountId Int      @unique(map: "IX_ActivationOps_AccountId")
+  Balance   BigInt
+  Level     Int
+  Timestamp DateTime @db.Timestamp(6)
+  OpHash    String   @db.Char(51)
+  Accounts  Accounts @relation(fields: [AccountId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_ActivationOps_Accounts_AccountId")
+  Blocks    Blocks   @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_ActivationOps_Blocks_Level")
+
+  @@index([Level], map: "IX_ActivationOps_Level")
+  @@index([OpHash], map: "IX_ActivationOps_OpHash")
+}
+
+model AppState {
+  Id                        Int      @id(map: "PK_AppState") @default(autoincrement())
+  Chain                     String?
+  ChainId                   String?
+  KnownHead                 Int
+  LastSync                  DateTime @db.Timestamp(6)
+  Cycle                     Int
+  Level                     Int
+  Timestamp                 DateTime @db.Timestamp(6)
+  Protocol                  String?
+  NextProtocol              String?
+  Hash                      String?
+  VotingEpoch               Int
+  VotingPeriod              Int
+  AccountCounter            Int
+  OperationCounter          Int
+  ManagerCounter            Int
+  BigMapCounter             Int
+  BigMapKeyCounter          Int
+  BigMapUpdateCounter       Int
+  StorageCounter            Int
+  ScriptCounter             Int
+  TokenCounter              Int
+  TokenBalanceCounter       Int
+  CommitmentsCount          Int
+  AccountsCount             Int
+  BlocksCount               Int
+  ProtocolsCount            Int
+  ActivationOpsCount        Int
+  BallotOpsCount            Int
+  DelegationOpsCount        Int
+  DoubleBakingOpsCount      Int
+  DoubleEndorsingOpsCount   Int
+  EndorsementOpsCount       Int
+  NonceRevelationOpsCount   Int
+  OriginationOpsCount       Int
+  ProposalOpsCount          Int
+  RevealOpsCount            Int
+  TransactionOpsCount       Int
+  RegisterConstantOpsCount  Int
+  MigrationOpsCount         Int
+  RevelationPenaltyOpsCount Int
+  ProposalsCount            Int
+  CyclesCount               Int
+  ConstantsCount            Int
+  TokensCount               Int
+  TokenBalancesCount        Int
+  TokenTransfersCount       Int
+  QuoteLevel                Int
+  QuoteBtc                  Float
+  QuoteEur                  Float
+  QuoteUsd                  Float
+  QuoteCny                  Float
+  QuoteJpy                  Float
+  QuoteKrw                  Float
+  QuoteEth                  Float
+  QuoteGbp                  Float
+  Metadata                  Json?
+}
+
+model BakerCycles {
+  Id                          Int    @id(map: "PK_BakerCycles") @unique(map: "IX_BakerCycles_Id") @default(autoincrement())
+  Cycle                       Int
+  BakerId                     Int
+  Rolls                       Int
+  StakingBalance              BigInt
+  DelegatedBalance            BigInt
+  DelegatorsCount             Int
+  FutureBlocks                Int
+  OwnBlocks                   Int
+  ExtraBlocks                 Int
+  MissedOwnBlocks             Int
+  MissedExtraBlocks           Int
+  UncoveredOwnBlocks          Int
+  UncoveredExtraBlocks        Int
+  FutureEndorsements          Int
+  Endorsements                Int
+  MissedEndorsements          Int
+  UncoveredEndorsements       Int
+  FutureBlockRewards          BigInt
+  OwnBlockRewards             BigInt
+  ExtraBlockRewards           BigInt
+  MissedOwnBlockRewards       BigInt
+  MissedExtraBlockRewards     BigInt
+  UncoveredOwnBlockRewards    BigInt
+  UncoveredExtraBlockRewards  BigInt
+  FutureEndorsementRewards    BigInt
+  EndorsementRewards          BigInt
+  MissedEndorsementRewards    BigInt
+  UncoveredEndorsementRewards BigInt
+  OwnBlockFees                BigInt
+  ExtraBlockFees              BigInt
+  MissedOwnBlockFees          BigInt
+  MissedExtraBlockFees        BigInt
+  UncoveredOwnBlockFees       BigInt
+  UncoveredExtraBlockFees     BigInt
+  DoubleBakingRewards         BigInt
+  DoubleBakingLostDeposits    BigInt
+  DoubleBakingLostRewards     BigInt
+  DoubleBakingLostFees        BigInt
+  DoubleEndorsingRewards      BigInt
+  DoubleEndorsingLostDeposits BigInt
+  DoubleEndorsingLostRewards  BigInt
+  DoubleEndorsingLostFees     BigInt
+  RevelationRewards           BigInt
+  RevelationLostRewards       BigInt
+  RevelationLostFees          BigInt
+  FutureBlockDeposits         BigInt
+  BlockDeposits               BigInt
+  FutureEndorsementDeposits   BigInt
+  EndorsementDeposits         BigInt
+  ExpectedBlocks              Float
+  ExpectedEndorsements        Float
+
+  @@unique([Cycle, BakerId], map: "IX_BakerCycles_Cycle_BakerId")
+  @@index([BakerId], map: "IX_BakerCycles_BakerId")
+  @@index([Cycle], map: "IX_BakerCycles_Cycle")
+}
+
+model BakingRights {
+  Id       Int  @id(map: "PK_BakingRights") @default(autoincrement())
+  Cycle    Int
+  Level    Int
+  BakerId  Int
+  Type     Int  @db.SmallInt
+  Status   Int  @db.SmallInt
+  Priority Int?
+  Slots    Int?
+
+  @@index([Cycle], map: "IX_BakingRights_Cycle")
+  @@index([Cycle, BakerId], map: "IX_BakingRights_Cycle_BakerId")
+  @@index([Level], map: "IX_BakingRights_Level")
+}
+
+model BallotOps {
+  Id         Int       @id(map: "PK_BallotOps") @default(autoincrement())
+  Epoch      Int
+  Period     Int
+  ProposalId Int
+  SenderId   Int
+  Rolls      Int
+  Vote       Int
+  Level      Int
+  Timestamp  DateTime  @db.Timestamp(6)
+  OpHash     String    @db.Char(51)
+  Blocks     Blocks    @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_BallotOps_Blocks_Level")
+  Proposals  Proposals @relation(fields: [ProposalId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_BallotOps_Proposals_ProposalId")
+  Accounts   Accounts  @relation(fields: [SenderId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_BallotOps_Accounts_SenderId")
+
+  @@index([Epoch], map: "IX_BallotOps_Epoch")
+  @@index([Level], map: "IX_BallotOps_Level")
+  @@index([OpHash], map: "IX_BallotOps_OpHash")
+  @@index([Period], map: "IX_BallotOps_Period")
+  @@index([ProposalId], map: "IX_BallotOps_ProposalId")
+  @@index([SenderId], map: "IX_BallotOps_SenderId")
+}
+
+model BigMapKeys {
+  Id         Int     @id(map: "PK_BigMapKeys") @unique(map: "IX_BigMapKeys_Id") @default(autoincrement())
+  BigMapPtr  Int
+  FirstLevel Int
+  LastLevel  Int
+  Updates    Int
+  Active     Boolean
+  KeyHash    String? @db.VarChar(54)
+  RawKey     Bytes?
+  JsonKey    Json?
+  RawValue   Bytes?
+  JsonValue  Json?
+
+  @@index([BigMapPtr], map: "IX_BigMapKeys_BigMapPtr")
+  @@index([BigMapPtr, KeyHash], map: "IX_BigMapKeys_BigMapPtr_KeyHash")
+  @@index([JsonKey], map: "IX_BigMapKeys_JsonKey")
+  @@index([JsonValue], map: "IX_BigMapKeys_JsonValue")
+  @@index([LastLevel], map: "IX_BigMapKeys_LastLevel")
+}
+
+model BigMapUpdates {
+  Id            Int    @id(map: "PK_BigMapUpdates") @unique(map: "IX_BigMapUpdates_Id") @default(autoincrement())
+  BigMapPtr     Int
+  Action        Int
+  Level         Int
+  OriginationId Int?
+  TransactionId Int?
+  MigrationId   Int?
+  BigMapKeyId   Int?
+  RawValue      Bytes?
+  JsonValue     Json?
+
+  @@index([BigMapPtr], map: "IX_BigMapUpdates_BigMapPtr")
+  @@index([Level], map: "IX_BigMapUpdates_Level")
+}
+
+model BigMaps {
+  Id          Int     @id(map: "PK_BigMaps") @unique(map: "IX_BigMaps_Id") @default(autoincrement())
+  Ptr         Int     @unique(map: "AK_BigMaps_Ptr")
+  ContractId  Int
+  StoragePath String?
+  Active      Boolean
+  KeyType     Bytes?
+  ValueType   Bytes?
+  FirstLevel  Int
+  LastLevel   Int
+  TotalKeys   Int
+  ActiveKeys  Int
+  Updates     Int
+  Tags        Int
+
+  @@index([ContractId], map: "IX_BigMaps_ContractId")
+}
+
+model Blocks {
+  Id                                                         Int                    @id(map: "PK_Blocks") @default(autoincrement())
+  Cycle                                                      Int
+  Level                                                      Int                    @unique(map: "AK_Blocks_Level")
+  Hash                                                       String                 @unique(map: "IX_Blocks_Hash") @db.Char(51)
+  Timestamp                                                  DateTime               @db.Timestamp(6)
+  ProtoCode                                                  Int
+  SoftwareId                                                 Int?
+  Priority                                                   Int
+  Validations                                                Int
+  Events                                                     Int
+  Operations                                                 Int
+  Deposit                                                    BigInt
+  Reward                                                     BigInt
+  Fees                                                       BigInt
+  BakerId                                                    Int?
+  RevelationId                                               Int?                   @unique(map: "IX_Blocks_RevelationId")
+  ResetDeactivation                                          Int?
+  LBEscapeVote                                               Boolean
+  LBEscapeEma                                                Int
+  Metadata                                                   Json?
+  Accounts_AccountsToBlocks_BakerId                          Accounts?              @relation("AccountsToBlocks_BakerId", fields: [BakerId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_Blocks_Accounts_BakerId")
+  Protocols                                                  Protocols              @relation(fields: [ProtoCode], references: [Code], onDelete: Cascade, onUpdate: NoAction, map: "FK_Blocks_Protocols_ProtoCode")
+  NonceRevelationOps_Blocks_RevelationIdToNonceRevelationOps NonceRevelationOps?    @relation("Blocks_RevelationIdToNonceRevelationOps", fields: [RevelationId], references: [RevealedLevel], onDelete: Restrict, onUpdate: NoAction, map: "FK_Blocks_NonceRevelationOps_RevelationId")
+  Software                                                   Software?              @relation(fields: [SoftwareId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_Blocks_Software_SoftwareId")
+  Accounts_Accounts_FirstLevelToBlocks                       Accounts[]             @relation("Accounts_FirstLevelToBlocks")
+  ActivationOps                                              ActivationOps[]
+  BallotOps                                                  BallotOps[]
+  DelegationOps                                              DelegationOps[]
+  DoubleBakingOps                                            DoubleBakingOps[]
+  DoubleEndorsingOps                                         DoubleEndorsingOps[]
+  EndorsementOps                                             EndorsementOps[]
+  MigrationOps                                               MigrationOps[]
+  NonceRevelationOps_BlocksToNonceRevelationOps_Level        NonceRevelationOps[]   @relation("BlocksToNonceRevelationOps_Level")
+  OriginationOps                                             OriginationOps[]
+  ProposalOps                                                ProposalOps[]
+  RegisterConstantOps                                        RegisterConstantOps[]
+  RevealOps                                                  RevealOps[]
+  RevelationPenaltyOps                                       RevelationPenaltyOps[]
+  TransactionOps                                             TransactionOps[]
+
+  @@index([BakerId], map: "IX_Blocks_BakerId")
+  @@index([ProtoCode], map: "IX_Blocks_ProtoCode")
+  @@index([SoftwareId], map: "IX_Blocks_SoftwareId")
+}
+
+model Commitments {
+  Id        Int    @id(map: "PK_Commitments") @unique(map: "IX_Commitments_Id") @default(autoincrement())
+  Address   String @unique(map: "IX_Commitments_Address") @db.Char(37)
+  Balance   BigInt
+  AccountId Int?
+  Level     Int?
+}
+
+model Cycles {
+  Id              Int    @id(map: "PK_Cycles") @default(autoincrement())
+  Index           Int    @unique(map: "AK_Cycles_Index")
+  FirstLevel      Int
+  LastLevel       Int
+  SnapshotIndex   Int
+  SnapshotLevel   Int
+  TotalRolls      Int
+  TotalStaking    BigInt
+  TotalDelegated  BigInt
+  TotalDelegators Int
+  TotalBakers     Int
+  Seed            String @db.Char(64)
+}
+
+model DelegationOps {
+  Id                                              Int       @id(map: "PK_DelegationOps") @default(autoincrement())
+  DelegateId                                      Int?
+  PrevDelegateId                                  Int?
+  ResetDeactivation                               Int?
+  Amount                                          BigInt
+  Level                                           Int
+  Timestamp                                       DateTime  @db.Timestamp(6)
+  OpHash                                          String    @db.Char(51)
+  SenderId                                        Int
+  Counter                                         Int
+  BakerFee                                        BigInt
+  StorageFee                                      BigInt?
+  AllocationFee                                   BigInt?
+  GasLimit                                        Int
+  GasUsed                                         Int
+  StorageLimit                                    Int
+  StorageUsed                                     Int
+  Status                                          Int       @db.SmallInt
+  Errors                                          String?
+  InitiatorId                                     Int?
+  Nonce                                           Int?
+  Accounts_AccountsToDelegationOps_DelegateId     Accounts? @relation("AccountsToDelegationOps_DelegateId", fields: [DelegateId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_DelegationOps_Accounts_DelegateId")
+  Accounts_AccountsToDelegationOps_InitiatorId    Accounts? @relation("AccountsToDelegationOps_InitiatorId", fields: [InitiatorId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_DelegationOps_Accounts_InitiatorId")
+  Blocks                                          Blocks    @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_DelegationOps_Blocks_Level")
+  Accounts_AccountsToDelegationOps_PrevDelegateId Accounts? @relation("AccountsToDelegationOps_PrevDelegateId", fields: [PrevDelegateId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_DelegationOps_Accounts_PrevDelegateId")
+  Accounts_AccountsToDelegationOps_SenderId       Accounts  @relation("AccountsToDelegationOps_SenderId", fields: [SenderId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_DelegationOps_Accounts_SenderId")
+
+  @@index([DelegateId], map: "IX_DelegationOps_DelegateId")
+  @@index([InitiatorId], map: "IX_DelegationOps_InitiatorId")
+  @@index([Level], map: "IX_DelegationOps_Level")
+  @@index([OpHash], map: "IX_DelegationOps_OpHash")
+  @@index([PrevDelegateId], map: "IX_DelegationOps_PrevDelegateId")
+  @@index([SenderId], map: "IX_DelegationOps_SenderId")
+}
+
+model DelegatorCycles {
+  Id          Int    @id(map: "PK_DelegatorCycles") @default(autoincrement())
+  Cycle       Int
+  DelegatorId Int
+  BakerId     Int
+  Balance     BigInt
+
+  @@unique([Cycle, DelegatorId], map: "IX_DelegatorCycles_Cycle_DelegatorId")
+  @@index([Cycle], map: "IX_DelegatorCycles_Cycle")
+  @@index([Cycle, BakerId], map: "IX_DelegatorCycles_Cycle_BakerId")
+  @@index([DelegatorId], map: "IX_DelegatorCycles_DelegatorId")
+}
+
+model DoubleBakingOps {
+  Id                                            Int      @id(map: "PK_DoubleBakingOps") @default(autoincrement())
+  AccusedLevel                                  Int
+  AccuserId                                     Int
+  AccuserReward                                 BigInt
+  OffenderId                                    Int
+  OffenderLostDeposit                           BigInt
+  OffenderLostReward                            BigInt
+  OffenderLostFee                               BigInt
+  Level                                         Int
+  Timestamp                                     DateTime @db.Timestamp(6)
+  OpHash                                        String   @db.Char(51)
+  Accounts_AccountsToDoubleBakingOps_AccuserId  Accounts @relation("AccountsToDoubleBakingOps_AccuserId", fields: [AccuserId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_DoubleBakingOps_Accounts_AccuserId")
+  Blocks                                        Blocks   @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_DoubleBakingOps_Blocks_Level")
+  Accounts_AccountsToDoubleBakingOps_OffenderId Accounts @relation("AccountsToDoubleBakingOps_OffenderId", fields: [OffenderId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_DoubleBakingOps_Accounts_OffenderId")
+
+  @@index([AccuserId], map: "IX_DoubleBakingOps_AccuserId")
+  @@index([Level], map: "IX_DoubleBakingOps_Level")
+  @@index([OffenderId], map: "IX_DoubleBakingOps_OffenderId")
+  @@index([OpHash], map: "IX_DoubleBakingOps_OpHash")
+}
+
+model DoubleEndorsingOps {
+  Id                                               Int      @id(map: "PK_DoubleEndorsingOps") @default(autoincrement())
+  AccusedLevel                                     Int
+  AccuserId                                        Int
+  AccuserReward                                    BigInt
+  OffenderId                                       Int
+  OffenderLostDeposit                              BigInt
+  OffenderLostReward                               BigInt
+  OffenderLostFee                                  BigInt
+  Level                                            Int
+  Timestamp                                        DateTime @db.Timestamp(6)
+  OpHash                                           String   @db.Char(51)
+  Accounts_AccountsToDoubleEndorsingOps_AccuserId  Accounts @relation("AccountsToDoubleEndorsingOps_AccuserId", fields: [AccuserId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_DoubleEndorsingOps_Accounts_AccuserId")
+  Blocks                                           Blocks   @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_DoubleEndorsingOps_Blocks_Level")
+  Accounts_AccountsToDoubleEndorsingOps_OffenderId Accounts @relation("AccountsToDoubleEndorsingOps_OffenderId", fields: [OffenderId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_DoubleEndorsingOps_Accounts_OffenderId")
+
+  @@index([AccuserId], map: "IX_DoubleEndorsingOps_AccuserId")
+  @@index([Level], map: "IX_DoubleEndorsingOps_Level")
+  @@index([OffenderId], map: "IX_DoubleEndorsingOps_OffenderId")
+  @@index([OpHash], map: "IX_DoubleEndorsingOps_OpHash")
+}
+
+model EndorsementOps {
+  Id                Int      @id(map: "PK_EndorsementOps") @default(autoincrement())
+  DelegateId        Int
+  Slots             Int
+  Reward            BigInt
+  Deposit           BigInt
+  ResetDeactivation Int?
+  Level             Int
+  Timestamp         DateTime @db.Timestamp(6)
+  OpHash            String   @db.Char(51)
+  Accounts          Accounts @relation(fields: [DelegateId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_EndorsementOps_Accounts_DelegateId")
+  Blocks            Blocks   @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_EndorsementOps_Blocks_Level")
+
+  @@index([DelegateId], map: "IX_EndorsementOps_DelegateId")
+  @@index([Level], map: "IX_EndorsementOps_Level")
+  @@index([OpHash], map: "IX_EndorsementOps_OpHash")
+}
+
+model MigrationOps {
+  Id             Int       @id(map: "PK_MigrationOps") @default(autoincrement())
+  Level          Int
+  Timestamp      DateTime  @db.Timestamp(6)
+  AccountId      Int
+  Kind           Int
+  BalanceChange  BigInt
+  ScriptId       Int?
+  StorageId      Int?
+  BigMapUpdates  Int?
+  TokenTransfers Int?
+  Accounts       Accounts  @relation(fields: [AccountId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_MigrationOps_Accounts_AccountId")
+  Blocks         Blocks    @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_MigrationOps_Blocks_Level")
+  Scripts        Scripts?  @relation(fields: [ScriptId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_MigrationOps_Scripts_ScriptId")
+  Storages       Storages? @relation(fields: [StorageId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_MigrationOps_Storages_StorageId")
+
+  @@index([AccountId], map: "IX_MigrationOps_AccountId")
+  @@index([Level], map: "IX_MigrationOps_Level")
+  @@index([ScriptId], map: "IX_MigrationOps_ScriptId")
+  @@index([StorageId], map: "IX_MigrationOps_StorageId")
+}
+
+model NonceRevelationOps {
+  Id                                             Int      @id(map: "PK_NonceRevelationOps") @default(autoincrement())
+  BakerId                                        Int
+  SenderId                                       Int
+  RevealedLevel                                  Int      @unique(map: "AK_NonceRevelationOps_RevealedLevel")
+  Level                                          Int
+  Timestamp                                      DateTime @db.Timestamp(6)
+  OpHash                                         String   @db.Char(51)
+  Accounts_AccountsToNonceRevelationOps_BakerId  Accounts @relation("AccountsToNonceRevelationOps_BakerId", fields: [BakerId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_NonceRevelationOps_Accounts_BakerId")
+  Blocks_BlocksToNonceRevelationOps_Level        Blocks   @relation("BlocksToNonceRevelationOps_Level", fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_NonceRevelationOps_Blocks_Level")
+  Accounts_AccountsToNonceRevelationOps_SenderId Accounts @relation("AccountsToNonceRevelationOps_SenderId", fields: [SenderId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_NonceRevelationOps_Accounts_SenderId")
+  Blocks_Blocks_RevelationIdToNonceRevelationOps Blocks?  @relation("Blocks_RevelationIdToNonceRevelationOps")
+
+  @@index([BakerId], map: "IX_NonceRevelationOps_BakerId")
+  @@index([Level], map: "IX_NonceRevelationOps_Level")
+  @@index([OpHash], map: "IX_NonceRevelationOps_OpHash")
+  @@index([SenderId], map: "IX_NonceRevelationOps_SenderId")
+}
+
+model OriginationOps {
+  Id                                            Int       @id(map: "PK_OriginationOps") @default(autoincrement())
+  ManagerId                                     Int?
+  DelegateId                                    Int?
+  ContractId                                    Int?
+  ScriptId                                      Int?
+  Balance                                       BigInt
+  Level                                         Int
+  Timestamp                                     DateTime  @db.Timestamp(6)
+  OpHash                                        String    @db.Char(51)
+  SenderId                                      Int
+  Counter                                       Int
+  BakerFee                                      BigInt
+  StorageFee                                    BigInt?
+  AllocationFee                                 BigInt?
+  GasLimit                                      Int
+  GasUsed                                       Int
+  StorageLimit                                  Int
+  StorageUsed                                   Int
+  Status                                        Int       @db.SmallInt
+  Errors                                        String?
+  InitiatorId                                   Int?
+  Nonce                                         Int?
+  StorageId                                     Int?
+  BigMapUpdates                                 Int?
+  TokenTransfers                                Int?
+  Accounts_AccountsToOriginationOps_ContractId  Accounts? @relation("AccountsToOriginationOps_ContractId", fields: [ContractId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_OriginationOps_Accounts_ContractId")
+  Accounts_AccountsToOriginationOps_DelegateId  Accounts? @relation("AccountsToOriginationOps_DelegateId", fields: [DelegateId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_OriginationOps_Accounts_DelegateId")
+  Accounts_AccountsToOriginationOps_InitiatorId Accounts? @relation("AccountsToOriginationOps_InitiatorId", fields: [InitiatorId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_OriginationOps_Accounts_InitiatorId")
+  Blocks                                        Blocks    @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_OriginationOps_Blocks_Level")
+  Accounts_AccountsToOriginationOps_ManagerId   Accounts? @relation("AccountsToOriginationOps_ManagerId", fields: [ManagerId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_OriginationOps_Accounts_ManagerId")
+  Scripts                                       Scripts?  @relation(fields: [ScriptId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_OriginationOps_Scripts_ScriptId")
+  Accounts_AccountsToOriginationOps_SenderId    Accounts  @relation("AccountsToOriginationOps_SenderId", fields: [SenderId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_OriginationOps_Accounts_SenderId")
+  Storages                                      Storages? @relation(fields: [StorageId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_OriginationOps_Storages_StorageId")
+
+  @@index([ContractId], map: "IX_OriginationOps_ContractId")
+  @@index([DelegateId], map: "IX_OriginationOps_DelegateId")
+  @@index([InitiatorId], map: "IX_OriginationOps_InitiatorId")
+  @@index([Level], map: "IX_OriginationOps_Level")
+  @@index([ManagerId], map: "IX_OriginationOps_ManagerId")
+  @@index([OpHash], map: "IX_OriginationOps_OpHash")
+  @@index([ScriptId], map: "IX_OriginationOps_ScriptId")
+  @@index([SenderId], map: "IX_OriginationOps_SenderId")
+  @@index([StorageId], map: "IX_OriginationOps_StorageId")
+}
+
+model ProposalOps {
+  Id         Int       @id(map: "PK_ProposalOps") @default(autoincrement())
+  Epoch      Int
+  Period     Int
+  ProposalId Int
+  SenderId   Int
+  Rolls      Int
+  Duplicated Boolean
+  Level      Int
+  Timestamp  DateTime  @db.Timestamp(6)
+  OpHash     String    @db.Char(51)
+  Blocks     Blocks    @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_ProposalOps_Blocks_Level")
+  Proposals  Proposals @relation(fields: [ProposalId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_ProposalOps_Proposals_ProposalId")
+  Accounts   Accounts  @relation(fields: [SenderId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_ProposalOps_Accounts_SenderId")
+
+  @@index([Epoch], map: "IX_ProposalOps_Epoch")
+  @@index([Level], map: "IX_ProposalOps_Level")
+  @@index([OpHash], map: "IX_ProposalOps_OpHash")
+  @@index([Period], map: "IX_ProposalOps_Period")
+  @@index([ProposalId], map: "IX_ProposalOps_ProposalId")
+  @@index([SenderId], map: "IX_ProposalOps_SenderId")
+}
+
+model Proposals {
+  Id          Int           @id(map: "PK_Proposals") @default(autoincrement())
+  Hash        String?       @db.Char(51)
+  InitiatorId Int
+  FirstPeriod Int
+  LastPeriod  Int
+  Epoch       Int
+  Upvotes     Int
+  Rolls       Int
+  Status      Int
+  Metadata    Json?
+  BallotOps   BallotOps[]
+  ProposalOps ProposalOps[]
+
+  @@index([Epoch], map: "IX_Proposals_Epoch")
+  @@index([Hash], map: "IX_Proposals_Hash")
+}
+
+model Protocols {
+  Id                        Int      @id(map: "PK_Protocols") @default(autoincrement())
+  Code                      Int      @unique(map: "AK_Protocols_Code")
+  Hash                      String   @db.Char(51)
+  FirstLevel                Int
+  LastLevel                 Int
+  FirstCycle                Int
+  FirstCycleLevel           Int
+  RampUpCycles              Int
+  NoRewardCycles            Int
+  PreservedCycles           Int
+  BlocksPerCycle            Int
+  BlocksPerCommitment       Int
+  BlocksPerSnapshot         Int
+  BlocksPerVoting           Int
+  TimeBetweenBlocks         Int
+  EndorsersPerBlock         Int
+  HardOperationGasLimit     Int
+  HardOperationStorageLimit Int
+  HardBlockGasLimit         Int
+  TokensPerRoll             BigInt
+  RevelationReward          BigInt
+  BlockDeposit              BigInt
+  BlockReward0              BigInt
+  BlockReward1              BigInt
+  EndorsementDeposit        BigInt
+  EndorsementReward0        BigInt
+  EndorsementReward1        BigInt
+  OriginationSize           Int
+  ByteCost                  Int
+  ProposalQuorum            Int
+  BallotQuorumMin           Int
+  BallotQuorumMax           Int
+  LBSubsidy                 Int
+  LBSunsetLevel             Int
+  LBEscapeThreshold         Int
+  Metadata                  Json?
+  Blocks                    Blocks[]
+}
+
+model Quotes {
+  Id        Int      @id(map: "PK_Quotes") @default(autoincrement())
+  Level     Int      @unique(map: "IX_Quotes_Level")
+  Timestamp DateTime @db.Timestamp(6)
+  Btc       Float
+  Eur       Float
+  Usd       Float
+  Cny       Float
+  Jpy       Float
+  Krw       Float
+  Eth       Float
+  Gbp       Float
+}
+
+model RegisterConstantOps {
+  Id            Int      @id(map: "PK_RegisterConstantOps") @default(autoincrement())
+  Address       String?  @db.VarChar(54)
+  Value         Bytes?
+  Refs          Int?
+  Metadata      Json?
+  Level         Int
+  Timestamp     DateTime @db.Timestamp(6)
+  OpHash        String?
+  SenderId      Int
+  Counter       Int
+  BakerFee      BigInt
+  StorageFee    BigInt?
+  AllocationFee BigInt?
+  GasLimit      Int
+  GasUsed       Int
+  StorageLimit  Int
+  StorageUsed   Int
+  Status        Int      @db.SmallInt
+  Errors        String?
+  Blocks        Blocks   @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_RegisterConstantOps_Blocks_Level")
+  Accounts      Accounts @relation(fields: [SenderId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_RegisterConstantOps_Accounts_SenderId")
+
+  @@index([Level], map: "IX_RegisterConstantOps_Level")
+  @@index([OpHash], map: "IX_RegisterConstantOps_OpHash")
+  @@index([SenderId], map: "IX_RegisterConstantOps_SenderId")
+}
+
+model RevealOps {
+  Id            Int      @id(map: "PK_RevealOps") @default(autoincrement())
+  Level         Int
+  Timestamp     DateTime @db.Timestamp(6)
+  OpHash        String   @db.Char(51)
+  SenderId      Int
+  Counter       Int
+  BakerFee      BigInt
+  StorageFee    BigInt?
+  AllocationFee BigInt?
+  GasLimit      Int
+  GasUsed       Int
+  StorageLimit  Int
+  StorageUsed   Int
+  Status        Int      @db.SmallInt
+  Errors        String?
+  Blocks        Blocks   @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_RevealOps_Blocks_Level")
+  Accounts      Accounts @relation(fields: [SenderId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_RevealOps_Accounts_SenderId")
+
+  @@index([Level], map: "IX_RevealOps_Level")
+  @@index([OpHash], map: "IX_RevealOps_OpHash")
+  @@index([SenderId], map: "IX_RevealOps_SenderId")
+}
+
+model RevelationPenaltyOps {
+  Id          Int      @id(map: "PK_RevelationPenaltyOps") @default(autoincrement())
+  Level       Int
+  Timestamp   DateTime @db.Timestamp(6)
+  BakerId     Int
+  MissedLevel Int
+  LostReward  BigInt
+  LostFees    BigInt
+  Accounts    Accounts @relation(fields: [BakerId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_RevelationPenaltyOps_Accounts_BakerId")
+  Blocks      Blocks   @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_RevelationPenaltyOps_Blocks_Level")
+
+  @@index([BakerId], map: "IX_RevelationPenaltyOps_BakerId")
+  @@index([Level], map: "IX_RevelationPenaltyOps_Level")
+}
+
+model Scripts {
+  Id              Int              @id(map: "PK_Scripts") @unique(map: "IX_Scripts_Id") @default(autoincrement())
+  Level           Int
+  ContractId      Int
+  OriginationId   Int?
+  MigrationId     Int?
+  Current         Boolean
+  ParameterSchema Bytes?
+  StorageSchema   Bytes?
+  CodeSchema      Bytes?
+  Views           Bytes[]
+  TypeHash        Int
+  CodeHash        Int
+  MigrationOps    MigrationOps[]
+  OriginationOps  OriginationOps[]
+}
+
+model SnapshotBalances {
+  Id         Int    @id(map: "PK_SnapshotBalances") @default(autoincrement())
+  Level      Int
+  Balance    BigInt
+  AccountId  Int
+  DelegateId Int?
+
+  @@index([Level], map: "IX_SnapshotBalances_Level")
+}
+
+model Software {
+  Id          Int        @id(map: "PK_Software") @default(autoincrement())
+  BlocksCount Int
+  FirstLevel  Int
+  LastLevel   Int
+  ShortHash   String     @db.Char(8)
+  Metadata    Json?
+  Accounts    Accounts[]
+  Blocks      Blocks[]
+}
+
+model Statistics {
+  Id                Int       @id(map: "PK_Statistics") @default(autoincrement())
+  Level             Int       @unique(map: "IX_Statistics_Level")
+  Cycle             Int?
+  Date              DateTime? @db.Timestamp(6)
+  TotalBootstrapped BigInt
+  TotalCommitments  BigInt
+  TotalActivated    BigInt
+  TotalCreated      BigInt
+  TotalBurned       BigInt
+  TotalBanished     BigInt
+  TotalVested       BigInt
+  TotalFrozen       BigInt
+}
+
+model Storages {
+  Id             Int              @id(map: "PK_Storages") @unique(map: "IX_Storages_Id") @default(autoincrement())
+  Level          Int
+  ContractId     Int
+  OriginationId  Int?
+  TransactionId  Int?
+  MigrationId    Int?
+  Current        Boolean
+  RawValue       Bytes?
+  JsonValue      Json?
+  MigrationOps   MigrationOps[]
+  OriginationOps OriginationOps[]
+  TransactionOps TransactionOps[]
+
+  @@index([ContractId], map: "IX_Storages_ContractId")
+  @@index([Level], map: "IX_Storages_Level")
+}
+
+model TokenBalances {
+  Id             Int    @id(map: "PK_TokenBalances") @unique(map: "IX_TokenBalances_Id") @default(autoincrement())
+  TokenId        Int
+  AccountId      Int
+  FirstLevel     Int
+  LastLevel      Int
+  TransfersCount Int
+  Balance        String
+
+  @@unique([AccountId, TokenId], map: "IX_TokenBalances_AccountId_TokenId")
+  @@index([LastLevel], map: "IX_TokenBalances_LastLevel")
+}
+
+model TokenTransfers {
+  Id            Int    @id(map: "PK_TokenTransfers") @unique(map: "IX_TokenTransfers_Id") @default(autoincrement())
+  Level         Int
+  TokenId       Int
+  Amount        String
+  FromId        Int?
+  ToId          Int?
+  OriginationId Int?
+  TransactionId Int?
+  MigrationId   Int?
+
+  @@index([Level], map: "IX_TokenTransfers_Level")
+  @@index([TokenId], map: "IX_TokenTransfers_TokenId")
+}
+
+model Tokens {
+  Id             Int    @id(map: "PK_Tokens") @unique(map: "IX_Tokens_Id") @default(autoincrement())
+  ContractId     Int
+  TokenId        String
+  Tags           Int
+  FirstLevel     Int
+  LastLevel      Int
+  TransfersCount Int
+  BalancesCount  Int
+  HoldersCount   Int
+  TotalMinted    String
+  TotalBurned    String
+  TotalSupply    String
+  OwnerId        Int?
+  Metadata       Json?
+
+  @@unique([ContractId, TokenId], map: "IX_Tokens_ContractId_TokenId")
+  @@index([ContractId], map: "IX_Tokens_ContractId")
+  @@index([LastLevel], map: "IX_Tokens_LastLevel")
+  @@index([Metadata], map: "IX_Tokens_Metadata")
+}
+
+model TransactionOps {
+  Id                                            Int       @id(map: "PK_TransactionOps") @default(autoincrement())
+  TargetId                                      Int?
+  ResetDeactivation                             Int?
+  Amount                                        BigInt
+  Entrypoint                                    String?
+  RawParameters                                 Bytes?
+  JsonParameters                                Json?
+  InternalOperations                            Int?      @db.SmallInt
+  InternalDelegations                           Int?      @db.SmallInt
+  InternalOriginations                          Int?      @db.SmallInt
+  InternalTransactions                          Int?      @db.SmallInt
+  Level                                         Int
+  Timestamp                                     DateTime  @db.Timestamp(6)
+  OpHash                                        String    @db.Char(51)
+  SenderId                                      Int
+  Counter                                       Int
+  BakerFee                                      BigInt
+  StorageFee                                    BigInt?
+  AllocationFee                                 BigInt?
+  GasLimit                                      Int
+  GasUsed                                       Int
+  StorageLimit                                  Int
+  StorageUsed                                   Int
+  Status                                        Int       @db.SmallInt
+  Errors                                        String?
+  InitiatorId                                   Int?
+  Nonce                                         Int?
+  StorageId                                     Int?
+  BigMapUpdates                                 Int?
+  TokenTransfers                                Int?
+  Accounts_AccountsToTransactionOps_InitiatorId Accounts? @relation("AccountsToTransactionOps_InitiatorId", fields: [InitiatorId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_TransactionOps_Accounts_InitiatorId")
+  Blocks                                        Blocks    @relation(fields: [Level], references: [Level], onDelete: Cascade, onUpdate: NoAction, map: "FK_TransactionOps_Blocks_Level")
+  Accounts_AccountsToTransactionOps_SenderId    Accounts  @relation("AccountsToTransactionOps_SenderId", fields: [SenderId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_TransactionOps_Accounts_SenderId")
+  Storages                                      Storages? @relation(fields: [StorageId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_TransactionOps_Storages_StorageId")
+  Accounts_AccountsToTransactionOps_TargetId    Accounts? @relation("AccountsToTransactionOps_TargetId", fields: [TargetId], references: [Id], onDelete: Restrict, onUpdate: NoAction, map: "FK_TransactionOps_Accounts_TargetId")
+
+  @@index([InitiatorId], map: "IX_TransactionOps_InitiatorId")
+  @@index([JsonParameters], map: "IX_TransactionOps_JsonParameters")
+  @@index([Level], map: "IX_TransactionOps_Level")
+  @@index([OpHash], map: "IX_TransactionOps_OpHash")
+  @@index([SenderId], map: "IX_TransactionOps_SenderId")
+  @@index([StorageId], map: "IX_TransactionOps_StorageId")
+  @@index([TargetId], map: "IX_TransactionOps_TargetId")
+}
+
+model VotingPeriods {
+  Id               Int  @id(map: "PK_VotingPeriods") @unique(map: "IX_VotingPeriods_Id") @default(autoincrement())
+  Index            Int  @unique(map: "AK_VotingPeriods_Index")
+  Epoch            Int
+  FirstLevel       Int
+  LastLevel        Int
+  Kind             Int
+  Status           Int
+  TotalBakers      Int?
+  TotalRolls       Int?
+  UpvotesQuorum    Int?
+  ProposalsCount   Int?
+  TopUpvotes       Int?
+  TopRolls         Int?
+  ParticipationEma Int?
+  BallotsQuorum    Int?
+  Supermajority    Int?
+  YayBallots       Int?
+  YayRolls         Int?
+  NayBallots       Int?
+  NayRolls         Int?
+  PassBallots      Int?
+  PassRolls        Int?
+
+  @@index([Epoch], map: "IX_VotingPeriods_Epoch")
+}
+
+model VotingSnapshots {
+  Id      Int @id(map: "PK_VotingSnapshots") @default(autoincrement())
+  Level   Int
+  Period  Int
+  BakerId Int
+  Rolls   Int
+  Status  Int
+
+  @@unique([Period, BakerId], map: "IX_VotingSnapshots_Period_BakerId")
+  @@index([Period], map: "IX_VotingSnapshots_Period")
+}
+
+model EFMigrationsHistory {
+  MigrationId    String @id(map: "PK___EFMigrationsHistory") @db.VarChar(150)
+  ProductVersion String @db.VarChar(32)
+
+  @@map("__EFMigrationsHistory")
+}
+
+model balance_history {
+  Level   BigInt @id
+  Balance BigInt
+}
