@@ -12,7 +12,7 @@ export const useTokensInfo = () => {
 
   const normalizedInfo = info?.contracts.reduce<Record<string, Contract>>(
     (acc, contract) => {
-      acc[contract.symbol as string] = contract;
+      acc[contract.symbol?.toLowerCase() as string] = contract;
       return acc;
     },
     {},

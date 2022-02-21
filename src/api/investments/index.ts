@@ -67,7 +67,7 @@ export const usePlentyInvestmentsInXTZ = (userAddress: string) => {
           let tokenIn_supply = token1_pool;
 
           const pair = investment.ID.split(' - ').map(
-            (p) => tokensInfo?.[String(p)],
+            (p) => tokensInfo?.[String(p).toLowerCase()],
           );
           if (!pair[0] || !pair[1]) return { ...item, XTZBalance: undefined };
 

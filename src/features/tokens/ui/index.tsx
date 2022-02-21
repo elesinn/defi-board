@@ -13,12 +13,14 @@ import { TokensDonut } from './TokensDonut';
 
 export function PriceChangeCell({ row, column }: any) {
   const { data: tokensInfo } = useTokensInfo();
-  const token = tokensInfo && tokensInfo[row.original[column.tokenAccessor]];
+  const token =
+    tokensInfo && tokensInfo[row.original[column.tokenAccessor].toLowerCase()];
   return token ? <DailyPriceChange token={token} /> : '';
 }
 export function PriceChangeChartCell({ row, column }: any) {
   const { data: tokensInfo } = useTokensInfo();
-  const token = tokensInfo && tokensInfo[row.original[column.tokenAccessor]];
+  const token =
+    tokensInfo && tokensInfo[row.original[column.tokenAccessor].toLowerCase()];
   return token ? (
     <div className="h-16 min-w-[100px] max-w-[200px]">
       <PriceChangeChart token={token} />
@@ -59,7 +61,8 @@ export const TokensList = () => {
           tokensInfo &&
           Number(
             (Number(token.balance) / 10 ** Number(token.decimals)) *
-              (tokensInfo[token.symbol || '']?.currentPrice || 0),
+              (tokensInfo[token.symbol?.toLowerCase() || '']?.currentPrice ||
+                0),
           ).toLocaleString(undefined, {
             minimumFractionDigits: 2,
           }),
