@@ -172,11 +172,11 @@ export function SiteLayout({
           </div>
         </div>
 
-        <div className="md:pl-64">
-          <div className="flex flex-col max-w-4xl mx-auto md:px-8 xl:px-0">
+        <div className="md:pl-64 flex-1 relative z-0 flex overflow-hidden">
+          <div className="flex flex-1 flex-col max-w-4xl mx-auto md:px-8 xl:px-8">
             <Header openSidebar={setSidebarOpen} />
-
-            <main className="flex-1">
+            <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
+              {/* Start main area*/}
               <div className="py-6">
                 <div className="px-4 sm:px-6 md:px-0">
                   <h1 className="text-2xl font-semibold text-gray-900">
@@ -185,8 +185,16 @@ export function SiteLayout({
                 </div>
                 <div className="px-4 sm:px-6 md:px-0">{children}</div>
               </div>
+              {/* End main area */}
             </main>
           </div>
+          <aside className="hidden relative xl:flex xl:flex-col flex-shrink-0 w-96 border-l border-gray-200 overflow-y-auto">
+            {/* Start secondary column (hidden on smaller screens) */}
+            <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
+              <div className="h-full border-2 border-gray-200 border-dashed rounded-lg" />
+            </div>
+            {/* End secondary column */}
+          </aside>
         </div>
       </div>
     </>
