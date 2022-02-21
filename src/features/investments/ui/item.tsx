@@ -97,7 +97,16 @@ export const InvestmentItem = ({ investmentKey }: Props) => {
       tokenSecond_Out * pair[1].currentPrice;
 
     setBalanceInXtz(Number(stakeInXtz.toFixed(4)));
-  }, [balance, data, investment, tezosTk.wallet, tokensInfo]);
+  }, [
+    balance,
+    data,
+    investment.DEX,
+    investment.ID,
+    investment.TOKEN_DECIMAL,
+    setBalanceInXtz,
+    tezosTk.wallet,
+    tokensInfo,
+  ]);
 
   useEffect(() => {
     if (!balanceInXtz) {

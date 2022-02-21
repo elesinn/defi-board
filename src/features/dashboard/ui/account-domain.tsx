@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai';
 
-import { useAccountDomain } from 'api/account';
+import { useAccountDomain } from 'api/account/account';
 import { addressSearchAtom } from 'features/site-layout';
 
 export const AccountDomain = () => {

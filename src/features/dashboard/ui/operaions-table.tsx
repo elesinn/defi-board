@@ -1,17 +1,17 @@
-import { useAtom } from 'jotai'
+import { useAtom } from 'jotai';
 
-import { useOperations } from 'api/account'
-import { addressSearchAtom } from 'features/site-layout'
+import { useOperations } from 'api/account/account';
+import { addressSearchAtom } from 'features/site-layout';
 
 export default function Operations() {
-  const [address] = useAtom(addressSearchAtom)
-  const { data: operations } = useOperations(address)
+  const [address] = useAtom(addressSearchAtom);
+  const { data: operations } = useOperations(address);
 
   if (!operations) {
-    return null
+    return null;
   }
 
-  const dataSource = operations.slice(0, 10)
+  const dataSource = operations.slice(0, 10);
 
   return (
     <div className="flex flex-col">
@@ -50,17 +50,27 @@ export default function Operations() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {dataSource.map((operation) => (
                   <tr key={operation.hash}>
-                    <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{operation.id}</td>
+                    <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                      {operation.id}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="ml-0">
-                        <div className="text-sm font-medium text-gray-900">{operation.sender?.alias}</div>
-                        <div className="text-sm text-gray-500">{operation.sender?.address}</div>
+                        <div className="text-sm font-medium text-gray-900">
+                          {operation.sender?.alias}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          {operation.sender?.address}
+                        </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {operation?.timestamp ? new Date(operation.timestamp).toDateString() : '-'}
+                      {operation?.timestamp
+                        ? new Date(operation.timestamp).toDateString()
+                        : '-'}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{operation.type}</td>
+                    <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                      {operation.type}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -69,5 +79,5 @@ export default function Operations() {
         </div>
       </div>
     </div>
-  )
+  );
 }

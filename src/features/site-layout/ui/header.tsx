@@ -7,7 +7,7 @@ import { SearchIcon } from '@heroicons/react/solid';
 import classNames from 'classnames';
 import { atom, useAtom } from 'jotai';
 
-import { useAccount, useAccountDomain } from 'api/account';
+import { useAccount, useAccountDomain } from 'api/account/account';
 import { useTezos } from 'features/beacon/useTezos';
 import { formatTezosBalance } from 'shared/utils/balance';
 
@@ -85,7 +85,7 @@ export function Header({
                   className="px-3 py-2 text-sm font-medium text-black truncate bg-gray-100 rounded-md"
                   title={account}
                 >
-                  <div className=" flex gap-2">
+                  <div className="flex gap-2 ">
                     <div>{formatTezosBalance(accountData?.balance)}</div>
                     <div className="border-r" />
                     {data?.at(0)?.name || truncateMiddle(account) || 'Sync'}

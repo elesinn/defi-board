@@ -9,7 +9,7 @@ import {
   XAxis,
 } from 'recharts';
 
-import { useBalanceHistory } from 'api/account';
+import { useBalanceHistory } from 'api/account/account';
 import { addressSearchAtom } from 'features/site-layout';
 import { formatTezosBalance } from 'shared/utils/balance';
 
@@ -46,7 +46,7 @@ const BalanceHistoryChart = () => {
           dataKey="value"
           animationDuration={3000}
           strokeWidth={2}
-          stroke={'#bf94ff'}
+          stroke={'#9e62fd'}
           fillOpacity={0}
         />
       </AreaChart>

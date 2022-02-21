@@ -1,7 +1,7 @@
 import { useAtom } from 'jotai';
 import { ImSpinner2 } from 'react-icons/im';
 
-import { useAccount } from 'api/account';
+import { useAccount, useOperationsInfo } from 'api/account/account';
 import { usePlentyInvestmentsInXTZ } from 'api/investments';
 import { addressSearchAtom } from 'features/site-layout';
 import { formatTezosBalance } from 'shared/utils/balance';
@@ -13,6 +13,7 @@ export const Dashboard = () => {
   const [address] = useAtom(addressSearchAtom);
   const { data: account } = useAccount(address);
   const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
+  const operationsInfo = useOperationsInfo(address);
   const totalInvestments =
     withXTZ?.reduce<number>((acc, item) => acc + (item?.XTZBalance || 0), 0) ||
     0;
@@ -46,7 +47,7 @@ export const Dashboard = () => {
       <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-3">
         <div
           key="Balance"
-          className="px-4 py-5 overflow-hidden bg-main rounded-lg shadow sm:p-6"
+          className="px-4 py-5 overflow-hidden rounded-lg shadow bg-main sm:p-6"
         >
           <dt className="text-sm font-medium text-white truncate">Total</dt>
           <dd className="mt-1 text-3xl font-semibold text-white truncate">
@@ -56,7 +57,7 @@ export const Dashboard = () => {
         </div>
         <div
           key="Balance"
-          className="px-4 py-5 overflow-hidden bg-white  rounded-lg shadow sm:p-6"
+          className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6"
         >
           <dt className="text-sm font-medium text-gray-500 ">
             Total Investments
@@ -71,7 +72,7 @@ export const Dashboard = () => {
         </div>
         <div
           key="Balance"
-          className="px-4 py-5 overflow-hidden bg-white  rounded-lg shadow sm:p-6"
+          className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6"
         >
           <dt className="text-sm font-medium text-gray-500">Tezos</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
@@ -92,6 +93,70 @@ export const Dashboard = () => {
           </div>
         ))} */}
       </dl>
+
+      <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-3">
+        <div
+          key="Operations"
+          className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6"
+        >
+          <dt className="text-sm font-medium text-gray-500 truncate">
+            Operations
+          </dt>
+          <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
+            {operationsInfo?.operationCount ? (
+              operationsInfo?.operationCount
+            ) : (
+              <ImSpinner2 className="animate-spin" />
+            )}
+          </dd>
+        </div>
+        <div
+          key="Balance"
+          className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6"
+        >
+          <dt className="text-sm font-medium text-gray-500 ">Gas used</dt>
+          <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
+            {operationsInfo?.gasUsed ? (
+              formatTezosBalance(operationsInfo.gasUsed)
+            ) : (
+              <ImSpinner2 className="animate-spin" />
+            )}
+          </dd>
+        </div>
+        <div
+          key="Balance"
+          className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6"
+        >
+          <dt className="text-sm font-medium text-gray-500">Total fee</dt>
+          <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
+            {operationsInfo?.allocationFee &&
+            operationsInfo?.bakerFee &&
+            operationsInfo?.storageFee ? (
+              formatTezosBalance(
+                operationsInfo.allocationFee +
+                  operationsInfo.bakerFee +
+                  operationsInfo.storageFee,
+              )
+            ) : (
+              <ImSpinner2 className="animate-spin" />
+            )}
+          </dd>
+        </div>
+        {/* {stats.map((item) => (
+          <div
+            key={item.name}
+            className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6"
+          >
+            <dt className="text-sm font-medium text-gray-500 truncate">
+              {item.name}
+            </dt>
+            <dd className="mt-1 text-3xl font-semibold text-gray-900">
+              {item.stat}
+            </dd>
+          </div>
+        ))} */}
+      </dl>
+
       <div className="relative py-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
           <div className="w-full border-t border-gray-300" />

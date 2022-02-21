@@ -9,6 +9,7 @@ import { InvestmentTable } from './investments-table';
 
 const InvestmentsAccordion = () => {
   const [address] = useAtom(addressSearchAtom);
+
   const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
   const totalInvestments =
     withXTZ?.reduce<number>((acc, item) => acc + (item?.XTZBalance || 0), 0) ||
@@ -16,24 +17,10 @@ const InvestmentsAccordion = () => {
 
   return (
     <div className="accordion" id="accordionExample5">
-      <div className="accordion-item bg-white border border-gray-200">
-        <h2 className="accordion-header mb-0" id="headingOne5">
+      <div className="bg-white border border-gray-200 accordion-item">
+        <h2 className="mb-0 accordion-header" id="headingOne5">
           <button
-            className="
-              accordion-button
-              relative
-              flex
-              items-center
-              w-full
-              py-4
-              px-5
-              text-base text-gray-800 text-left
-              bg-white
-              border-0
-              rounded-none
-              transition
-              focus:outline-none
-            "
+            className="relative flex items-center w-full px-5 py-4 text-base text-left text-gray-800 transition bg-white border-0 rounded-none accordion-button focus:outline-none"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#collapseOne5"
@@ -64,25 +51,10 @@ const InvestmentsAccordion = () => {
           </div>
         </div>
       </div>
-      <div className="accordion-item bg-white border border-gray-200">
-        <h2 className="accordion-header mb-0" id="headingTwo5">
+      <div className="bg-white border border-gray-200 accordion-item">
+        <h2 className="mb-0 accordion-header" id="headingTwo5">
           <button
-            className="
-              accordion-button
-              collapsed
-              relative
-              flex
-              items-center
-              w-full
-              py-4
-              px-5
-              text-base text-gray-800 text-left
-              bg-white
-              border-0
-              rounded-none
-              transition
-              focus:outline-none
-            "
+            className="relative flex items-center w-full px-5 py-4 text-base text-left text-gray-800 transition bg-white border-0 rounded-none accordion-button collapsed focus:outline-none"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#collapseTwo5"
