@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 import { AiOutlinePicture } from 'react-icons/ai';
 import { GiTwoCoins, GiMoneyStack } from 'react-icons/gi';
 
+import { TezosInfoColumn } from 'features/tezos-info';
+
 import { Header } from './header';
 
 const navigation = [
@@ -132,7 +134,7 @@ export function SiteLayout({
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+        <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 z-10">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white border-r border-gray-200">
             <div className="flex items-center flex-shrink-0 px-4">
@@ -191,7 +193,8 @@ export function SiteLayout({
           <aside className="hidden relative xl:flex xl:flex-col flex-shrink-0 w-96 border-l border-gray-200 overflow-y-auto">
             {/* Start secondary column (hidden on smaller screens) */}
             <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
-              <div className="h-full border-2 border-gray-200 border-dashed rounded-lg" />
+              <TezosInfoColumn />
+              {/* <div className="h-full border-2 border-gray-200 border-dashed rounded-lg" /> */}
             </div>
             {/* End secondary column */}
           </aside>
