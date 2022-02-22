@@ -1,7 +1,7 @@
 import { useHomeData } from 'api/home';
 import { TZ } from 'shared/utils/tezos-sign';
 
-import { TezosPriceChart } from './tezos-prica-chart';
+import { TezosPriceChart } from './tezos-price-chart';
 
 export const TezosInfoColumn = () => {
   const { data } = useHomeData();

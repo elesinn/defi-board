@@ -1,10 +1,5 @@
 import { Dashboard } from 'features/dashboard';
-import { SiteLayout } from 'features/site-layout';
 
-const Index = () => (
-  <SiteLayout title="Dashboard">
-    <Dashboard />
-  </SiteLayout>
-);
+const Index = () => <Dashboard />;
 
 export default Index;

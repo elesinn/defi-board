@@ -1,10 +1,5 @@
 import { InvestmentsAccordion } from 'features/investments';
-import { SiteLayout } from 'features/site-layout';
 
-const Index = () => (
-  <SiteLayout title="Investments">
-    <InvestmentsAccordion />
-  </SiteLayout>
-);
+const Index = () => <InvestmentsAccordion />;
 
 export default Index;

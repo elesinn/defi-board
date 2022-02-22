@@ -17,7 +17,6 @@ export const TezosPriceChart = () => {
     value: Math.round(item.value * 100) / 100,
     date: dayjs(item.date).valueOf(),
   }));
-  console.log(tezosPrizesData);
   return (
     <ResponsiveContainer height="100%" width="100%">
       <AreaChart

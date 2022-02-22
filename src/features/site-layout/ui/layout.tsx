@@ -4,6 +4,7 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { HomeIcon, XIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { AiOutlinePicture } from 'react-icons/ai';
 import { GiTwoCoins, GiMoneyStack } from 'react-icons/gi';
@@ -101,27 +102,27 @@ export function SiteLayout({
                 <div className="flex-1 h-0 mt-5 overflow-y-auto">
                   <nav className="px-2 space-y-1">
                     {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          pathname === item.href
-                            ? 'bg-gray-100 text-gray-900'
-                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                          'group rounded-md py-2 px-2 flex items-center text-base font-medium',
-                        )}
-                      >
-                        <item.icon
+                      <Link key={item.name} href={item.href}>
+                        <a
                           className={classNames(
                             pathname === item.href
-                              ? 'text-gray-500'
-                              : 'text-gray-400 group-hover:text-gray-500',
-                            'mr-4 flex-shrink-0 h-6 w-6',
+                              ? 'bg-gray-100 text-gray-900'
+                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                            'group rounded-md py-2 px-2 flex items-center text-base font-medium',
                           )}
-                          aria-hidden="true"
-                        />
-                        {item.name}
-                      </a>
+                        >
+                          <item.icon
+                            className={classNames(
+                              pathname === item.href
+                                ? 'text-gray-500'
+                                : 'text-gray-400 group-hover:text-gray-500',
+                              'mr-4 flex-shrink-0 h-6 w-6',
+                            )}
+                            aria-hidden="true"
+                          />
+                          {item.name}
+                        </a>
+                      </Link>
                     ))}
                   </nav>
                 </div>
@@ -147,27 +148,27 @@ export function SiteLayout({
             <div className="flex flex-col flex-grow mt-5">
               <nav className="flex-1 px-2 pb-4 space-y-1">
                 {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      pathname === item.href
-                        ? 'bg-gray-100 text-gray-900'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                      'group rounded-md py-2 px-2 flex items-center text-sm font-medium',
-                    )}
-                  >
-                    <item.icon
+                  <Link key={item.name} href={item.href}>
+                    <a
                       className={classNames(
                         pathname === item.href
-                          ? 'text-gray-500'
-                          : 'text-gray-400 group-hover:text-gray-500',
-                        'mr-3 flex-shrink-0 h-6 w-6',
+                          ? 'bg-gray-100 text-gray-900'
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                        'group rounded-md py-2 px-2 flex items-center text-sm font-medium',
                       )}
-                      aria-hidden="true"
-                    />
-                    {item.name}
-                  </a>
+                    >
+                      <item.icon
+                        className={classNames(
+                          pathname === item.href
+                            ? 'text-gray-500'
+                            : 'text-gray-400 group-hover:text-gray-500',
+                          'mr-3 flex-shrink-0 h-6 w-6',
+                        )}
+                        aria-hidden="true"
+                      />
+                      {item.name}
+                    </a>
+                  </Link>
                 ))}
               </nav>
             </div>
