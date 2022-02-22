@@ -12,7 +12,7 @@ export const TezosInfoColumn = () => {
     <div className="w-full h-[300px]">
       {lastPrise && (
         <div className="flex justify-center text-lg text-main">
-          1{TZ} = {Math.round(lastPrise?.value * 100) / 100} USD
+          1{TZ} = {Math.round(lastPrise?.value * 100) / 100} USD (30 days)
         </div>
       )}
       <TezosPriceChart />
