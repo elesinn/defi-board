@@ -142,6 +142,31 @@ function GlobalFilter({
 //   );
 // }
 
+export function DoubleImageCell({ column, row }: any) {
+  return (
+    <div className="flex ">
+      <div>
+        <img
+          src={row.original[column.firstImgAccessor]}
+          alt="token-icon-1"
+          className="rounded-full"
+          height={24}
+          width={24}
+        />
+      </div>
+      <div className="-translate-x-2 ">
+        <img
+          src={row.original[column.secondImgAccessor]}
+          alt="token-icon-2"
+          className="rounded-full"
+          height={24}
+          width={24}
+        />
+      </div>
+    </div>
+  );
+}
+
 export function AvatarCell({ value, column, row }: any) {
   return (
     <div className="flex items-center">
@@ -176,9 +201,11 @@ export function DefaultWithDescription({ value, column, row }: any) {
 function Table({
   columns,
   data,
+  noGlobalFilters = false,
 }: {
   columns: readonly Column<object>[];
   data: readonly object[];
+  noGlobalFilters?: boolean;
 }) {
   const {
     getTableProps,
@@ -211,11 +238,13 @@ function Table({
   return (
     <>
       <div className="sm:flex sm:gap-x-2">
-        <GlobalFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          globalFilter={state.globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        />
+        {!noGlobalFilters && (
+          <GlobalFilter
+            preGlobalFilteredRows={preGlobalFilteredRows}
+            globalFilter={state.globalFilter}
+            setGlobalFilter={setGlobalFilter}
+          />
+        )}
         {headerGroups.map((headerGroup) =>
           headerGroup.headers.map((column) =>
             column.Filter ? (
@@ -227,7 +256,7 @@ function Table({
         )}
       </div>
       {/* table */}
-      <div className="flex flex-col mt-4">
+      <div className={noGlobalFilters ? 'flex flex-col' : 'flex flex-col mt-4'}>
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
@@ -287,7 +316,7 @@ function Table({
                             >
                               {/* @ts-ignore */}
                               {cell.column.Cell.name === 'defaultRenderer' ? (
-                                <div className="text-sm text-gray-500">
+                                <div className="text-sm text-gray-900">
                                   {cell.render('Cell')}
                                 </div>
                               ) : (

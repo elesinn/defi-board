@@ -6,6 +6,7 @@ import { useTokensInfo } from 'api/tezPrices';
 import { useTokensBalances } from 'api/tokens';
 import { addressSearchAtom } from 'features/site-layout';
 import Table, { AvatarCell, DefaultWithDescription } from 'shared/ui/table';
+import { TZ } from 'shared/utils/tezos-sign';
 
 import { DailyPriceChange } from './dailyPriceChange';
 import PriceChangeChart from './priceChangeChart';
@@ -66,7 +67,7 @@ export const TokensList = () => {
           ).toLocaleString(undefined, {
             minimumFractionDigits: 2,
           }),
-        tzText: 'ꜩ',
+        tzText: TZ,
         week: 'fake',
       }));
   }, [tokensBalances, tokensInfo]);

@@ -7,7 +7,6 @@ export const NFTGrid = () => {
   const [userAddress] = useAtom(addressSearchAtom);
   const { data: tokensBalances } = useTokensBalances({ userAddress });
   const nfts = tokensBalances?.filter((b) => b.artifact_uri);
-  console.log(nfts);
 
   return (
     <ul
@@ -16,7 +15,7 @@ export const NFTGrid = () => {
     >
       {nfts?.map((file) => (
         <li key={file.id} className="relative">
-          <div className="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+          <div className="block w-full overflow-hidden bg-gray-100 rounded-lg group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500">
             <img
               placeholder=""
               src={
@@ -29,7 +28,7 @@ export const NFTGrid = () => {
               className="object-cover pointer-events-none group-hover:opacity-75"
             />
           </div>
-          <p className="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">
+          <p className="block mt-2 text-sm font-medium text-gray-900 truncate pointer-events-none">
             {file.name}
           </p>
           <p className="block text-sm font-medium text-gray-500 pointer-events-none">

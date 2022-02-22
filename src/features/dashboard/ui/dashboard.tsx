@@ -2,7 +2,8 @@ import { useAtom } from 'jotai';
 import { ImSpinner2 } from 'react-icons/im';
 
 import { useAccount, useOperationsInfo } from 'api/account/account';
-import { usePlentyInvestmentsInXTZ } from 'api/investments';
+import { useCrunchyInvestments } from 'api/investments/crunchy';
+import { usePlentyInvestmentsInXTZ } from 'api/investments/plenty';
 import { addressSearchAtom } from 'features/site-layout';
 import { formatTezosBalance } from 'shared/utils/balance';
 import { TZ } from 'shared/utils/tezos-sign';
@@ -14,16 +15,27 @@ export const Dashboard = () => {
   const { data: account } = useAccount(address);
   const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
   const operationsInfo = useOperationsInfo(address);
-  const totalInvestments =
+  const totaPlentylInvestments =
     withXTZ?.reduce<number>((acc, item) => acc + (item?.XTZBalance || 0), 0) ||
     0;
+
+  const { farms } = useCrunchyInvestments(address);
+
+  const totalCrunchyInvestments = farms?.reduce((acc, farm) => {
+    acc +=
+      Number(farm.stakedAmount) / Math.pow(10, Number(farm.poolToken.decimals));
+    return acc;
+  }, 0);
 
   if (!account) {
     return null;
   }
   const accountBalance = Math.round(account?.balance / 10000) / 100;
 
-  const totalBalance = totalInvestments + accountBalance;
+  const totalBalance =
+    totalCrunchyInvestments + totaPlentylInvestments + accountBalance;
+
+  const totalInvestments = totalCrunchyInvestments + totaPlentylInvestments;
   // const stats = [
   //   // {
   //   //   name: 'Balance',

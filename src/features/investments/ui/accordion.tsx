@@ -1,16 +1,26 @@
 import { useAtom } from 'jotai';
 import { ImSpinner2 } from 'react-icons/im';
 
-import { usePlentyInvestmentsInXTZ } from 'api/investments';
+import { useCrunchyInvestments } from 'api/investments/crunchy';
+import { usePlentyInvestmentsInXTZ } from 'api/investments/plenty';
 import { addressSearchAtom } from 'features/site-layout';
 import { TZ } from 'shared/utils/tezos-sign';
 
-import { InvestmentTable } from './investments-table';
+import { CrunchyTable } from './crunchy';
+import { PlentyTable } from './plenty';
 
 const InvestmentsAccordion = () => {
   const [address] = useAtom(addressSearchAtom);
 
   const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
+  const { farms } = useCrunchyInvestments(address);
+
+  const totalCrunchy = farms?.reduce((acc, farm) => {
+    acc +=
+      Number(farm.stakedAmount) / Math.pow(10, Number(farm.poolToken.decimals));
+    return acc;
+  }, 0);
+
   const totalInvestments =
     withXTZ?.reduce<number>((acc, item) => acc + (item?.XTZBalance || 0), 0) ||
     0;
@@ -47,7 +57,7 @@ const InvestmentsAccordion = () => {
           aria-labelledby="headingOne5"
         >
           <div className="accordion-body">
-            <InvestmentTable />
+            <PlentyTable />
           </div>
         </div>
       </div>
@@ -58,10 +68,19 @@ const InvestmentsAccordion = () => {
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#collapseTwo5"
-            aria-expanded="false"
+            aria-expanded="true"
             aria-controls="collapseTwo5"
           >
-            QuipuSwap
+            <div className="flex gap-4">
+              Crunchy:{' '}
+              {farms ? (
+                <div className="text-main">{totalCrunchy.toFixed(3) + TZ}</div>
+              ) : (
+                <div className="flex items-center">
+                  <ImSpinner2 className="animate-spin" />
+                </div>
+              )}
+            </div>
           </button>
         </h2>
         <div
@@ -69,7 +88,9 @@ const InvestmentsAccordion = () => {
           className="accordion-collapse collapse"
           aria-labelledby="headingTwo5"
         >
-          <div className="accordion-body">data</div>
+          <div className="accordion-body">
+            <CrunchyTable />
+          </div>
         </div>
       </div>
     </div>
