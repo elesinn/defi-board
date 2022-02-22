@@ -33,3 +33,9 @@ local
 
 # vercel
 .vercel
+
+# Sentry
+.sentryclirc
+
+# Sentry
+.sentryclirc

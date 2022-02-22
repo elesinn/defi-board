@@ -21,6 +21,7 @@
     "@nivo/core": "^0.79.0",
     "@nivo/line": "^0.79.1",
     "@nivo/pie": "^0.79.1",
+    "@sentry/nextjs": "^6.17.9",
     "@tailwindcss/forms": "^0.4.0",
     "@taquito/beacon-wallet": "^11.2.0",
     "@taquito/tzip16": "^11.2.0",
@@ -39,6 +40,7 @@
     "recharts": "^2.1.9",
     "styled-jsx-plugin-postcss": "^4.0.1",
     "swr": "^1.2.1",
+    "ts-deepmerge": "^2.0.1",
     "tw-elements": "^1.0.0-alpha11",
     "usehooks-ts": "^2.4.0"
   },
