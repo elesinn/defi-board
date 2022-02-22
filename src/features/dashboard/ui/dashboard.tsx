@@ -58,16 +58,17 @@ export const Dashboard = () => {
     <div>
       <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-3">
         <div className="px-4 py-5 overflow-hidden rounded-lg shadow bg-main sm:p-6">
-          <dt className="text-sm font-medium text-white truncate">Total</dt>
+          <dt className="text-sm font-medium text-white truncate">Net Worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-white truncate">
-            {totalBalance.toFixed(3)}
-            {TZ}
+            {totalBalance ? (
+              `${totalBalance?.toFixed(3)}${TZ}`
+            ) : (
+              <ImSpinner2 className="animate-spin" />
+            )}
           </dd>
         </div>
         <div className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6">
-          <dt className="text-sm font-medium text-gray-500 ">
-            Total Investments
-          </dt>
+          <dt className="text-sm font-medium text-gray-500 ">DeFi worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {withXTZ ? (
               `${totalInvestments?.toFixed(3)}${TZ}`
@@ -77,7 +78,7 @@ export const Dashboard = () => {
           </dd>
         </div>
         <div className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6">
-          <dt className="text-sm font-medium text-gray-500">Tezos</dt>
+          <dt className="text-sm font-medium text-gray-500">Wallet worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {formatTezosBalance(account?.balance)}
           </dd>

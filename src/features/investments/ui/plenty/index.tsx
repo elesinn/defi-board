@@ -1,5 +1,6 @@
 import { useAtom } from 'jotai';
 import Image from 'next/image';
+import { ImSpinner2 } from 'react-icons/im';
 
 import {
   usePlentyInvestments,
@@ -83,7 +84,11 @@ export const PlentyTable = () => {
                       {farm?.tokenBalance} LP
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
-                      {(farm as any)?.XTZBalance} {TZ}
+                      {(farm as any)?.XTZBalance ? (
+                        `${(farm as any)?.XTZBalance}${TZ}`
+                      ) : (
+                        <ImSpinner2 className="animate-spin" />
+                      )}
                     </td>
                   </tr>
                 ))}
