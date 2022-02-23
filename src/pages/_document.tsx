@@ -20,7 +20,7 @@ class MyDocument extends Document {
           />
         </Head>
         <body
-          className="h-full"
+          className="h-full bg-no-repeat bg-fixed"
           style={{
             backgroundImage: 'url(/assets/images/background-image.png)',
           }}
