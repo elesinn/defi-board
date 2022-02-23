@@ -43,8 +43,8 @@ module.exports = {
           900: '#1a202c',
         },
         main: {
-          200: '#ece4f8',
-          500: '#9e62fd',
+          200: '#cdd6ff',
+          500: '#7C76EB',
         },
       },
       lineHeight: {

@@ -137,8 +137,8 @@ export function SiteLayout({
         {/* Static sidebar for desktop */}
         <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 z-10">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-white border-r border-gray-200">
-            <div className="flex items-center flex-shrink-0 px-4">
+          <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-main-500 rounded-r-2xl">
+            <div className="flex items-center flex-shrink-0 px-4  ">
               <img
                 className="w-auto h-8"
                 src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
@@ -152,8 +152,8 @@ export function SiteLayout({
                     <a
                       className={classNames(
                         pathname === item.href
-                          ? 'bg-gray-100 text-gray-900'
-                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                          ? 'bg-main-200 text-gray-900'
+                          : 'text-gray-100 hover:bg-gray-50 hover:text-gray-900',
                         'group rounded-md py-2 px-2 flex items-center text-sm font-medium',
                       )}
                     >
@@ -191,7 +191,7 @@ export function SiteLayout({
               {/* End main area */}
             </main>
           </div>
-          <aside className="hidden relative xl:flex xl:flex-col flex-shrink-0 w-96 border-l border-gray-200 overflow-y-auto">
+          <aside className="hidden relative xl:flex xl:flex-col flex-shrink-0 w-96 border-l border-main-500 overflow-y-auto">
             {/* Start secondary column (hidden on smaller screens) */}
             <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
               <TezosInfoColumn />

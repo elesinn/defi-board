@@ -44,7 +44,7 @@ export function Header({
   }, [account, setAddress]);
 
   return (
-    <div className="sticky top-0 z-10 flex flex-shrink-0 h-16 bg-white border-b border-gray-200">
+    <div className="sticky top-0 z-10 flex flex-shrink-0 h-16 ">
       <button
         type="button"
         className="px-4 text-gray-500 border-r border-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
@@ -65,7 +65,7 @@ export function Header({
               </div>
               <input
                 id="search-field"
-                className="block w-full h-full py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 border-transparent focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
+                className="block w-full h-full py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 border-transparent focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm bg-main-200 rounded-lg"
                 placeholder="Tezos Address"
                 type="search"
                 value={address}
@@ -82,7 +82,7 @@ export function Header({
               <Menu.Button className="flex items-center max-w-xs text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 <span className="sr-only">Open user menu</span>
                 <div
-                  className="px-3 py-2 text-sm font-medium text-black truncate bg-gray-100 rounded-md"
+                  className="px-3 py-2 text-sm font-medium text-black truncate bg-main-200 rounded-md"
                   title={account}
                 >
                   <div className="flex gap-2 ">
@@ -102,7 +102,7 @@ export function Header({
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-main-200 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 {/* {userNavigation.map((item) => (
                           <Menu.Item key={item.name}>
                             {({ active }) => (
@@ -123,7 +123,7 @@ export function Header({
                     {({ active }) => (
                       <button
                         className={classNames(
-                          active ? 'bg-gray-100' : '',
+                          active ? 'bg-main-200' : '',
                           'block px-4 py-2 text-sm text-gray-700',
                         )}
                         onClick={disconnect}
@@ -137,7 +137,7 @@ export function Header({
                     {({ active }) => (
                       <button
                         className={classNames(
-                          active ? 'bg-gray-100' : '',
+                          active ? 'bg-main-200' : '',
                           'block px-4 py-2 text-sm text-gray-700',
                         )}
                         onClick={connect}

@@ -49,10 +49,10 @@ export const TezosPriceChart = () => {
           dot={false}
           animationDuration={3000}
           strokeWidth={2}
-          stroke={'#9e62fd'}
+          stroke={'#7C76EB'}
           // stroke={gain ? '#16a43a' : '#dc2626'}
           fillOpacity={0}
-          fill={'#9e62fd'}
+          fill={'#7C76EB'}
         />
       </AreaChart>
     </ResponsiveContainer>

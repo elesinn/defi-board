@@ -1,7 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 import { AppConfig } from '../utils/AppConfig';
-
+// background-image
 // Need to create a custom _document because i18n support is not compatible with `next export`.
 class MyDocument extends Document {
   render() {
@@ -19,7 +19,12 @@ class MyDocument extends Document {
             href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css"
           />
         </Head>
-        <body className="h-full">
+        <body
+          className="h-full"
+          style={{
+            backgroundImage: 'url(/assets/images/background-image.png)',
+          }}
+        >
           <Main />
 
           <NextScript />
