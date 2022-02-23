@@ -21,7 +21,7 @@ const InvestmentsAccordion = () => {
     return acc;
   }, 0);
 
-  const totalInvestments =
+  const totalPlenty =
     withXTZ?.reduce<number>((acc, item) => acc + (item?.XTZBalance || 0), 0) ||
     0;
 
@@ -40,9 +40,7 @@ const InvestmentsAccordion = () => {
             <div className="flex gap-4">
               Plenty:{' '}
               {withXTZ ? (
-                <div className="text-main">
-                  {totalInvestments.toFixed(3) + TZ}
-                </div>
+                <div className="text-main">{totalPlenty.toFixed(3) + TZ}</div>
               ) : (
                 <div className="flex items-center">
                   <ImSpinner2 className="animate-spin" />

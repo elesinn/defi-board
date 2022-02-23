@@ -118,7 +118,7 @@ export const TokensList = () => {
   return (
     <>
       {tableData && (
-        <div className=" w-full min-h-[300px] ratio">
+        <div className=" w-full min-h-[450px] ratio">
           <TokensDonut data={tableData} />
         </div>
       )}

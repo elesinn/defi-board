@@ -1,3 +1,1 @@
-import InvestmentsAccordion from './ui/accordion';
-
-export { InvestmentsAccordion };
+export { Investments } from './ui/investments';

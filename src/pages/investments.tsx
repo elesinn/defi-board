@@ -1,5 +1,5 @@
-import { InvestmentsAccordion } from 'features/investments';
+import { Investments } from 'features/investments';
 
-const Index = () => <InvestmentsAccordion />;
+const Index = () => <Investments />;
 
 export default Index;

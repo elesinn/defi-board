@@ -8,15 +8,15 @@ export const TokensDonut = ({ data }: { data: any }) => {
     (d) => d.balanceinTzx > 0,
   );
 
-  const dataToDisplay = dataSortedByBalance.slice(0, 10).map((d) => ({
+  const dataToDisplay = dataSortedByBalance.slice(0, 5).map((d) => ({
     id: d.symbol,
     value: d.balanceinTzx,
   }));
 
   const otherData = dataSortedByBalance
-    .slice(11, dataSortedByBalance.length - 1)
+    .slice(6, dataSortedByBalance.length - 1)
     .reduce((acc, data) => {
-      acc += data.balanceinTzx || 0;
+      acc += Number(data.balanceinTzx) || 0;
       return acc;
     }, 0);
   const otherDataToDisplay =
@@ -29,11 +29,14 @@ export const TokensDonut = ({ data }: { data: any }) => {
           ? [...dataToDisplay, otherDataToDisplay]
           : dataToDisplay
       }
+      fit
+      colors={{ scheme: 'pastel1' }}
       animate={true}
       activeOuterRadiusOffset={8}
       innerRadius={0.6}
+      sortByValue
       padAngle={0.5}
-      margin={{ bottom: 10, left: 80, right: 80, top: 10 }}
+      margin={{ bottom: 80, left: 80, right: 80, top: 80 }}
       cornerRadius={5}
       arcLinkLabelsColor={{
         from: 'color',
