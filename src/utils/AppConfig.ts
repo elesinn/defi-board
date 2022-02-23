@@ -1,6 +1,6 @@
 export const AppConfig = {
-  site_name: 'My TZ',
-  title: 'Tezos dashboard',
-  description: 'Tezos personal dashboard',
+  site_name: 'Tez.Watch',
+  title: 'Tezos Watch',
+  description: 'Watch your ꜩ',
   locale: 'en',
 };
