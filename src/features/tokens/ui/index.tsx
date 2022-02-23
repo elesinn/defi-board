@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useAtom } from 'jotai';
+import dynamic from 'next/dynamic';
 
 import { useTokensInfo } from 'api/tezPrices';
 import { useTokensBalances } from 'api/tokens';
@@ -10,7 +11,9 @@ import { TZ } from 'shared/utils/tezos-sign';
 
 import { DailyPriceChange } from './dailyPriceChange';
 import PriceChangeChart from './priceChangeChart';
-import { TokensDonut } from './TokensDonut';
+const TokensDonut = dynamic(() => import('./TokensDonut'), {
+  ssr: false,
+});
 
 export function PriceChangeCell({ row, column }: any) {
   const { data: tokensInfo } = useTokensInfo();

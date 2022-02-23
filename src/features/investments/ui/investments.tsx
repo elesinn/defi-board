@@ -1,11 +1,15 @@
 import { useAtom } from 'jotai';
+import dynamic from 'next/dynamic';
 
 import { useCrunchyInvestments } from 'api/investments/crunchy';
 import { usePlentyInvestmentsInXTZ } from 'api/investments/plenty';
 import { addressSearchAtom } from 'features/site-layout';
 
 import InvestmentsAccordion from './accordion';
-import { InvestmentsDonut } from './InvestmentsDonut';
+
+const InvestmentsDonut = dynamic(() => import('./InvestmentsDonut'), {
+  ssr: false,
+});
 
 export const Investments = () => {
   const [address] = useAtom(addressSearchAtom);
