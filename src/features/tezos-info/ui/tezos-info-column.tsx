@@ -1,18 +1,16 @@
-import { useHomeData } from 'api/home';
+import { useXtzPriceForCurrency } from 'api/coingecko';
 import { TZ } from 'shared/utils/tezos-sign';
 
 import { TezosPriceChart } from './tezos-price-chart';
 
 export const TezosInfoColumn = () => {
-  const { data } = useHomeData();
-
-  const lastPrise = data?.priceChart.at(-1);
+  const { value, currency } = useXtzPriceForCurrency();
 
   return (
     <div className="w-full h-[300px]">
-      {lastPrise && (
+      {value && (
         <div className="flex justify-center text-lg text-main">
-          1{TZ} = {Math.round(lastPrise?.value * 100) / 100} USD (30 days)
+          1{TZ} = {value} {currency.toUpperCase()} (30 days)
         </div>
       )}
       <TezosPriceChart />
