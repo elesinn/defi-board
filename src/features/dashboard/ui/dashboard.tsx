@@ -8,8 +8,6 @@ import { addressSearchAtom } from 'features/site-layout';
 import { formatTezosBalance } from 'shared/utils/balance';
 import { TZ } from 'shared/utils/tezos-sign';
 
-import BalanceHistoryChart from './balance-history-chart';
-
 export const Dashboard = () => {
   const [address] = useAtom(addressSearchAtom);
   const { data: account } = useAccount(address);
@@ -56,10 +54,10 @@ export const Dashboard = () => {
 
   return (
     <div>
-      <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-3">
-        <div className="px-4 py-5 overflow-hidden rounded-lg shadow bg-main sm:p-6">
-          <dt className="text-sm font-medium text-white truncate">Net Worth</dt>
-          <dd className="mt-1 text-3xl font-semibold text-white truncate">
+      <div className="flex flex-wrap rounded-lg shadow bg-main-200 ">
+        <div className="flex flex-col rounded-lg bg-main-500 px-4 py-5 overflow-hidden">
+          <dt className="text-sm font-medium text-white ">Net Worth</dt>
+          <dd className="mt-1 text-3xl font-semibold text-green-400 truncate">
             {totalBalance ? (
               `${totalBalance?.toFixed(3)}${TZ}`
             ) : (
@@ -67,8 +65,8 @@ export const Dashboard = () => {
             )}
           </dd>
         </div>
-        <div className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6">
-          <dt className="text-sm font-medium text-gray-500 ">DeFi worth</dt>
+        <div className="flex flex-col rounded-lg px-4 py-5 overflow-hidden ">
+          <dt className="text-sm font-medium text-gray-600">DeFi worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {withXTZ ? (
               `${totalInvestments?.toFixed(3)}${TZ}`
@@ -77,45 +75,14 @@ export const Dashboard = () => {
             )}
           </dd>
         </div>
-        <div className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6">
-          <dt className="text-sm font-medium text-gray-500">Wallet worth</dt>
+        <div className="flex flex-col rounded-lg px-4 py-5 overflow-hidden ">
+          <dt className="text-sm font-medium text-gray-600">Wallet worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {formatTezosBalance(account?.balance)}
           </dd>
         </div>
-        {/* {stats.map((item) => (
-          <div
-            key={item.name}
-            className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6"
-          >
-            <dt className="text-sm font-medium text-gray-500 truncate">
-              {item.name}
-            </dt>
-            <dd className="mt-1 text-3xl font-semibold text-gray-900">
-              {item.stat}
-            </dd>
-          </div>
-        ))} */}
-      </dl>
-
-      <dl className="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-3">
-        <div
-          key="Operations"
-          className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6"
-        >
-          <dt className="text-sm font-medium text-gray-500 truncate">
-            Operations
-          </dt>
-          <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
-            {operationsInfo?.operationCount ? (
-              operationsInfo?.operationCount
-            ) : (
-              <ImSpinner2 className="animate-spin" />
-            )}
-          </dd>
-        </div>
-        <div className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6">
-          <dt className="text-sm font-medium text-gray-500 ">Gas used</dt>
+        <div className="flex flex-col rounded-lg px-4 py-5 overflow-hidden ">
+          <dt className="text-sm font-medium text-gray-600">Gas used</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {operationsInfo?.gasUsed ? (
               formatTezosBalance(operationsInfo.gasUsed)
@@ -124,9 +91,9 @@ export const Dashboard = () => {
             )}
           </dd>
         </div>
-        <div className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6">
-          <dt className="text-sm font-medium text-gray-500">Total fee</dt>
-          <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
+        <div className="flex flex-col rounded-lg px-4 py-5 overflow-hidden ">
+          <dt className="text-sm font-medium text-gray-600">Total fee</dt>
+          <dd className="mt-1 text-3xl font-semibold text-red-500 truncate">
             {operationsInfo?.allocationFee &&
             operationsInfo?.bakerFee &&
             operationsInfo?.storageFee ? (
@@ -140,46 +107,7 @@ export const Dashboard = () => {
             )}
           </dd>
         </div>
-        {/* {stats.map((item) => (
-          <div
-            key={item.name}
-            className="px-4 py-5 overflow-hidden bg-white rounded-lg shadow sm:p-6"
-          >
-            <dt className="text-sm font-medium text-gray-500 truncate">
-              {item.name}
-            </dt>
-            <dd className="mt-1 text-3xl font-semibold text-gray-900">
-              {item.stat}
-            </dd>
-          </div>
-        ))} */}
-      </dl>
-
-      <div className="relative py-6">
-        <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t border-gray-300" />
-        </div>
-        <div className="relative flex justify-center">
-          <span className="px-3 text-lg font-medium text-gray-900 bg-white">
-            History
-          </span>
-        </div>
       </div>
-      <div className="h-40">
-        <BalanceHistoryChart />
-        {/* <HistoryChart /> */}
-      </div>
-      {/* <div className="relative py-6">
-        <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t border-gray-300" />
-        </div>
-        <div className="relative flex justify-center">
-          <span className="px-3 text-lg font-medium text-gray-900 bg-white">
-            Last 10 operations
-          </span>
-        </div>
-      </div>
-      <Operations /> */}
     </div>
   );
 };

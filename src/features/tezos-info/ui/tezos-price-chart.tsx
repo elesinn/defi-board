@@ -14,7 +14,7 @@ export const TezosPriceChart = () => {
   const { data } = useHomeData();
 
   const tezosPrizesData = data?.priceChart.map((item) => ({
-    value: Math.round(item.value * 100) / 100,
+    Price: Math.round(item.value * 100) / 100,
     date: dayjs(item.date).valueOf(),
   }));
   return (
@@ -33,19 +33,19 @@ export const TezosPriceChart = () => {
         <XAxis
           tickFormatter={(value) => dayjs(value).format('YYYY-MM-DD')}
           dataKey={'date'}
-          label="Price"
           scale="time"
           type="number"
           domain={['auto', 'auto']}
           hide
         />
         <Tooltip
+          label=""
           formatter={(value: number) => value + 'USD'}
           labelFormatter={(value: number) => dayjs(value).format('YYYY-MM-DD')}
         />
         <Area
           type="monotone"
-          dataKey="value"
+          dataKey="Price"
           dot={false}
           animationDuration={3000}
           strokeWidth={2}
