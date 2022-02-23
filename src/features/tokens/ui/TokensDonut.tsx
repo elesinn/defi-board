@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { TZ } from 'shared/utils/tezos-sign';
 
-export const TokensDonut = ({ data }: { data: any }) => {
+const TokensDonut = ({ data }: { data: any }) => {
   const dataSortedByBalance = _.orderBy(data, 'balanceinTzx', 'desc').filter(
     (d) => d.balanceinTzx > 0,
   );
@@ -54,3 +54,5 @@ export const TokensDonut = ({ data }: { data: any }) => {
     />
   );
 };
+
+export default TokensDonut;

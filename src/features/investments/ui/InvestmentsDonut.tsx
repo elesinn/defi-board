@@ -2,7 +2,7 @@ import { ResponsivePie } from '@nivo/pie';
 
 import { TZ } from 'shared/utils/tezos-sign';
 
-export const InvestmentsDonut = ({
+const InvestmentsDonut = ({
   data,
 }: {
   data: { id: string | number; value: number }[];
@@ -51,3 +51,5 @@ export const InvestmentsDonut = ({
     />
   );
 };
+
+export default InvestmentsDonut;
