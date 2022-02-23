@@ -18,13 +18,13 @@ const TokensDonut = dynamic(() => import('./TokensDonut'), {
 export function PriceChangeCell({ row, column }: any) {
   const { data: tokensInfo } = useTokensInfo();
   const token =
-    tokensInfo && tokensInfo[row.original[column.tokenAccessor].toLowerCase()];
+    tokensInfo && tokensInfo[row.original[column.tokenAccessor]?.toLowerCase()];
   return token ? <DailyPriceChange token={token} /> : '';
 }
 export function PriceChangeChartCell({ row, column }: any) {
   const { data: tokensInfo } = useTokensInfo();
   const token =
-    tokensInfo && tokensInfo[row.original[column.tokenAccessor].toLowerCase()];
+    tokensInfo && tokensInfo[row.original[column.tokenAccessor]?.toLowerCase()];
   return token ? (
     <div className="h-16 min-w-[100px] max-w-[200px]">
       <PriceChangeChart token={token} />
