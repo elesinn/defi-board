@@ -4,6 +4,7 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { HomeIcon, XIcon } from '@heroicons/react/outline';
 import classNames from 'classnames';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { AiOutlinePicture } from 'react-icons/ai';
@@ -93,10 +94,10 @@ export function SiteLayout({
                   </div>
                 </Transition.Child>
                 <div className="flex items-center flex-shrink-0 px-4">
-                  <img
+                  <Image
                     className="w-auto h-8"
-                    src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-                    alt="Workflow"
+                    src="/assets/images/logo.svg"
+                    alt="Tez.watch"
                   />
                 </div>
                 <div className="flex-1 h-0 mt-5 overflow-y-auto">
@@ -135,14 +136,16 @@ export function SiteLayout({
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 z-10">
+        <div className="z-10 hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-main-500 rounded-r-2xl">
-            <div className="flex items-center flex-shrink-0 px-4  ">
-              <img
+            <div className="flex items-center flex-shrink-0 px-4 ">
+              <Image
                 className="w-auto h-8"
-                src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-                alt="Workflow"
+                src="/assets/images/logo.svg"
+                alt="Tez.watch"
+                width={200}
+                height={60}
               />
             </div>
             <div className="flex flex-col flex-grow mt-5">
@@ -175,10 +178,10 @@ export function SiteLayout({
           </div>
         </div>
 
-        <div className="md:pl-64 flex-1 relative z-0 flex overflow-hidden min-h-screen">
-          <div className="flex flex-1 flex-col max-w-4xl mx-auto md:px-8 xl:px-8 w-screen">
+        <div className="relative z-0 flex flex-1 min-h-screen overflow-hidden md:pl-64">
+          <div className="flex flex-col flex-1 w-screen max-w-4xl mx-auto md:px-8 xl:px-8">
             <Header openSidebar={setSidebarOpen} />
-            <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
+            <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">
               {/* Start main area*/}
               <div className="py-6">
                 <div className="px-4 sm:px-6 md:px-0">
@@ -191,9 +194,9 @@ export function SiteLayout({
               {/* End main area */}
             </main>
           </div>
-          <aside className="hidden relative xl:flex xl:flex-col flex-shrink-0 w-96 border-l border-main-500 overflow-y-auto">
+          <aside className="relative flex-shrink-0 hidden overflow-y-auto border-l xl:flex xl:flex-col w-96 border-main-500">
             {/* Start secondary column (hidden on smaller screens) */}
-            <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
+            <div className="absolute inset-0 px-4 py-6 sm:px-6 lg:px-8">
               <TezosInfoColumn />
               {/* <div className="h-full border-2 border-gray-200 border-dashed rounded-lg" /> */}
             </div>
