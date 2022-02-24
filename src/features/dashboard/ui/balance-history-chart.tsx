@@ -11,7 +11,7 @@ import {
 
 import { useBalanceHistory } from 'api/account/account';
 import { addressSearchAtom } from 'features/site-layout';
-import { formatTezosBalance } from 'shared/utils/balance';
+import { formatTezosBalanceWithSign } from 'shared/utils/balance';
 
 const BalanceHistoryChart = () => {
   const [address] = useAtom(addressSearchAtom);
@@ -31,7 +31,7 @@ const BalanceHistoryChart = () => {
           hide
         />
         <Tooltip
-          formatter={(value: number) => formatTezosBalance(value)}
+          formatter={(value: number) => formatTezosBalanceWithSign(value)}
           labelFormatter={(value: number) => dayjs(value).format('YYYY-MM-DD')}
         />
         <XAxis

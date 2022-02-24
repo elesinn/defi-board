@@ -7,7 +7,7 @@ import '../styles/global.css';
 import { SiteLayout } from 'features/site-layout';
 
 const titles: Record<string, string> = {
-  '/': 'Dashboard',
+  '/': 'Home',
   '/nft': 'NFT',
   '/tokens': 'Tokens',
   '/investments': 'Investments',
