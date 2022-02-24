@@ -20,9 +20,10 @@ class MyDocument extends Document {
           />
         </Head>
         <body
-          className="h-full bg-no-repeat bg-fixed"
+          className="h-full bg-fixed bg-no-repeat"
           style={{
-            backgroundImage: 'url(/assets/images/background-image.png)',
+            backgroundColor: '#8EC5FC',
+            backgroundImage: 'linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)',
           }}
         >
           <Main />
