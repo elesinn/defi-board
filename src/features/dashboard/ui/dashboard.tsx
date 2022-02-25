@@ -103,7 +103,7 @@ export const Dashboard = () => {
             )}
           </dd>
         </dl>
-        <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
+        <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg">
           <dt className="text-sm font-medium text-gray-600">DeFi worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {withXTZ ? (
