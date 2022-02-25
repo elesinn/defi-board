@@ -81,30 +81,31 @@ export const Dashboard = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex flex-wrap rounded-lg shadow bg-main-200 ">
-        <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg bg-main-500">
-          <dt className="text-sm font-medium text-white ">Net Worth</dt>
-          <dd className="mt-1 text-3xl font-semibold text-green-400 truncate">
-            {totalBalance ? (
-              <>
-                {totalBalance?.toFixed(3)}
-                {TZ}
-                <div className="text-xs text-green-400">
-                  {formatTezosBalanceInCurrency(
-                    totalBalance,
-                    value,
-                    currency,
-                    true,
-                  )}
-                </div>
-              </>
-            ) : (
-              <ImSpinner2 className="animate-spin" />
-            )}
-          </dd>
-        </dl>
-        <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg">
-          <dt className="text-sm font-medium text-gray-600">DeFi worth</dt>
+      <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg bg-main-500">
+        <dt className="text-sm font-medium text-white ">Net Worth</dt>
+        <dd className="mt-1 text-4xl font-semibold text-green-400 truncate">
+          {totalBalance ? (
+            <>
+              {totalBalance?.toFixed(3)}
+              {TZ}
+              <div className="text-xs text-green-400">
+                {formatTezosBalanceInCurrency(
+                  totalBalance,
+                  value,
+                  currency,
+                  true,
+                )}
+              </div>
+            </>
+          ) : (
+            <ImSpinner2 className="animate-spin" />
+          )}
+        </dd>
+      </dl>
+
+      <div className="grid grid-cols-3 bg-white divide-x rounded-lg shadow bg-opacity-40">
+        <dl className="flex flex-col px-4 py-5 overflow-hidden">
+          <dt className="text-sm font-medium text-gray-600">DeFi Worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {withXTZ ? (
               <>
@@ -124,7 +125,7 @@ export const Dashboard = () => {
             )}
           </dd>
         </dl>
-        <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
+        <dl className="flex flex-col px-4 py-5 overflow-hidden">
           <dt className="text-sm font-medium text-gray-600">Tokens Worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {totalTokens?.toFixed(3)}
@@ -134,7 +135,7 @@ export const Dashboard = () => {
             </div>
           </dd>
         </dl>
-        <div className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
+        <div className="flex flex-col px-4 py-5 overflow-hidden">
           <dt className="text-sm font-medium text-gray-600">XTZ on account</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {formatTezosBalanceWithSign(account?.balance)}
@@ -145,7 +146,7 @@ export const Dashboard = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap rounded-lg shadow bg-main-200 ">
+      <div className="flex flex-wrap bg-white rounded-lg shadow bg-opacity-40 ">
         <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
           <dt className="text-sm font-medium text-gray-600">Gas used</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
