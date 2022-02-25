@@ -138,7 +138,7 @@ export function SiteLayout({
         {/* Static sidebar for desktop */}
         <div className="z-10 hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex flex-col flex-grow pt-5 overflow-y-auto bg-main-500 rounded-r-2xl">
+          <div className="flex flex-col flex-grow pt-1 overflow-y-auto bg-main-500 rounded-r-2xl">
             <div className="flex items-center flex-shrink-0 px-4 ">
               <Image
                 className="w-auto h-8"
@@ -178,7 +178,7 @@ export function SiteLayout({
           </div>
         </div>
 
-        <div className="relative z-0 flex flex-1 min-h-screen overflow-hidden md:pl-64 h-screen">
+        <div className="relative z-0 flex flex-1 h-screen min-h-screen overflow-hidden md:pl-64">
           <div className="flex flex-col flex-1 max-w-4xl">
             <Header openSidebar={setSidebarOpen} />
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">
