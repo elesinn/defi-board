@@ -41,7 +41,7 @@ export type IHome = {
     circulatingSupply: number;
     totalSupply: number;
   };
-  priceChart: {
+  priceChart?: {
     date: string; //'2022-01-23T12:00:00Z';
     value: number;
   }[];
