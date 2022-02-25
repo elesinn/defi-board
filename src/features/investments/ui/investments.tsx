@@ -6,6 +6,7 @@ import { usePlentyInvestmentsInXTZ } from 'api/investments/plenty';
 import { addressSearchAtom } from 'features/site-layout';
 
 import InvestmentsAccordion from './accordion';
+import { InvestmentInfoPanel } from './info-panel';
 
 const InvestmentsDonut = dynamic(() => import('./InvestmentsDonut'), {
   ssr: false,
@@ -37,9 +38,11 @@ export const Investments = () => {
       id: 'Plenty',
     },
   ];
+
   return (
     <div>
-      <div className="w-full min-h-[450px] ratio my-6">
+      <InvestmentInfoPanel data={chartData} />
+      <div className="w-full min-h-[400px] ratio my-6">
         <InvestmentsDonut data={chartData} />
       </div>
       <InvestmentsAccordion />

@@ -10,6 +10,8 @@ import Table, { AvatarCell, DefaultWithDescription } from 'shared/ui/table';
 import { TZ } from 'shared/utils/tezos-sign';
 
 import { DailyPriceChange } from './dailyPriceChange';
+import { TokensInfoPanel } from './info-panel';
+import { OtherTokensInfoPanel } from './other-tokens';
 import PriceChangeChart from './priceChangeChart';
 const TokensDonut = dynamic(() => import('./TokensDonut'), {
   ssr: false,
@@ -110,15 +112,44 @@ export const TokensList = () => {
     [],
   );
 
+  const dataSortedByBalance =
+    tableData
+      ?.filter((d) => d.balanceinTzx && Number(d.balanceinTzx) > 0)
+      ?.sort((a, b) => Number(b.balanceinTzx) - Number(a.balanceinTzx)) || [];
+
+  const dataToDisplay = dataSortedByBalance.slice(0, 4).map((d) => ({
+    id: d.symbol || 'Token',
+    value: Number(d.balanceinTzx) || 0,
+  }));
+
+  const otherData = dataSortedByBalance.slice(5).reduce((acc, data) => {
+    acc += Number(data.balanceinTzx) || 0;
+    return acc;
+  }, 0);
+  const otherDataToDisplay =
+    otherData > 0 ? { id: 'Other Tokens', value: otherData } : undefined;
+
+  const data = otherDataToDisplay
+    ? [...dataToDisplay, otherDataToDisplay]
+    : dataToDisplay;
+
   if (!tokensBalances || !tokensInfo) {
     return null;
   }
 
+  console.log(dataSortedByBalance);
+
   return (
     <>
+      <div className="flex flex-col gap-2">
+        <TokensInfoPanel data={dataToDisplay} />
+        {otherDataToDisplay && (
+          <OtherTokensInfoPanel otherSum={otherDataToDisplay.value} />
+        )}
+      </div>
       {tableData && (
-        <div className=" w-full min-h-[450px] ratio">
-          <TokensDonut data={tableData} />
+        <div className=" w-full min-h-[400px] ratio">
+          <TokensDonut data={data} />
         </div>
       )}
 

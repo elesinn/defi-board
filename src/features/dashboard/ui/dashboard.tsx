@@ -82,14 +82,14 @@ export const Dashboard = () => {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-wrap rounded-lg shadow bg-main-200 ">
-        <div className="flex flex-col px-4 py-5 overflow-hidden rounded-lg bg-main-500">
+        <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg bg-main-500">
           <dt className="text-sm font-medium text-white ">Net Worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-green-400 truncate">
             {totalBalance ? (
               <>
                 {totalBalance?.toFixed(3)}
                 {TZ}
-                <div className="text-xs text-gray-800">
+                <div className="text-xs text-green-400">
                   {formatTezosBalanceInCurrency(
                     totalBalance,
                     value,
@@ -102,8 +102,8 @@ export const Dashboard = () => {
               <ImSpinner2 className="animate-spin" />
             )}
           </dd>
-        </div>
-        <div className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
+        </dl>
+        <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
           <dt className="text-sm font-medium text-gray-600">DeFi worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {withXTZ ? (
@@ -123,8 +123,8 @@ export const Dashboard = () => {
               <ImSpinner2 className="animate-spin" />
             )}
           </dd>
-        </div>
-        <div className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
+        </dl>
+        <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
           <dt className="text-sm font-medium text-gray-600">Tokens Worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {totalTokens?.toFixed(3)}
@@ -133,7 +133,7 @@ export const Dashboard = () => {
               {formatTezosBalanceInCurrency(totalTokens, value, currency, true)}
             </div>
           </dd>
-        </div>
+        </dl>
         <div className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
           <dt className="text-sm font-medium text-gray-600">XTZ on account</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
@@ -146,7 +146,7 @@ export const Dashboard = () => {
       </div>
 
       <div className="flex flex-wrap rounded-lg shadow bg-main-200 ">
-        <div className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
+        <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
           <dt className="text-sm font-medium text-gray-600">Gas used</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {operationsInfo?.gasUsed ? (
@@ -164,8 +164,8 @@ export const Dashboard = () => {
               <ImSpinner2 className="animate-spin" />
             )}
           </dd>
-        </div>
-        <div className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
+        </dl>
+        <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
           <dt className="text-sm font-medium text-gray-600">Total fee</dt>
           <dd className="mt-1 text-3xl font-semibold truncate">
             {operationsInfo?.allocationFee &&
@@ -191,7 +191,7 @@ export const Dashboard = () => {
               <ImSpinner2 className="animate-spin" />
             )}
           </dd>
-        </div>
+        </dl>
       </div>
     </div>
   );

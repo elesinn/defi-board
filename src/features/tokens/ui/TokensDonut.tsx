@@ -1,34 +1,14 @@
 import { ResponsivePie } from '@nivo/pie';
-import _ from 'lodash';
 
 import { TZ } from 'shared/utils/tezos-sign';
 
-const TokensDonut = ({ data }: { data: any }) => {
-  const dataSortedByBalance = _.orderBy(data, 'balanceinTzx', 'desc').filter(
-    (d) => d.balanceinTzx > 0,
-  );
-
-  const dataToDisplay = dataSortedByBalance.slice(0, 5).map((d) => ({
-    id: d.symbol,
-    value: d.balanceinTzx,
-  }));
-
-  const otherData = dataSortedByBalance
-    .slice(6, dataSortedByBalance.length - 1)
-    .reduce((acc, data) => {
-      acc += Number(data.balanceinTzx) || 0;
-      return acc;
-    }, 0);
-  const otherDataToDisplay =
-    otherData > 0 ? { id: 'Other Tokens', value: otherData } : undefined;
-
+type Props = {
+  data: { value: number; id: string }[];
+};
+const TokensDonut = ({ data }: Props) => {
   return (
     <ResponsivePie
-      data={
-        otherDataToDisplay
-          ? [...dataToDisplay, otherDataToDisplay]
-          : dataToDisplay
-      }
+      data={data}
       fit
       colors={{ scheme: 'pastel1' }}
       animate={true}
