@@ -13,7 +13,7 @@ import { useHomeData } from 'api/home';
 export const TezosPriceChart = () => {
   const { data } = useHomeData();
 
-  const tezosPrizesData = data?.priceChart.map((item) => ({
+  const tezosPrizesData = data?.priceChart?.map((item) => ({
     Price: Math.round(item.value * 100) / 100,
     date: dayjs(item.date).valueOf(),
   }));
