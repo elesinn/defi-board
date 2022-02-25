@@ -43,10 +43,6 @@ export const TokensList = () => {
       ?.filter((item) => !item.artifact_uri)
       .map((token) => ({
         imgUrl:
-          // token.artifact_uri?.replace(
-          //   'ipfs://',
-          //   'https://api.dipdup.net/thumbnail/',
-          // ) ||
           token.thumbnail_uri?.replace(
             'ipfs://',
             'https://api.dipdup.net/thumbnail/',

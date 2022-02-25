@@ -5,6 +5,8 @@ import { useAccount, useOperationsInfo } from 'api/account/account';
 import { useXtzPriceForCurrency } from 'api/coingecko';
 import { useCrunchyInvestments } from 'api/investments/crunchy';
 import { usePlentyInvestmentsInXTZ } from 'api/investments/plenty';
+import { useTokensInfo } from 'api/tezPrices';
+import { useTokensBalances } from 'api/tokens';
 import { addressSearchAtom } from 'features/site-layout';
 import {
   formatTezosBalanceInCurrency,
@@ -18,6 +20,22 @@ export const Dashboard = () => {
   const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
   const operationsInfo = useOperationsInfo(address);
   const { value, currency } = useXtzPriceForCurrency();
+  const { data: tokensBalances } = useTokensBalances({ userAddress: address });
+  const { data: tokensInfo } = useTokensInfo();
+
+  const totalTokens = tokensBalances
+    ?.filter((item) => !item.artifact_uri)
+    .reduce((sum, token) => {
+      const balanceInXtz =
+        tokensInfo &&
+        Number(
+          (Number(token.balance) / 10 ** Number(token.decimals)) *
+            (tokensInfo[token.symbol?.toLowerCase() || '']?.currentPrice || 0),
+        );
+
+      sum = sum + (balanceInXtz || 0);
+      return sum;
+    }, 0);
 
   const totaPlentylInvestments =
     withXTZ?.reduce<number>((acc, item) => acc + (item?.XTZBalance || 0), 0) ||
@@ -37,7 +55,10 @@ export const Dashboard = () => {
   const accountBalance = Math.round(account?.balance / 10000) / 100;
 
   const totalBalance =
-    totalCrunchyInvestments + totaPlentylInvestments + accountBalance;
+    totalCrunchyInvestments +
+    totaPlentylInvestments +
+    accountBalance +
+    totalTokens;
 
   const totalInvestments = totalCrunchyInvestments + totaPlentylInvestments;
   // const stats = [
@@ -59,7 +80,7 @@ export const Dashboard = () => {
   // ];
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <div className="flex flex-wrap rounded-lg shadow bg-main-200 ">
         <div className="flex flex-col px-4 py-5 overflow-hidden rounded-lg bg-main-500">
           <dt className="text-sm font-medium text-white ">Net Worth</dt>
@@ -104,6 +125,16 @@ export const Dashboard = () => {
           </dd>
         </div>
         <div className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
+          <dt className="text-sm font-medium text-gray-600">Tokens Worth</dt>
+          <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
+            {totalTokens?.toFixed(3)}
+            {TZ}
+            <div className="text-xs text-gray-700">
+              {formatTezosBalanceInCurrency(totalTokens, value, currency, true)}
+            </div>
+          </dd>
+        </div>
+        <div className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
           <dt className="text-sm font-medium text-gray-600">XTZ on account</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {formatTezosBalanceWithSign(account?.balance)}
@@ -112,7 +143,9 @@ export const Dashboard = () => {
             </div>
           </dd>
         </div>
+      </div>
 
+      <div className="flex flex-wrap rounded-lg shadow bg-main-200 ">
         <div className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
           <dt className="text-sm font-medium text-gray-600">Gas used</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
@@ -134,7 +167,7 @@ export const Dashboard = () => {
         </div>
         <div className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
           <dt className="text-sm font-medium text-gray-600">Total fee</dt>
-          <dd className="mt-1 text-3xl font-semibold text-red-500 truncate">
+          <dd className="mt-1 text-3xl font-semibold truncate">
             {operationsInfo?.allocationFee &&
             operationsInfo?.bakerFee &&
             operationsInfo?.storageFee ? (
