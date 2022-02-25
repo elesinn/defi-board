@@ -137,14 +137,14 @@ export const TokensList = () => {
     return null;
   }
 
-  console.log(dataSortedByBalance);
-
   return (
     <>
       <div className="flex flex-col gap-2">
         <TokensInfoPanel data={dataToDisplay} />
         {otherDataToDisplay && (
-          <OtherTokensInfoPanel otherSum={otherDataToDisplay.value} />
+          <OtherTokensInfoPanel
+            otherSum={Math.round(otherDataToDisplay.value * 100) / 100}
+          />
         )}
       </div>
       {tableData && (
@@ -163,7 +163,7 @@ export const TokensList = () => {
           </span>
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col overflow-hidden">
         {tableData ? (
           <Table columns={columns} data={tableData} />
         ) : (

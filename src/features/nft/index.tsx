@@ -1,1 +1,1 @@
-export { NFTGrid } from './ui/nft-grid';
+export { NFTS } from './ui/nft';

@@ -236,7 +236,7 @@ function Table({
   );
 
   return (
-    <>
+    <div className="flex flex-col">
       <div className="sm:flex sm:gap-x-2">
         {!noGlobalFilters && (
           <GlobalFilter
@@ -415,7 +415,7 @@ function Table({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

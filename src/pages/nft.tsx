@@ -1,5 +1,4 @@
-import { NFTGrid } from 'features/nft';
-
-const NFTPage = () => <NFTGrid />;
+import { NFTS } from 'features/nft';
+const NFTPage = () => <NFTS />;
 
 export default NFTPage;

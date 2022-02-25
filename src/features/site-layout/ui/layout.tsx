@@ -178,18 +178,18 @@ export function SiteLayout({
           </div>
         </div>
 
-        <div className="relative z-0 flex flex-1 min-h-screen overflow-hidden md:pl-64">
-          <div className="flex flex-col flex-1 w-screen max-w-4xl mx-auto md:px-8 xl:px-8">
+        <div className="relative z-0 flex flex-1 min-h-screen overflow-hidden md:pl-64 h-screen">
+          <div className="flex flex-col flex-1 max-w-4xl">
             <Header openSidebar={setSidebarOpen} />
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">
               {/* Start main area*/}
               <div className="py-6">
                 <div className="px-4 sm:px-6 md:px-0">
-                  <h1 className="text-2xl font-semibold text-gray-900">
+                  <h1 className="text-2xl font-semibold text-gray-900 md:px-8 xl:px-8">
                     {title}
                   </h1>
                 </div>
-                <div className="px-4 sm:px-6 md:px-0">{children}</div>
+                <div className="px-4 sm:px-6 md:px-8 xl:px-8">{children}</div>
               </div>
               {/* End main area */}
             </main>

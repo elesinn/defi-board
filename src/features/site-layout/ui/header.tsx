@@ -46,7 +46,7 @@ export function Header({
   }, [account, setAddress]);
 
   return (
-    <div className="sticky top-0 z-10 flex flex-shrink-0 h-16 ">
+    <div className="sticky top-0 z-10 flex flex-shrink-0 h-16 md:px-8 xl:px-8">
       <button
         type="button"
         className="px-4 text-gray-500 border-r border-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
