@@ -95,6 +95,7 @@ export const TezosPriceChart = () => {
             animationDuration={2000}
             strokeWidth={2}
             isAnimationActive
+            animateNewValues
             stroke={'#7C76EB'}
             fill="url(#colorUv)"
           />

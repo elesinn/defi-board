@@ -8,6 +8,7 @@ import { usePlentyInvestmentsInXTZ } from 'api/investments/plenty';
 import { useTokensInfo } from 'api/tezPrices';
 import { useTokensBalances } from 'api/tokens';
 import { addressSearchAtom } from 'features/site-layout';
+import { TezosInfoColumn } from 'features/tezos-info';
 import {
   formatTezosBalanceInCurrency,
   formatTezosBalanceWithSign,
@@ -176,6 +177,9 @@ export const Dashboard = () => {
             )}
           </dd>
         </dl>
+      </div>
+      <div className="md:hidden">
+        <TezosInfoColumn />
       </div>
     </div>
   );
