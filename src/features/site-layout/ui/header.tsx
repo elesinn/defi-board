@@ -49,7 +49,7 @@ export function Header({
     <div className="sticky top-0 z-10 flex flex-shrink-0 h-16 md:px-8 xl:px-8">
       <button
         type="button"
-        className="px-4 text-gray-500 border-r border-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
+        className="px-4 text-gray-500 focus:outline-none  md:hidden"
         onClick={() => openSidebar(true)}
       >
         <span className="sr-only">Open sidebar</span>
@@ -97,7 +97,7 @@ export function Header({
           </div>
           <Menu as="div" className="relative ml-3">
             <div>
-              <Menu.Button className="flex items-center max-w-xs text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <Menu.Button className="flex items-center max-w-xs text-sm rounded-full">
                 <span className="sr-only">Open user menu</span>
                 <div
                   className="px-3 py-2 text-sm font-medium text-black truncate rounded-md bg-main-200"

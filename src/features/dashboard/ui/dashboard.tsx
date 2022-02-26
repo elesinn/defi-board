@@ -103,7 +103,7 @@ export const Dashboard = () => {
         </dd>
       </dl>
 
-      <div className="grid grid-cols-3 bg-white divide-x rounded-lg shadow bg-opacity-40">
+      <div className="grid grid-cols-2 md:grid-cols-3 bg-white divide-x rounded-lg shadow bg-opacity-40">
         <dl className="flex flex-col px-4 py-5 overflow-hidden">
           <dt className="text-sm font-medium text-gray-600">DeFi Worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">

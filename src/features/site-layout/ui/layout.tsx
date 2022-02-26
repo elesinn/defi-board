@@ -69,7 +69,7 @@ export function SiteLayout({
               leaveFrom="translate-x-0"
               leaveTo="-translate-x-full"
             >
-              <div className="relative flex flex-col flex-1 w-full max-w-xs pt-5 pb-4 bg-white">
+              <div className="relative flex flex-col flex-1 w-full max-w-xs pt-5 pb-4 bg-main-200">
                 <Transition.Child
                   as={Fragment}
                   enter="ease-in-out duration-300"
@@ -98,6 +98,8 @@ export function SiteLayout({
                     className="w-auto h-8"
                     src="/assets/images/logo.svg"
                     alt="Tez.watch"
+                    width={200}
+                    height={60}
                   />
                 </div>
                 <div className="flex-1 h-0 mt-5 overflow-y-auto">
@@ -179,7 +181,7 @@ export function SiteLayout({
         </div>
 
         <div className="relative z-0 flex flex-1 h-screen min-h-screen overflow-hidden md:pl-64">
-          <div className="flex flex-col flex-1 max-w-4xl">
+          <div className="flex flex-col flex-1 max-w-4xl w-screen md:auto lg:auto">
             <Header openSidebar={setSidebarOpen} />
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">
               {/* Start main area*/}
