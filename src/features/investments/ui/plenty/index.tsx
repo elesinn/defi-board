@@ -1,11 +1,11 @@
 import { useAtom } from 'jotai';
-import Image from 'next/image';
 import { ImSpinner2 } from 'react-icons/im';
 
 import {
   usePlentyInvestments,
   usePlentyInvestmentsInXTZ,
 } from 'api/investments/plenty';
+import { useTokensInfo } from 'api/tezPrices';
 import { addressSearchAtom } from 'features/site-layout';
 import { TZ } from 'shared/utils/tezos-sign';
 
@@ -13,6 +13,7 @@ export const PlentyTable = () => {
   const [address] = useAtom(addressSearchAtom);
   const { data: investments } = usePlentyInvestments(address);
   const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
+  const { data: tokensInfo } = useTokensInfo();
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -54,26 +55,50 @@ export const PlentyTable = () => {
                     <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                       <div className="flex ">
                         <div>
-                          <Image
-                            src={`/images/${
-                              farm?.investmentId.split(' - ')[0]
-                            }.png`}
-                            alt="token-icon-1"
-                            className="rounded-full"
-                            height={24}
-                            width={24}
-                          />
+                          {tokensInfo && (
+                            <img
+                              src={
+                                tokensInfo[
+                                  farm?.investmentId
+                                    .split(' - ')[0]
+                                    ?.toLowerCase() as any
+                                ]?.thumbnailUri?.replace(
+                                  'ipfs://',
+                                  'https://ipfs.fleek.co/ipfs/',
+                                ) || ''
+                              }
+                              // src={`/images/${
+                              //   farm?.investmentId.split(' - ')[0]
+                              // }.png`}
+                              alt="token-icon-1"
+                              className="rounded-full"
+                              height={24}
+                              width={24}
+                            />
+                          )}
                         </div>
                         <div className="-translate-x-2 ">
-                          <Image
-                            src={`/images/${
-                              farm?.investmentId.split(' - ')[1]
-                            }.png`}
-                            alt="token-icon-2"
-                            className="rounded-full"
-                            height={24}
-                            width={24}
-                          />
+                          {tokensInfo && (
+                            <img
+                              src={
+                                tokensInfo[
+                                  farm?.investmentId
+                                    .split(' - ')[1]
+                                    ?.toLowerCase() as any
+                                ]?.thumbnailUri?.replace(
+                                  'ipfs://',
+                                  'https://ipfs.fleek.co/ipfs/',
+                                ) || ''
+                              }
+                              // src={`/images/${
+                              //   farm?.investmentId.split(' - ')[0]
+                              // }.png`}
+                              alt="token-icon-2"
+                              className="rounded-full"
+                              height={24}
+                              width={24}
+                            />
+                          )}
                         </div>
                       </div>
                     </td>
