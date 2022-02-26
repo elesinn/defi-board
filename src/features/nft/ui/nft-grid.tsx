@@ -11,13 +11,12 @@ export const NFTGrid = () => {
   const { data: tokensBalances } = useTokensBalances({ userAddress });
   const nfts = tokensBalances?.filter((b) => b.artifact_uri);
   const parentRef = React.useRef<HTMLDivElement>(null);
-  const gridSize = nfts?.length ? nfts?.length / 3 : 10;
+  const gridSize = nfts?.length ? Math.ceil(nfts?.length / 3) : 10;
   const rowVirtualizer = useVirtual({
     size: gridSize,
     parentRef,
     estimateSize: React.useCallback(() => 35, []),
   });
-
   return (
     <div ref={parentRef} className="">
       <div
