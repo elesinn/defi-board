@@ -61,23 +61,6 @@ export const Dashboard = () => {
     totalTokens;
 
   const totalInvestments = totalCrunchyInvestments + totaPlentylInvestments;
-  // const stats = [
-  //   // {
-  //   //   name: 'Balance',
-  //   //   stat: (Math.round(account?.balance / 10000) / 100).toString() + TZ,
-  //   // },
-  //   {
-  //     name: 'Total Investments',
-  //     stat: withXTZ?.reduce<number>(
-  //       (acc, item) => acc + (item?.XTZBalance || 0),
-  //       0,
-  //     ),
-  //   },
-  //   {
-  //     name: 'Active Tokens',
-  //     stat: account?.activeTokensCount,
-  //   },
-  // ];
 
   return (
     <div className="flex flex-col gap-2">
