@@ -15,7 +15,7 @@ import { TezosInfoColumn } from 'features/tezos-info';
 import { Header } from './header';
 
 const navigation = [
-  { name: 'Dashboard', href: '/', icon: HomeIcon },
+  { name: 'Home', href: '/dashboard', icon: HomeIcon },
   {
     name: 'Investments',
     href: '/investments',
@@ -181,7 +181,7 @@ export function SiteLayout({
         </div>
 
         <div className="relative z-0 flex flex-1 h-screen min-h-screen overflow-hidden md:pl-64">
-          <div className="flex flex-col flex-1 max-w-4xl w-screen md:auto lg:auto">
+          <div className="flex flex-col flex-1 w-screen max-w-4xl md:auto lg:auto">
             <Header openSidebar={setSidebarOpen} />
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">
               {/* Start main area*/}
