@@ -4,10 +4,6 @@ import { useAtom } from 'jotai';
 
 import { useCrunchyInvestments } from 'api/investments/crunchy';
 import { addressSearchAtom } from 'features/site-layout';
-import Table, {
-  DefaultWithDescription,
-  DoubleImageCell,
-} from 'shared/ui/table';
 import { TZ } from 'shared/utils/tezos-sign';
 
 export const CrunchyTable = () => {
@@ -30,39 +26,109 @@ export const CrunchyTable = () => {
     }));
   }, [farms]);
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: '',
-        accessor: 'imgUrl',
-        Cell: DoubleImageCell,
-        firstImgAccessor: 'xtzImg',
-        secondImgAccessor: 'imgUrl',
-      },
-      {
-        Header: 'Name',
-        accessor: 'poolName',
-        // Cell: AvatarCell,
-        // imgAccessor: 'imgUrl',
-        // descAccessor: 'poolName',
-      },
-      {
-        Header: 'LP',
-        accessor: 'stacked',
-        // descAccessor: 'symbol',
-        // Cell: DefaultWithDescription,
-      },
-      {
-        Header: TZ,
-        accessor: 'stakedInTzx',
-        descAccessor: 'tzText',
-        Cell: DefaultWithDescription,
-      },
-    ],
-    [],
-  );
+  // const columns = React.useMemo(
+  //   () => [
+  //     {
+  //       Header: '',
+  //       accessor: 'imgUrl',
+  //       Cell: DoubleImageCell,
+  //       firstImgAccessor: 'xtzImg',
+  //       secondImgAccessor: 'imgUrl',
+  //     },
+  //     {
+  //       Header: 'Name',
+  //       accessor: 'poolName',
+  //       // Cell: AvatarCell,
+  //       // imgAccessor: 'imgUrl',
+  //       // descAccessor: 'poolName',
+  //     },
+  //     {
+  //       Header: 'LP',
+  //       accessor: 'stacked',
+  //       // descAccessor: 'symbol',
+  //       // Cell: DefaultWithDescription,
+  //     },
+  //     {
+  //       Header: TZ,
+  //       accessor: 'stakedInTzx',
+  //       descAccessor: 'tzText',
+  //       Cell: DefaultWithDescription,
+  //     },
+  //   ],
+  //   [],
+  // );
 
-  return tableData ? (
-    <Table columns={columns} data={tableData} noGlobalFilters />
-  ) : null;
+  return (
+    <div className="flex flex-col">
+      <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+          <div className="overflow-hidden bg-white border-b shadow sm:rounded-lg bg-opacity-40">
+            <table className="min-w-full ">
+              <thead className="">
+                <tr>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-base font-semibold leading-6 tracking-wider text-left text-gray-900 uppercase"
+                  >
+                    POOL
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-base font-semibold leading-6 tracking-wider text-left text-gray-900 uppercase"
+                  >
+                    STAKED
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-base font-semibold leading-6 tracking-wider text-left text-gray-900 uppercase"
+                  >
+                    STAKED VALUE
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {tableData?.map((farm) => (
+                  <tr key={farm?.poolName}>
+                    <td className="px-6 py-4 font-sans text-sm text-gray-900 whitespace-nowrap ">
+                      <div className="inline-flex ">
+                        <div className="flex-shrink-0">
+                          <img
+                            src={farm.xtzImg}
+                            alt="token-icon-1"
+                            className="rounded-full"
+                            height={24}
+                            width={24}
+                          />
+                        </div>
+                        <div className="flex-shrink-0 -translate-x-2">
+                          <img
+                            src={farm.imgUrl}
+                            // src={`/images/${
+                            //   farm?.investmentId.split(' - ')[0]
+                            // }.png`}
+                            alt="token-icon-2"
+                            className="rounded-full"
+                            height={24}
+                            width={24}
+                          />
+                        </div>
+                        {farm?.poolName}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      {farm?.stacked} LP
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
+                      {farm.stakedInTzx}
+                      {TZ}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
