@@ -181,7 +181,7 @@ export function SiteLayout({
         </div>
 
         <div className="relative z-0 flex flex-1 h-screen min-h-screen overflow-hidden md:pl-64">
-          <div className="flex flex-col flex-1 w-screen max-w-4xl md:auto lg:auto">
+          <div className="flex flex-col flex-1 w-screen max-w-full md:auto lg:auto">
             <Header openSidebar={setSidebarOpen} />
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">
               {/* Start main area*/}
