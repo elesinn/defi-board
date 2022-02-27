@@ -11,7 +11,7 @@ export const InvestmentInfoPanel = ({ data }: Props) => {
   const total = data.reduce<number>((acc, item) => acc + item.value, 0);
   const formattedTotal = Math.round(total * 100) / 100;
   return (
-    <div className="flex flex-wrap rounded-lg shadow bg-main-200 ">
+    <div className="flex flex-wrap bg-white rounded-lg shadow bg-opacity-40 ">
       <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg bg-main-500">
         <dt className="text-sm font-medium text-white">Total</dt>
         <dd className="mt-1 text-3xl font-semibold text-green-400 truncate">
