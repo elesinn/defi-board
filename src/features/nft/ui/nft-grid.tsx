@@ -34,7 +34,7 @@ export const NFTGrid = () => {
           >
             {nfts?.slice(item.index * 3, item.index * 3 + 3).map((file) => (
               <li key={file.id} className="relative flex flex-col">
-                <div className=" min-h-[300px] relative block object-fill object-center w-full h-full overflow-hidden bg-gray-100 rounded-lg group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500">
+                <div className=" min-h-[300px] relative flex items-center object-fill object-center w-full h-full overflow-hidden bg-white bg-opacity-40 rounded-lg group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500">
                   {file?.formats &&
                   file.formats[0]?.mimeType.includes('video') ? (
                     <video
@@ -59,6 +59,7 @@ export const NFTGrid = () => {
                         ''
                       }
                       layout="fill"
+                      objectFit="contain"
                       alt=""
                       className="object-cover pointer-events-none group-hover:opacity-75 "
                     />
