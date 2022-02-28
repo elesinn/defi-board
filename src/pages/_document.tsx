@@ -6,7 +6,7 @@ import { AppConfig } from '../utils/AppConfig';
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang={AppConfig.locale} className="h-full dark">
+      <Html lang={AppConfig.locale} className="dark">
         <Head>
           <title>{AppConfig.title}</title>
           <meta name="description" content={AppConfig.description} />
@@ -20,10 +20,11 @@ class MyDocument extends Document {
           />
         </Head>
         <body
-          className="h-full bg-fixed bg-no-repeat"
+          className="bg-fixed bg-no-repeat"
           style={{
             backgroundColor: '#8EC5FC',
             backgroundImage: 'linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%)',
+            height: 'fill-available',
           }}
         >
           <Main />

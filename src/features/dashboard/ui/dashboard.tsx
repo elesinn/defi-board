@@ -65,7 +65,7 @@ export const Dashboard = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg bg-main-500">
+      <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg shadow bg-main-500">
         <dt className="text-sm font-medium text-white ">Net Worth</dt>
         <dd className="mt-1 text-4xl font-semibold text-green-400 truncate">
           {totalBalance ? (

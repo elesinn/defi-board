@@ -106,8 +106,10 @@ export const TezosPriceChart = () => {
           <div
             key={item.value}
             className={classNames(
-              'px-4 py-1 rounded-3xl cursor-pointer font-semibold',
-              days === item.value ? 'bg-main-500 text-white' : 'bg-main-200',
+              'px-4 py-1 rounded-3xl cursor-pointer font-semibold shadow',
+              days === item.value
+                ? 'bg-main-500 text-white'
+                : 'bg-white bg-opacity-40',
             )}
             onClick={() => setDays(item.value)}
           >
