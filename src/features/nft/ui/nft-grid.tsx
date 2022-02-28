@@ -48,10 +48,15 @@ export const NFTGrid = () => {
                       loading="lazy"
                       placeholder=""
                       src={
+                        file?.display_uri?.replace(
+                          'ipfs://',
+                          'https://ipfs.io/ipfs/',
+                        ) ||
                         file?.artifact_uri?.replace(
                           'ipfs://',
                           'https://ipfs.io/ipfs/',
-                        ) || ''
+                        ) ||
+                        ''
                       }
                       alt=""
                       className="object-cover pointer-events-none group-hover:opacity-75"
