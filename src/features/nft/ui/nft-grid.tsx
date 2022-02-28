@@ -34,18 +34,29 @@ export const NFTGrid = () => {
             {nfts?.slice(item.index * 3, item.index * 3 + 3).map((file) => (
               <li key={file.id} className="relative">
                 <div className="block w-full overflow-hidden bg-gray-100 rounded-lg group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500">
-                  <img
-                    loading="lazy"
-                    placeholder=""
-                    src={
-                      file?.artifact_uri?.replace(
+                  {file?.formats &&
+                  file.formats[0]?.mimeType.includes('video') ? (
+                    <video
+                      src={file.formats[0].uri.replace(
                         'ipfs://',
-                        'https://ipfs.fleek.co/ipfs/',
-                      ) || ''
-                    }
-                    alt=""
-                    className="object-cover pointer-events-none group-hover:opacity-75"
-                  />
+                        'https://ipfs.io/ipfs/',
+                      )}
+                      controls
+                    />
+                  ) : (
+                    <img
+                      loading="lazy"
+                      placeholder=""
+                      src={
+                        file?.artifact_uri?.replace(
+                          'ipfs://',
+                          'https://ipfs.io/ipfs/',
+                        ) || ''
+                      }
+                      alt=""
+                      className="object-cover pointer-events-none group-hover:opacity-75"
+                    />
+                  )}
                 </div>
                 <p className="block mt-2 text-sm font-medium text-gray-900 truncate pointer-events-none">
                   {file.name}

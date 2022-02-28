@@ -57,7 +57,7 @@ export const PlentyTable = () => {
                                     ?.toLowerCase() as any
                                 ]?.thumbnailUri?.replace(
                                   'ipfs://',
-                                  'https://ipfs.fleek.co/ipfs/',
+                                  'https://ipfs.io/ipfs/',
                                 ) || ''
                               }
                               // src={`/images/${
@@ -80,7 +80,7 @@ export const PlentyTable = () => {
                                     ?.toLowerCase() as any
                                 ]?.thumbnailUri?.replace(
                                   'ipfs://',
-                                  'https://ipfs.fleek.co/ipfs/',
+                                  'https://ipfs.io/ipfs/',
                                 ) || ''
                               }
                               // src={`/images/${

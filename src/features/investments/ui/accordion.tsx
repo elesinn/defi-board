@@ -83,7 +83,7 @@ const InvestmentsAccordion = () => {
                     alt="crunchy"
                     width={24}
                     height={24}
-                    src="https://ipfs.fleek.co/ipfs/bafybeienhhbxz53n3gtg7stjou2zs3lmhupahwovv2kxwh5uass3bc5xzq"
+                    src="https://ipfs.io/ipfs/bafybeienhhbxz53n3gtg7stjou2zs3lmhupahwovv2kxwh5uass3bc5xzq"
                   />
                 </span>
 
