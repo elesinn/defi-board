@@ -18,43 +18,36 @@ export const PlentyTable = () => {
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-          <div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+          <div className="overflow-hidden bg-white border-b shadow sm:rounded-lg bg-opacity-40">
+            <table className="min-w-full ">
+              <thead className="">
                 <tr>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                  ></th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                    className="px-6 py-3 text-base font-semibold leading-6 tracking-wider text-left text-gray-900 uppercase"
                   >
-                    Name
+                    POOL
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                    className="px-6 py-3 text-base font-semibold leading-6 tracking-wider text-left text-gray-900 uppercase"
                   >
-                    LP
+                    STAKED
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                    className="px-6 py-3 text-base font-semibold leading-6 tracking-wider text-left text-gray-900 uppercase"
                   >
-                    {TZ}
-                  </th>
-                  <th scope="col" className="relative px-6 py-3">
-                    <span className="sr-only">Edit</span>
+                    STAKED VALUE
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody>
                 {(withXTZ || investments)?.map((farm) => (
                   <tr key={farm?.id}>
-                    <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                      <div className="flex ">
-                        <div>
+                    <td className="px-6 py-4 font-sans text-sm text-gray-900 whitespace-nowrap ">
+                      <div className="inline-flex ">
+                        <div className="flex-shrink-0">
                           {tokensInfo && (
                             <img
                               src={
@@ -64,7 +57,7 @@ export const PlentyTable = () => {
                                     ?.toLowerCase() as any
                                 ]?.thumbnailUri?.replace(
                                   'ipfs://',
-                                  'https://ipfs.fleek.co/ipfs/',
+                                  'https://ipfs.io/ipfs/',
                                 ) || ''
                               }
                               // src={`/images/${
@@ -77,7 +70,7 @@ export const PlentyTable = () => {
                             />
                           )}
                         </div>
-                        <div className="-translate-x-2 ">
+                        <div className="flex-shrink-0 -translate-x-2">
                           {tokensInfo && (
                             <img
                               src={
@@ -87,7 +80,7 @@ export const PlentyTable = () => {
                                     ?.toLowerCase() as any
                                 ]?.thumbnailUri?.replace(
                                   'ipfs://',
-                                  'https://ipfs.fleek.co/ipfs/',
+                                  'https://ipfs.io/ipfs/',
                                 ) || ''
                               }
                               // src={`/images/${
@@ -100,10 +93,8 @@ export const PlentyTable = () => {
                             />
                           )}
                         </div>
+                        {farm?.investmentId}
                       </div>
-                    </td>
-                    <td className="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                      {farm?.investmentId}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900 whitespace-nowrap">
                       {farm?.tokenBalance} LP

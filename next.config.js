@@ -18,6 +18,9 @@ const moduleExports = withBundleAnalyzer({
   // So, the source code is "basePath-ready".
   // You can remove `basePath` if you don't need it.
   reactStrictMode: true,
+  images: {
+    domains: ['ipfs.io'],
+  },
 });
 
 const sentryWebpackPluginOptions = {

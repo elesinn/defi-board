@@ -1,5 +1,4 @@
 import { useAtom } from 'jotai';
-import dynamic from 'next/dynamic';
 
 import { useCrunchyInvestments } from 'api/investments/crunchy';
 import { usePlentyInvestmentsInXTZ } from 'api/investments/plenty';
@@ -8,9 +7,9 @@ import { addressSearchAtom } from 'features/site-layout';
 import InvestmentsAccordion from './accordion';
 import { InvestmentInfoPanel } from './info-panel';
 
-const InvestmentsDonut = dynamic(() => import('./InvestmentsDonut'), {
-  ssr: false,
-});
+// const InvestmentsDonut = dynamic(() => import('./InvestmentsDonut'), {
+//   ssr: false,
+// });
 
 export const Investments = () => {
   const [address] = useAtom(addressSearchAtom);
@@ -40,11 +39,11 @@ export const Investments = () => {
   ];
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <InvestmentInfoPanel data={chartData} />
-      <div className="w-full min-h-[400px] ratio my-6">
+      {/* <div className="w-full min-h-[400px] ratio my-6">
         <InvestmentsDonut data={chartData} />
-      </div>
+      </div> */}
       <InvestmentsAccordion />
     </div>
   );

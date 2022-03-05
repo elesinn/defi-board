@@ -1,5 +1,3 @@
-import { Dashboard } from 'features/dashboard';
-
-const Index = () => <Dashboard />;
+const Index = () => <div>Connect Wallet!</div>;
 
 export default Index;

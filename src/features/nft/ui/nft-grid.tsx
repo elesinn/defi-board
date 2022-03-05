@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useAtom } from 'jotai';
+import Image from 'next/image';
 import { useVirtual } from 'react-virtual';
 
 import { useTokensBalances } from 'api/tokens';
@@ -32,20 +33,37 @@ export const NFTGrid = () => {
             className="grid grid-cols-3 gap-x-4 gap-y-8 sm:gap-x-6 xl:gap-x-8"
           >
             {nfts?.slice(item.index * 3, item.index * 3 + 3).map((file) => (
-              <li key={file.id} className="relative">
-                <div className="block w-full overflow-hidden bg-gray-100 rounded-lg group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500">
-                  <img
-                    loading="lazy"
-                    placeholder=""
-                    src={
-                      file?.artifact_uri?.replace(
+              <li key={file.id} className="relative flex flex-col">
+                <div className=" min-h-[300px] relative flex items-center object-fill object-center w-full h-full overflow-hidden bg-white bg-opacity-40 rounded-lg group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500">
+                  {file?.formats &&
+                  file.formats[0]?.mimeType.includes('video') ? (
+                    <video
+                      src={file.formats[0].uri.replace(
                         'ipfs://',
-                        'https://ipfs.fleek.co/ipfs/',
-                      ) || ''
-                    }
-                    alt=""
-                    className="object-cover pointer-events-none group-hover:opacity-75"
-                  />
+                        'https://ipfs.io/ipfs/',
+                      )}
+                      controls
+                    />
+                  ) : (
+                    <Image
+                      loading="lazy"
+                      src={
+                        file?.display_uri?.replace(
+                          'ipfs://',
+                          'https://ipfs.io/ipfs/',
+                        ) ||
+                        file?.artifact_uri?.replace(
+                          'ipfs://',
+                          'https://ipfs.io/ipfs/',
+                        ) ||
+                        ''
+                      }
+                      layout="fill"
+                      objectFit="contain"
+                      alt=""
+                      className="object-cover pointer-events-none group-hover:opacity-75 "
+                    />
+                  )}
                 </div>
                 <p className="block mt-2 text-sm font-medium text-gray-900 truncate pointer-events-none">
                   {file.name}

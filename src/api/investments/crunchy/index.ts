@@ -133,7 +133,7 @@ export const useCrunchyInvestments = (userAddress: string) => {
         thumbnailUri:
           poolTokenMeta?.thumbnailUri?.replace(
             'ipfs://',
-            'https://ipfs.fleek.co/ipfs/',
+            'https://ipfs.io/ipfs/',
           ) || '',
       };
     } else {
@@ -144,7 +144,7 @@ export const useCrunchyInvestments = (userAddress: string) => {
         thumbnailUri:
           poolTokenMeta?.thumbnailUri?.replace(
             'ipfs://',
-            'https://ipfs.fleek.co/ipfs/',
+            'https://ipfs.io/ipfs/',
           ) || '',
       };
     }
@@ -155,7 +155,7 @@ export const useCrunchyInvestments = (userAddress: string) => {
       thumbnailUri:
         rewardTokenMeta?.thumbnailUri?.replace(
           'ipfs://',
-          'https://ipfs.fleek.co/ipfs/',
+          'https://ipfs.io/ipfs/',
         ) || '',
     };
 

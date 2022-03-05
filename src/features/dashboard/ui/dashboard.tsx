@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { useAtom } from 'jotai';
 import { ImSpinner2 } from 'react-icons/im';
 
@@ -14,6 +16,10 @@ import {
   formatTezosBalanceWithSign,
 } from 'shared/utils/balance';
 import { TZ } from 'shared/utils/tezos-sign';
+
+import { InvestmentsWidget } from './investments-widget';
+import { TokensWidget } from './tokens-widget';
+dayjs.extend(relativeTime);
 
 export const Dashboard = () => {
   const [address] = useAtom(addressSearchAtom);
@@ -87,9 +93,9 @@ export const Dashboard = () => {
         </dd>
       </dl>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 bg-white divide-x rounded-lg shadow bg-opacity-40">
+      <div className="grid grid-cols-2 bg-white divide-x rounded-lg shadow md:grid-cols-3 bg-opacity-40">
         <dl className="flex flex-col px-4 py-5 overflow-hidden">
-          <dt className="text-sm font-medium text-gray-600">DeFi Worth</dt>
+          <dt className="text-sm font-medium text-gray-600">DeFi worth</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {withXTZ ? (
               <>
@@ -130,8 +136,17 @@ export const Dashboard = () => {
         </div>
       </div>
 
-      <div className="flex flex-wrap bg-white rounded-lg shadow bg-opacity-40 ">
-        <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
+      <div className="grid grid-cols-2 bg-white divide-x rounded-lg shadow md:grid-cols-3 bg-opacity-40">
+        <dl className="flex flex-col flex-grow px-4 py-5 overflow-hidden ">
+          <dt className="text-sm font-medium text-gray-600">Active Since</dt>
+          <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
+            {dayjs(account.firstActivityTime).format('YYYY-MM-DD')}
+            <div className="text-xs text-gray-700">
+              Last seen {dayjs(account.lastActivityTime).fromNow()}
+            </div>
+          </dd>
+        </dl>
+        <dl className="flex flex-col px-4 py-5 overflow-hidden">
           <dt className="text-sm font-medium text-gray-600">Gas used</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {operationsInfo?.gasUsed ? (
@@ -150,7 +165,7 @@ export const Dashboard = () => {
             )}
           </dd>
         </dl>
-        <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg ">
+        <dl className="flex flex-col px-4 py-5 overflow-hidden ">
           <dt className="text-sm font-medium text-gray-600">Total fee</dt>
           <dd className="mt-1 text-3xl font-semibold truncate">
             {operationsInfo?.allocationFee &&
@@ -177,6 +192,11 @@ export const Dashboard = () => {
             )}
           </dd>
         </dl>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 leading-6 text-gray-900 lg:grid-cols-2">
+        <TokensWidget />
+        <InvestmentsWidget />
       </div>
       <div className="md:hidden">
         <TezosInfoColumn />

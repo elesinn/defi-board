@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { useAtom } from 'jotai';
-import dynamic from 'next/dynamic';
 
 import { useTokensInfo } from 'api/tezPrices';
 import { useTokensBalances } from 'api/tokens';
@@ -13,9 +12,9 @@ import { DailyPriceChange } from './dailyPriceChange';
 import { TokensInfoPanel } from './info-panel';
 import { OtherTokensInfoPanel } from './other-tokens';
 import PriceChangeChart from './priceChangeChart';
-const TokensDonut = dynamic(() => import('./TokensDonut'), {
-  ssr: false,
-});
+// const TokensDonut = dynamic(() => import('./TokensDonut'), {
+//   ssr: false,
+// });
 
 export function PriceChangeCell({ row, column }: any) {
   const { data: tokensInfo } = useTokensInfo();
@@ -129,9 +128,9 @@ export const TokensList = () => {
   const otherDataToDisplay =
     otherData > 0 ? { id: 'Other Tokens', value: otherData } : undefined;
 
-  const data = otherDataToDisplay
-    ? [...dataToDisplay, otherDataToDisplay]
-    : dataToDisplay;
+  // const data = otherDataToDisplay
+  //   ? [...dataToDisplay, otherDataToDisplay]
+  //   : dataToDisplay;
 
   if (!tokensBalances || !tokensInfo) {
     return null;
@@ -147,11 +146,11 @@ export const TokensList = () => {
           />
         )}
       </div>
-      {tableData && (
+      {/* {tableData && (
         <div className=" w-full min-h-[400px] ratio">
           <TokensDonut data={data} />
         </div>
-      )}
+      )} */}
 
       <div className="relative py-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">

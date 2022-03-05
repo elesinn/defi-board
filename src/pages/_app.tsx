@@ -5,6 +5,7 @@ import { SWRConfig } from 'swr';
 import { tzktApi } from 'api';
 import '../styles/global.css';
 import { SiteLayout } from 'features/site-layout';
+import WithYandexMetrika from 'features/ym/WithYandexMetrika';
 
 const titles: Record<string, string> = {
   '/': 'Home',
@@ -23,9 +24,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         fetcher: (resource) => tzktApi.get(resource).json(),
       }}
     >
-      <SiteLayout title={title || ''}>
-        <Component {...pageProps} />
-      </SiteLayout>
+      <WithYandexMetrika>
+        <SiteLayout title={title || ''}>
+          <Component {...pageProps} />
+        </SiteLayout>
+      </WithYandexMetrika>
     </SWRConfig>
   );
 };
