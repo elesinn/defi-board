@@ -9,7 +9,7 @@ const Index = () => {
   const setGuest = useSetAtom(tezosAccountAtom);
 
   return (
-    <div className="w-screen md:h-screen overflow-x-hidden">
+    <div className="w-screen h-screen overflow-x-hidden">
       <main className="w-full h-full px-4 md:px-24 flex flex-col">
         <div className="pt-16 flex justify-center">
           <Image
