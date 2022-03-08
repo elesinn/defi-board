@@ -36,7 +36,7 @@ export const NFTGrid = () => {
               <li key={file.id} className="relative flex flex-col">
                 <div className=" min-h-[300px] relative flex items-center object-fill object-center w-full h-full overflow-hidden bg-white bg-opacity-40 rounded-lg group aspect-w-10 aspect-h-7 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500">
                   {file?.formats &&
-                  file.formats[0]?.mimeType.includes('video') ? (
+                  file.formats[0]?.mimeType?.includes('video') ? (
                     <video
                       src={file.formats[0].uri.replace(
                         'ipfs://',
