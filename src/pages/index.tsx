@@ -30,11 +30,10 @@ const Index = () => {
               rel="noreferrer"
             >
               Tezos
-            </a>{' '}
-            blockchain
+            </a>
           </h1>
           <p className="text-xl mt-6 mb-8">
-            Manage your entire web3 portfolio from DeFi to NFTs and whatever
+            Manage your entire Tezos portfolio from DeFi to NFTs and whatever
             comes next. Invest in the latest opportunities from one convenient
             place.
           </p>
