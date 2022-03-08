@@ -74,15 +74,13 @@ export const useTezos = (): WalletConnectReturn => {
     tezos: tezosTk,
     connect,
     disconnect: useCallback(async () => {
-      if (!wallet) {
-        throw new Error('No Wallet Connected');
+      if (wallet) {
+        await wallet.clearActiveAccount();
       }
-
-      await wallet.clearActiveAccount();
       setAccount('');
       setWallet();
     }, [setAccount, setWallet, wallet]),
-    account: account || '',
+    account,
     loading,
   };
 };

@@ -1,9 +1,12 @@
+import { useSetAtom } from 'jotai';
 import Image from 'next/image';
 
 import { useTezos } from 'features/auth';
+import { tezosAccountAtom } from 'features/auth/lib/useTezos';
 
 const Index = () => {
   const { connect } = useTezos();
+  const setGuest = useSetAtom(tezosAccountAtom);
 
   return (
     <div className="w-screen md:h-screen overflow-x-hidden">
@@ -30,12 +33,20 @@ const Index = () => {
             comes next. Invest in the latest opportunities from one convenient
             place.
           </p>
-          <button
-            className="grid place-items-center px-8 py-4 bg-main-500 text-white font-semibold rounded-2xl hover:shadow-hover"
-            onClick={connect}
-          >
-            Connect Wallet
-          </button>
+          <div className="flex gap-4">
+            <button
+              className="grid place-items-center px-8 py-4 bg-main-500 text-white font-semibold rounded-2xl hover:shadow-hover"
+              onClick={connect}
+            >
+              Connect Wallet
+            </button>
+            <button
+              className="grid place-items-center px-8 py-4 bg-main-200  font-semibold rounded-2xl hover:shadow-hover"
+              onClick={() => setGuest('tz1Qji1NnEPj4Cxa9s2WEoWi9U9KM6a9gdDL')}
+            >
+              Demo account
+            </button>
+          </div>
         </div>
       </main>
     </div>
