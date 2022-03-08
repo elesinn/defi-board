@@ -23,7 +23,12 @@ const Index = () => {
         <div className="">
           <h1 className="text-[48px] font-bold mt-14">
             Your entrance to the{' '}
-            <a className="text-main-500 cursor-pointer hover:underline">
+            <a
+              className="text-main-500 cursor-pointer hover:underline"
+              href="https://tezos.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Tezos
             </a>{' '}
             blockchain
