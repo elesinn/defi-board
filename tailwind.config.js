@@ -19,6 +19,9 @@ module.exports = {
       '6xl': '4rem',
     },
     extend: {
+      boxShadow: {
+        hover: '0 0 0 4px rgb(120 79 254 / 50%)',
+      },
       colors: {
         primary: {
           100: '#E6F6FE',

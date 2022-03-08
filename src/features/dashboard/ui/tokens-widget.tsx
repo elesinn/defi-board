@@ -5,12 +5,12 @@ import Link from 'next/link';
 
 import { useTokensInfo } from 'api/tezPrices';
 import { useTokensBalances } from 'api/tokens';
-import { addressSearchAtom } from 'features/site-layout';
+import { tezosAccountAtom } from 'features/auth';
 import TokensDonut from 'features/tokens/ui/TokensDonut';
 import { TZ } from 'shared/utils/tezos-sign';
 
 export const TokensWidget = () => {
-  const [userAddress] = useAtom(addressSearchAtom);
+  const [userAddress] = useAtom(tezosAccountAtom);
   const { data: tokensBalances } = useTokensBalances({ userAddress });
   const { data: tokensInfo } = useTokensInfo();
   const tableData = React.useMemo(() => {
@@ -26,7 +26,6 @@ export const TokensWidget = () => {
           undefined,
         symbol: token.symbol,
         name: token.name || token.contract.alias,
-        // alias: token.contract.alias,
         balance: Number(
           Number(token.balance) / 10 ** Number(token.decimals),
         ).toLocaleString(undefined, {

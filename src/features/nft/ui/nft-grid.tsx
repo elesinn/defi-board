@@ -5,10 +5,9 @@ import Image from 'next/image';
 import { useVirtual } from 'react-virtual';
 
 import { useTokensBalances } from 'api/tokens';
-import { addressSearchAtom } from 'features/site-layout';
-
+import { tezosAccountAtom } from 'features/auth';
 export const NFTGrid = () => {
-  const [userAddress] = useAtom(addressSearchAtom);
+  const [userAddress] = useAtom(tezosAccountAtom);
   const { data: tokensBalances } = useTokensBalances({ userAddress });
   const nfts = tokensBalances?.filter((b) => b.artifact_uri);
   const parentRef = React.useRef<HTMLDivElement>(null);

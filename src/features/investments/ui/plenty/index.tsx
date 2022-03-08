@@ -6,11 +6,11 @@ import {
   usePlentyInvestmentsInXTZ,
 } from 'api/investments/plenty';
 import { useTokensInfo } from 'api/tezPrices';
-import { addressSearchAtom } from 'features/site-layout';
+import { tezosAccountAtom } from 'features/auth';
 import { TZ } from 'shared/utils/tezos-sign';
 
 export const PlentyTable = () => {
-  const [address] = useAtom(addressSearchAtom);
+  const [address] = useAtom(tezosAccountAtom);
   const { data: investments } = usePlentyInvestments(address);
   const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
   const { data: tokensInfo } = useTokensInfo();

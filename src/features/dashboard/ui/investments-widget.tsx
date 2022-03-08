@@ -3,11 +3,10 @@ import Link from 'next/link';
 
 import { useCrunchyInvestments } from 'api/investments/crunchy';
 import { usePlentyInvestmentsInXTZ } from 'api/investments/plenty';
+import { tezosAccountAtom } from 'features/auth';
 import InvestmentsDonut from 'features/investments/ui/InvestmentsDonut';
-import { addressSearchAtom } from 'features/site-layout';
-
 export const InvestmentsWidget = () => {
-  const [address] = useAtom(addressSearchAtom);
+  const [address] = useAtom(tezosAccountAtom);
 
   const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
   const { farms } = useCrunchyInvestments(address);

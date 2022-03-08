@@ -2,17 +2,13 @@ import { useAtom } from 'jotai';
 
 import { useCrunchyInvestments } from 'api/investments/crunchy';
 import { usePlentyInvestmentsInXTZ } from 'api/investments/plenty';
-import { addressSearchAtom } from 'features/site-layout';
+import { tezosAccountAtom } from 'features/auth';
 
 import InvestmentsAccordion from './accordion';
 import { InvestmentInfoPanel } from './info-panel';
 
-// const InvestmentsDonut = dynamic(() => import('./InvestmentsDonut'), {
-//   ssr: false,
-// });
-
 export const Investments = () => {
-  const [address] = useAtom(addressSearchAtom);
+  const [address] = useAtom(tezosAccountAtom);
 
   const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
   const { farms } = useCrunchyInvestments(address);
@@ -41,9 +37,6 @@ export const Investments = () => {
   return (
     <div className="flex flex-col gap-2">
       <InvestmentInfoPanel data={chartData} />
-      {/* <div className="w-full min-h-[400px] ratio my-6">
-        <InvestmentsDonut data={chartData} />
-      </div> */}
       <InvestmentsAccordion />
     </div>
   );

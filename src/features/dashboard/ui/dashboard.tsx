@@ -9,7 +9,7 @@ import { useCrunchyInvestments } from 'api/investments/crunchy';
 import { usePlentyInvestmentsInXTZ } from 'api/investments/plenty';
 import { useTokensInfo } from 'api/tezPrices';
 import { useTokensBalances } from 'api/tokens';
-import { addressSearchAtom } from 'features/site-layout';
+import { tezosAccountAtom } from 'features/auth';
 import { TezosInfoColumn } from 'features/tezos-info';
 import {
   formatTezosBalanceInCurrency,
@@ -22,7 +22,7 @@ import { TokensWidget } from './tokens-widget';
 dayjs.extend(relativeTime);
 
 export const Dashboard = () => {
-  const [address] = useAtom(addressSearchAtom);
+  const [address] = useAtom(tezosAccountAtom);
   const { data: account } = useAccount(address);
   const { data: withXTZ } = usePlentyInvestmentsInXTZ(address);
   const operationsInfo = useOperationsInfo(address);

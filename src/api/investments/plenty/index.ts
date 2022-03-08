@@ -1,9 +1,8 @@
-import { useAtom } from 'jotai';
 import useSWR from 'swr';
 
 import { tzktApi } from 'api';
 import { useTokensInfo } from 'api/tezPrices';
-import { tezosTkAtom } from 'features/beacon/useTezos';
+import { tezosTk } from 'features/auth';
 
 import { IInvestment } from '../types';
 import { PlentyFarms, InvestmentKey } from './config';
@@ -30,7 +29,6 @@ export const usePlentyInvestments = (userAddress: string) => {
 
 export const usePlentyInvestmentsInXTZ = (userAddress: string) => {
   const { data } = usePlentyInvestments(userAddress);
-  const [tezosTk] = useAtom(tezosTkAtom);
   const { data: tokensInfo } = useTokensInfo();
   return useSWR(
     data && tokensInfo ? 'usePlentyInvestmentsInXTZ/' + userAddress : null,

@@ -3,10 +3,9 @@ import { groupBy, orderBy } from 'lodash';
 import { ImSpinner2 } from 'react-icons/im';
 
 import { useTokensBalances } from 'api/tokens';
-import { addressSearchAtom } from 'features/site-layout';
-
+import { tezosAccountAtom } from 'features/auth';
 export const NftInfoPanel = () => {
-  const [userAddress] = useAtom(addressSearchAtom);
+  const [userAddress] = useAtom(tezosAccountAtom);
   const { data: tokensBalances } = useTokensBalances({ userAddress });
   const nfts = tokensBalances?.filter((b) => b.artifact_uri);
   const total = nfts?.length;

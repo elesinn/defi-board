@@ -4,7 +4,7 @@ import { useAtom } from 'jotai';
 
 import { useTokensInfo } from 'api/tezPrices';
 import { useTokensBalances } from 'api/tokens';
-import { addressSearchAtom } from 'features/site-layout';
+import { tezosAccountAtom } from 'features/auth';
 import Table, { AvatarCell, DefaultWithDescription } from 'shared/ui/table';
 import { TZ } from 'shared/utils/tezos-sign';
 
@@ -12,9 +12,6 @@ import { DailyPriceChange } from './dailyPriceChange';
 import { TokensInfoPanel } from './info-panel';
 import { OtherTokensInfoPanel } from './other-tokens';
 import PriceChangeChart from './priceChangeChart';
-// const TokensDonut = dynamic(() => import('./TokensDonut'), {
-//   ssr: false,
-// });
 
 export function PriceChangeCell({ row, column }: any) {
   const { data: tokensInfo } = useTokensInfo();
@@ -36,7 +33,7 @@ export function PriceChangeChartCell({ row, column }: any) {
 }
 
 export const TokensList = () => {
-  const [userAddress] = useAtom(addressSearchAtom);
+  const [userAddress] = useAtom(tezosAccountAtom);
   const { data: tokensBalances } = useTokensBalances({ userAddress });
   const { data: tokensInfo } = useTokensInfo();
   const tableData = React.useMemo(() => {

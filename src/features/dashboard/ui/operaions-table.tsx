@@ -1,10 +1,9 @@
 import { useAtom } from 'jotai';
 
 import { useOperations } from 'api/account/account';
-import { addressSearchAtom } from 'features/site-layout';
-
+import { tezosAccountAtom } from 'features/auth';
 export default function Operations() {
-  const [address] = useAtom(addressSearchAtom);
+  const [address] = useAtom(tezosAccountAtom);
   const { data: operations } = useOperations(address);
 
   if (!operations) {

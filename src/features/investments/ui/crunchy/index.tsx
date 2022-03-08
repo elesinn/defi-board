@@ -3,11 +3,11 @@ import React from 'react';
 import { useAtom } from 'jotai';
 
 import { useCrunchyInvestments } from 'api/investments/crunchy';
-import { addressSearchAtom } from 'features/site-layout';
+import { tezosAccountAtom } from 'features/auth';
 import { TZ } from 'shared/utils/tezos-sign';
 
 export const CrunchyTable = () => {
-  const [address] = useAtom(addressSearchAtom);
+  const [address] = useAtom(tezosAccountAtom);
   const { farms } = useCrunchyInvestments(address);
 
   const tableData = React.useMemo(() => {
@@ -25,38 +25,6 @@ export const CrunchyTable = () => {
       tzText: TZ,
     }));
   }, [farms]);
-
-  // const columns = React.useMemo(
-  //   () => [
-  //     {
-  //       Header: '',
-  //       accessor: 'imgUrl',
-  //       Cell: DoubleImageCell,
-  //       firstImgAccessor: 'xtzImg',
-  //       secondImgAccessor: 'imgUrl',
-  //     },
-  //     {
-  //       Header: 'Name',
-  //       accessor: 'poolName',
-  //       // Cell: AvatarCell,
-  //       // imgAccessor: 'imgUrl',
-  //       // descAccessor: 'poolName',
-  //     },
-  //     {
-  //       Header: 'LP',
-  //       accessor: 'stacked',
-  //       // descAccessor: 'symbol',
-  //       // Cell: DefaultWithDescription,
-  //     },
-  //     {
-  //       Header: TZ,
-  //       accessor: 'stakedInTzx',
-  //       descAccessor: 'tzText',
-  //       Cell: DefaultWithDescription,
-  //     },
-  //   ],
-  //   [],
-  // );
 
   return (
     <div className="flex flex-col">
@@ -103,9 +71,6 @@ export const CrunchyTable = () => {
                         <div className="flex-shrink-0 -translate-x-2">
                           <img
                             src={farm.imgUrl}
-                            // src={`/images/${
-                            //   farm?.investmentId.split(' - ')[0]
-                            // }.png`}
                             alt="token-icon-2"
                             className="rounded-full"
                             height={24}
