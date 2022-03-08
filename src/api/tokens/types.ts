@@ -23,5 +23,5 @@ export interface Contract {
 
 export interface Format {
   uri: string;
-  mimeType: string;
+  mimeType?: string;
 }
