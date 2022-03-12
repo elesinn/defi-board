@@ -94,13 +94,15 @@ export function SiteLayout({
                   </div>
                 </Transition.Child>
                 <div className="flex items-center flex-shrink-0 px-4">
-                  <Image
-                    className="w-auto h-8"
-                    src="/assets/images/logo.svg"
-                    alt="Tez.watch"
-                    width={200}
-                    height={60}
-                  />
+                  <Link href="/dashboard" passHref>
+                    <Image
+                      className="w-auto h-8 cursor-pointer"
+                      src="/assets/images/logo.svg"
+                      alt="Tez.watch"
+                      width={200}
+                      height={60}
+                    />
+                  </Link>
                 </div>
                 <div className="flex-1 h-0 mt-5 overflow-y-auto">
                   <nav className="px-2 space-y-1">
@@ -142,13 +144,15 @@ export function SiteLayout({
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex flex-col flex-grow pt-1 overflow-y-auto bg-main-500 rounded-r-2xl">
             <div className="flex items-center flex-shrink-0 px-4 ">
-              <Image
-                className="w-auto h-8"
-                src="/assets/images/logo.svg"
-                alt="Tez.watch"
-                width={200}
-                height={60}
-              />
+              <Link href="/dashboard" passHref>
+                <Image
+                  className="w-auto h-8 cursor-pointer"
+                  src="/assets/images/logo.svg"
+                  alt="Tez.watch"
+                  width={200}
+                  height={60}
+                />
+              </Link>
             </div>
             <div className="flex flex-col flex-grow mt-5">
               <nav className="flex-1 px-2 pb-4 space-y-1">
@@ -186,8 +190,8 @@ export function SiteLayout({
             <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none">
               {/* Start main area*/}
               <div className="py-6">
-                <div className="px-4 sm:px-6 md:px-0">
-                  <h1 className="text-2xl font-semibold text-gray-900 md:px-8 xl:px-8">
+                <div className="px-4 sm:px-6 md:px-0 md:mb-4">
+                  <h1 className="text-4xl font-semibold text-gray-800 md:px-8 xl:px-8">
                     {title}
                   </h1>
                 </div>

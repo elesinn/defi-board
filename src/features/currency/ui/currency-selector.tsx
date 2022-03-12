@@ -47,7 +47,7 @@ export const CurrencySelector = ({ balance }: IProps) => {
         <div className="grid grid-cols-2 p-0 m-0 align-baseline border-0 sm:grid-cols-4">
           {Currencies.map((currency) => (
             <div
-              className="flex items-center px-2 py-3 m-0 text-sm font-medium leading-5 text-gray-900 align-baseline border-0 rounded-lg cursor-pointer hover:bg-gray-200 hover:opacity-100"
+              className="flex items-center gap-1 px-2 py-3 m-0 text-sm font-medium leading-5 text-gray-900 align-baseline border-0 rounded-lg cursor-pointer hover:bg-gray-200 hover:opacity-100"
               role="button"
               key={currency}
               onClick={() => {
