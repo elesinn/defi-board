@@ -10,14 +10,15 @@ export const InvestmentInfoPanel = ({ data }: Props) => {
   const { value, currency } = useXtzPriceForCurrency();
   const total = data.reduce<number>((acc, item) => acc + item.value, 0);
   const formattedTotal = Math.round(total * 100) / 100;
+
   return (
-    <div className="flex flex-wrap bg-white rounded-lg shadow bg-opacity-40 ">
-      <dl className="flex flex-col px-4 py-5 overflow-hidden rounded-lg bg-main-500">
-        <dt className="text-sm font-medium text-white">Total</dt>
+    <div className="grid grid-cols-2 bg-white divide-x rounded-lg shadow md:grid-cols-3 bg-opacity-40">
+    <dl className="flex flex-col px-4 py-5 overflow-hidden  bg-main-500 rounded-l-lg">
+      <dt className="text-sm font-medium text-white ">Total</dt>
         <dd className="mt-1 text-3xl font-semibold text-green-400 truncate">
-          {formattedTotal}
+          {formattedTotal}  
           {TZ}
-          <div className="text-xs text-green-400">
+          <div className="text-xs text-green-300">
             {formatTezosBalanceInCurrency(
               formattedTotal,
               value,
@@ -26,12 +27,12 @@ export const InvestmentInfoPanel = ({ data }: Props) => {
             )}
           </div>
         </dd>
-      </dl>
-      {data.map((item) => {
+    </dl>
+    {data.map((item) => {
         const balance = Math.round(item.value * 100) / 100;
         return (
           <dl
-            className="flex flex-col px-4 py-5 overflow-hidden rounded-lg "
+            className="flex flex-col px-4 py-5 overflow-hidden"
             key={item.id}
           >
             <dt className="text-sm font-medium text-gray-600">{item.id}</dt>
@@ -45,6 +46,7 @@ export const InvestmentInfoPanel = ({ data }: Props) => {
           </dl>
         );
       })}
-    </div>
-  );
+  </div>
+  )
+ 
 };

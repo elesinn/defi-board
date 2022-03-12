@@ -78,7 +78,7 @@ export const Dashboard = () => {
             <>
               {totalBalance?.toFixed(3)}
               {TZ}
-              <div className="text-xs text-green-400">
+              <div className="text-xs text-green-300">
                 {formatTezosBalanceInCurrency(
                   totalBalance,
                   value,
@@ -125,7 +125,7 @@ export const Dashboard = () => {
             </div>
           </dd>
         </dl>
-        <div className="flex flex-col px-4 py-5 overflow-hidden">
+        <dl className="flex flex-col px-4 py-5 overflow-hidden">
           <dt className="text-sm font-medium text-gray-600">XTZ on account</dt>
           <dd className="mt-1 text-3xl font-semibold text-gray-900 truncate">
             {formatTezosBalanceWithSign(account?.balance)}
@@ -133,7 +133,7 @@ export const Dashboard = () => {
               {formatTezosBalanceInCurrency(account.balance, value, currency)}
             </div>
           </dd>
-        </div>
+        </dl>
       </div>
 
       <div className="grid grid-cols-2 bg-white divide-x rounded-lg shadow md:grid-cols-3 bg-opacity-40">

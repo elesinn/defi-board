@@ -10,7 +10,6 @@ import { TZ } from 'shared/utils/tezos-sign';
 
 import { DailyPriceChange } from './dailyPriceChange';
 import { TokensInfoPanel } from './info-panel';
-import { OtherTokensInfoPanel } from './other-tokens';
 import PriceChangeChart from './priceChangeChart';
 
 export function PriceChangeCell({ row, column }: any) {
@@ -113,21 +112,15 @@ export const TokensList = () => {
       ?.filter((d) => d.balanceinTzx && Number(d.balanceinTzx) > 0)
       ?.sort((a, b) => Number(b.balanceinTzx) - Number(a.balanceinTzx)) || [];
 
-  const dataToDisplay = dataSortedByBalance.slice(0, 4).map((d) => ({
-    id: d.symbol || 'Token',
-    value: Number(d.balanceinTzx) || 0,
-  }));
-
   const otherData = dataSortedByBalance.slice(5).reduce((acc, data) => {
     acc += Number(data.balanceinTzx) || 0;
     return acc;
   }, 0);
-  const otherDataToDisplay =
-    otherData > 0 ? { id: 'Other Tokens', value: otherData } : undefined;
 
-  // const data = otherDataToDisplay
-  //   ? [...dataToDisplay, otherDataToDisplay]
-  //   : dataToDisplay;
+  const dataToDisplay = dataSortedByBalance.slice(0, 5).map((d) => ({
+    id: d.symbol || 'Token',
+    value: Number(d.balanceinTzx) || 0,
+  }));
 
   if (!tokensBalances || !tokensInfo) {
     return null;
@@ -136,30 +129,17 @@ export const TokensList = () => {
   return (
     <>
       <div className="flex flex-col gap-2">
-        <TokensInfoPanel data={dataToDisplay} />
-        {otherDataToDisplay && (
-          <OtherTokensInfoPanel
-            otherSum={Math.round(otherDataToDisplay.value * 100) / 100}
-          />
-        )}
+        <TokensInfoPanel
+          data={[
+            ...dataToDisplay,
+            {
+              id: 'Other',
+              value: Math.round(otherData * 100) / 100,
+            },
+          ]}
+        />
       </div>
-      {/* {tableData && (
-        <div className=" w-full min-h-[400px] ratio">
-          <TokensDonut data={data} />
-        </div>
-      )} */}
-
-      <div className="relative py-6">
-        <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t border-gray-300" />
-        </div>
-        <div className="relative flex justify-center">
-          <span className="px-3 text-lg font-medium text-gray-900 bg-white">
-            My tokens
-          </span>
-        </div>
-      </div>
-      <div className="flex flex-col overflow-hidden">
+      <div className="flex flex-col overflow-hidden mt-6">
         {tableData ? (
           <Table columns={columns} data={tableData} />
         ) : (

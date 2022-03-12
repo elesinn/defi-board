@@ -9,7 +9,7 @@ import { SiteLayout } from 'features/site-layout';
 import WithYandexMetrika from 'features/ym/WithYandexMetrika';
 
 const titles: Record<string, string> = {
-  '/': 'Home',
+  '/dashboard': 'Home',
   '/nft': 'NFT',
   '/tokens': 'Tokens',
   '/investments': 'Investments',

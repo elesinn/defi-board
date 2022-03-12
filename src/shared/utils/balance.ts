@@ -14,4 +14,4 @@ export const formatTezosBalanceInCurrency = (
 ) =>
   `${currecny.toUpperCase()} ${(
     (!alreadyInTzx ? formatTezosBalance(tzBalance) : tzBalance) * value
-  ).toFixed(3)}`;
+  ).toFixed(2)}`;

@@ -25,12 +25,12 @@ export const Investments = () => {
 
   const chartData = [
     {
-      value: totalCrunchy,
-      id: 'Crunchy',
-    },
-    {
       value: totalPlenty,
       id: 'Plenty',
+    },
+    {
+      value: totalCrunchy,
+      id: 'Crunchy',
     },
   ];
 
